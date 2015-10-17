@@ -1,0 +1,399 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\input{macros.tex}
+
+\title{Notes on symplectic geometry}
+\author{Nilay Kumar}
+\date{Fall 2015}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Week 1}
+
+\subsection{The cotangent bundle}
+
+\begin{definition}
+Let $X$ be a smooth $n$-manifold and $\pi:M=T^*X\to X$ be its cotangent bundle. We define the
+\textbf{canonical one-form} $\theta\in\Omega^1(M)$ as follows. For any $p=(x,\xi)\in M$,
+set
+\begin{equation*}
+    \theta_p(v)=\xi( d_x\pi(v)).
+\end{equation*}
+\end{definition}
+
+The one-form $\theta$ is canonical (or tautological) in the sense that its value at a point
+is simply given by the covector determined by that point. More precisely, we have the following
+characterization.
+
+\begin{proposition}
+    The canonical one-form $\theta$ is the (unique) one-form such that for every $\lambda\in\Omega^1(X)$,
+    $\lambda^*\theta=\lambda$.
+\end{proposition}
+\begin{proof}
+    We compute, for $v\in T_pX$,
+    \begin{align*}
+        (\lambda^*\theta)_p(v) &= \theta_{\lambda(p)}(d_p\lambda(v)) \\
+        &= \lambda_p(d_p(\pi\circ\lambda)(v)) \\
+        &= \lambda_p(v),
+    \end{align*}
+    where we have used the fact that $\lambda$ is a section of $\pi$, i.e. $\pi\circ\lambda=\id_X$.
+    Uniqueness is easily checked.
+\end{proof}
+
+\begin{definition}
+    The \textbf{canonical symplectic form} $\omega\in\Omega^2(M)$ is now defined to be the exterior
+    derivative
+    \begin{equation*}
+        \omega = - d\theta,
+    \end{equation*}
+    of the canonical one-form. To be symplectic, $\omega$ must be closed and nondegenerate. That it
+    is closed is obvious.
+\end{definition}
+
+\begin{proposition}
+    The form $\omega\in\Omega^2(M)$ is nondegenerate and thus defines a symplectic structure on
+    $M=T^*X$.\footnote{Is there a coordinate invariant proof?}
+\end{proposition}
+\begin{proof}
+    For $\omega$ to be non-degenerate, it must be nondegenerate at each point $p\in M$. Given
+    coordinates $p=(x,\xi)=(x^1,\ldots,x^n,\xi_1,\ldots,\xi_n)$ in a neighborhood of $p$, we can
+    compute
+    \begin{align*}
+        \theta_{(x,\xi)}\left( v^i\frac{\partial}{\partial x^i} + \nu^i\frac{\partial}{\partial\xi^i} \right)
+        &= \xi\left( v^i\frac{\partial}{\partial x^i} \right) \\
+        &= \xi_iv^i
+    \end{align*}
+    and hence
+    \begin{equation*}
+        \theta = \xi_i dx^i.
+    \end{equation*}
+    Taking an exterior derivative, we find that
+    \begin{align*}
+        \omega &= - d\theta \\
+        &= dx^i\wedge d\xi_i.
+    \end{align*}
+    Fix $v\in T_pM$ and suppose that $\iota_v\omega_p=0$, i.e. $\omega_p(v,w)=0$
+    for all $w\in T_pM$. In coordinates, this implies that
+    \begin{align*}
+        \iota_{v^j\frac{\partial}{\partial x^j}+\nu^j\frac{\partial}{\partial\xi^j}}(dx^i\wedge d\xi_i)
+        &= v^id\xi_i-\nu^idx^i\\
+        &=0,
+    \end{align*}
+    and hence that $v^i=\nu^i=0$, i.e. $v=0$. We conclude that $\omega_p$ is nondegenerate at each $p\in M$.
+\end{proof}
+
+
+
+%Now suppose $(X,g)$ is a Riemannian manifold, i.e. $g$ is a symmetric positive-definite covariant
+%two-tensor on $X$.
+
+It is easy to see that $\omega$ provides an isomorphism $\iota:T_xX\xrightarrow{\sim} T_x^*X$
+between tangent and cotangent spaces at each point $x\in X$: since $\omega_x$ is nondegenerate, the linear
+map $\iota:v\mapsto \omega_x(v,-)$ is injective and hence bijective. In fact, we can say more.
+
+\begin{proposition}
+    The metric $\omega$ induces an isomorphism of vector bundles $\iota:TX\xrightarrow{\sim}T^*X=M$.
+\end{proposition}
+\begin{proof}
+    Recall that an isomorphism in the category of smooth vector bundles is a smooth
+    bijection\footnote{Existence of a smooth inverse is automatic (reference?).}
+    $\iota$ such that the diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            TX\ar{rr}{\iota}\ar[swap]{rd}{\pi_1} & & T^*X\ar{ld}{\pi_2}\\
+            & X
+        \end{tikzcd}
+    \end{equation*}
+    commutes and for each $x\in X$, the restriction $\iota_x:T_xX\to T^*_xX$ is linear.
+    The map $\iota:TX\to T^*X$ taking $(x,v)\mapsto (x,\omega(v,-))$ fits into the diagram above
+    and is bijective and fiberwise linear. Moreover, $\iota$ is a smooth map, as is seen by
+    its coordinate description computed above.
+\end{proof}
+
+\begin{definition}
+    A \textbf{Hamiltonian} is a smooth function $H:M=T^*X\to\R$.
+    we define the \textbf{Hamiltonian vector field} $v_H$ associated to $H$ to be the vector
+    field on $M$ satisfying
+    \begin{equation*}
+        \iota_{v_H}\omega = dH.
+    \end{equation*}
+    The (local) flow $F:(-\varepsilon,\varepsilon)\times M\to M$ determined by $v_H$ is
+    called the \textbf{Hamiltonian flow}.\footnote{Is this a global flow? Does it depend on $X$?}
+\end{definition}
+
+Note that an integral curve $\gamma_{v_H}:(-\varepsilon,\varepsilon)\to M$ of $v_H$ can be thought
+of as the trajectory of a physical state in phase space. Indeed, Hamilton's equations are given
+\begin{align*}
+    \frac{\partial x^i}{\partial t} &= \frac{\partial H}{\partial \xi_i} \\
+    \frac{\partial \xi_i}{\partial t} &= - \frac{\partial H}{\partial x^i},
+\end{align*}
+which is precisely the condition that $\gamma_{v_H}'(t)=(v_H)_{\gamma(t)}$. Moreover, $H$ is
+constant along the Hamiltonian flow, as
+\begin{equation*}
+    dH(v_H) = (\iota_{v_H}\omega)(v_H)=\omega(v_H,v_H) = 0,
+\end{equation*}
+i.e. $v_H$ is perpendicular to the level sets of $H$. In a physical system, where $H$ is the
+energy functional on phase space, this phenomenon is the law of conservation of energy.
+
+\begin{proposition}
+    The Hamiltonian flow is a symplectomorphism, i.e. $F_t^*\omega=\omega$.\footnote{Is there
+    a better proof?}
+\end{proposition}
+\begin{proof}
+    We use the following trick:
+    \begin{equation*}
+        \int_0^t \frac{d}{dt}F_t^*\omega\; dt = F_t^*\omega-\omega
+    \end{equation*}
+    since $F_0=\id_M$, and hence $F_t$ is a symplectomorphism if and only if the integrand
+    is zero. But
+    \begin{align*}
+        \frac{d}{dt}F_t^*\omega &= \frac{d}{ds}\bigg|_{s=0}F_{t+s}^*\omega=F_t^*\frac{d}{ds}\bigg|_{s=0}F_s^*\omega \\
+        &= F_t^*\mathcal{L}_{v_H}\omega,
+    \end{align*}
+    and Cartan's magic formula,
+    \begin{equation*}
+        \mathcal{L}_{v_H}\omega = d\iota_{v_H}\omega + \iota_{v_H}d\omega,
+    \end{equation*}
+    tells us that $\mathcal{L}_{v_H}\omega=0$ since $\iota_{v_H}\omega=dH$ is closed, as is $\omega$.
+\end{proof}
+
+\begin{corollary}[Liouville's Theorem]
+    The volume form $\omega^n$ on $M=T^*X$ is preserved by the Hamiltonian flow.
+\end{corollary}
+
+
+\subsection{Geodesic flow as Hamiltonian flow}
+
+We wish to discuss geodesics and geodesic flow. For this, we need the concept
+of connections and covariant derivatives.\footnote{Reference do Carmo.}
+\begin{definition}
+    A \textbf{connection} on a vector bundle $E\to X$ is an $\R$-linear map
+    $\nabla:\Gamma(X,E)\to\Gamma(X,E\otimes T^*X)$ such that the Leibniz rule
+    \begin{equation*}
+        \nabla(f\sigma) = (\nabla \sigma)f + \sigma\otimes df,
+    \end{equation*}
+    for all $f\in C^\infty(X)$ and $\sigma\in\Gamma(X,E)$.
+\end{definition}
+
+\begin{theorem}
+    Given a Riemannian manifold $(X,g)$, there exists a unique connection on $\pi:TX\to X$,
+    known as the \textbf{Levi-Civita connection}, satisfying
+    \begin{enumerate}[(i)]
+        \item symmetry:
+            \begin{equation*}
+                \nabla_XY-\nabla_YX-[X,Y]=0,
+            \end{equation*}
+            for $X,Y\in\Gamma(X,TX)$;
+        \item compatibility with $g$:
+            \begin{equation*}
+                Xg(Y,Z)-g(\nabla_XY,Z)-g(Y,\nabla_XZ)=0,
+            \end{equation*}
+            for $X,Y,Z\in\Gamma(X,TX)$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+    Let $v$ be a vector field on $(X,g)$; we define the \textbf{covariant derivative} of $v$
+    along a smooth curve $c:I\to X$ to be the vector field
+    \begin{align*}
+        \frac{Dv}{dt} = \nabla_{dc/dt}v,
+    \end{align*}
+    where $\nabla$ is the Levi-Civita connection. Explicitly, if we write $v=v^i\partial/\partial x^i$
+    and $c(t)=(c_1(t),\ldots,c_n(t))$,
+    \begin{equation*}
+        \frac{Dv}{dt} = \sum_i \frac{dv^i}{dt}\frac{\partial}{\partial x^i} + \sum_{ijk}\frac{dc_i}{dt}v^i\Gamma_{ij}^k\frac{\partial}{\partial x^k}.
+    \end{equation*}
+    Here $\Gamma_{ij}^k$ are the Christoffel symbols of $\nabla$, determined by
+    \begin{equation*}
+        \nabla_{\partial/\partial x^i}\frac{\partial}{\partial x^j}=\sum_{ijk}\Gamma^k_{ij}\frac{\partial}{\partial x^k}.
+    \end{equation*}
+    We say that $c$ is \textbf{geodesic} at some $t\in I$ if $D/dt(dc/dt)=0$ at $t$,
+    and that $c$ is geodesic if it is geodesic at all $t\in I$. In coordinates, the condition
+    for $c$ to be geodesic is given by a system of second-order differential equations:
+    \begin{equation*}
+        \frac{d^2 c^i}{dt^2} + \sum_{jk}\Gamma_{jk}^i\frac{dc^j}{dt}\frac{dc^k}{dt}=0,
+    \end{equation*}
+    for $i=1,\ldots, n.$
+\end{definition}
+
+For the rest of the section, assume $(X,g)$ is Riemannian and we fix the Hamiltonian $H:M=T^*X\to\R$ as
+\begin{equation*}
+    H(x,\xi)=\frac{1}{2}\big|\xi_x\big|^2_g,
+\end{equation*}
+i.e. consisting of only a kinetic term. Here we are implicitly using the nondegeneracy of $g$
+to associate $\xi_x$ with its corresponding vector (or, equivalently, using $g^{-1}$).
+
+\begin{proposition}
+    The Hamiltonian flow on $M=T^*X$ is dual to the geodesic flow on $TX$. In other words, the integral
+    curves of the Hamiltonian vector field $v_H$ associated to the Hamiltonian above project to geodesics
+    of $g$ on $X$.\footnote{Is there a coordinate-free proof? See Paternain's book.}
+\end{proposition}
+\begin{proof}
+    It suffices to show, in coordinates, that Hamilton's equations (i.e. the condition for
+    being on the integral curve) yield the geodesic equations above after the necessary
+    dualization. Note first that in coordinates the Hamiltonian becomes
+    \begin{equation*}
+        H(x,\xi) = \frac{1}{2}g^{ij}\xi_i\xi_j.
+    \end{equation*}
+    For convenience we will denote the components of an integral curve as $x^i(t)$. Hamilton's equations yield
+    \begin{align*}
+        \frac{dx^i}{dt} &= \frac{\partial}{\partial\xi_i}\left( \frac{1}{2}g^{jk}\xi_j\xi_k \right)\\
+        &= \frac{1}{2}g^{jk}\delta_{ij}\xi_k + \frac{1}{2}g^{jk}\xi_j\delta_{ik}\\
+        &= g^{ij}\xi_j\\
+        \frac{d\xi_i}{dt} &= -\frac{\partial}{\partial x^i}\left( \frac{1}{2}g^{jk}\xi_j\xi_k \right)\\
+        &=-\frac{1}{2}\frac{\partial g^{jk}}{\partial x^i}\xi_j\xi_k.
+    \end{align*}
+    Differentiating the first equation with respect to $t$ and using both of Hamilton's equations yields
+    \begin{align*}
+        \frac{d^2x^i}{dt^2} &= \frac{\partial g^{ij}}{\partial x^k}\frac{dx^k}{dt}\xi_j+g^{im}\frac{d\xi_m}{dt}\\
+        &= g^{kl}\left(\frac{\partial}{\partial x^k}g^{ij}\right)\xi_l\xi_j-\frac{1}{2}g^{im}\left(\frac{\partial}{\partial x^m}g^{nr}\right)\xi_n\xi_r.
+    \end{align*}
+    Next, differentiating the identity $g^{ij}g_{jk}=\delta^i_k$, it easy to see that
+    \begin{align*}
+        \frac{\partial}{\partial x^i}g^{kl}=-g^{la}g^{kb}\frac{\partial}{\partial x^i}g_{ab}.
+    \end{align*}
+    Using this, contracting indices, and using the first Hamilton's equation to dualize $\xi$'s into $dx/dt$'s,
+    we find
+    \begin{align*}
+        \frac{d^2x^i}{dt^2} &= -g^{ib}\left( \frac{\partial}{\partial x^k}g_{lb} \right)\frac{dx^k}{dt}\frac{dx^l}{dt}
+        +\frac{1}{2}g^{im}\left( \frac{\partial}{\partial x^m}g_{ts} \right)\frac{dx^s}{dt}\frac{dx^t}{dt}\\
+        &= -\frac{1}{2}g^{ib}\left( \frac{\partial}{\partial x^k}g_{lb} \right)\frac{dx^k}{dt}\frac{dx^l}{dt}
+        -\frac{1}{2}g^{ib}\left( \frac{\partial}{\partial x^l}g_{kb} \right)\frac{dx^k}{dt}\frac{dx^l}{dt}
+        \\&+\frac{1}{2}g^{im}\left( \frac{\partial}{\partial x^m}g_{ts} \right)\frac{dx^s}{dt}\frac{dx^t}{dt}\\
+        &= -\Gamma_{kl}^i\frac{dx^k}{dt}\frac{dx^l}{dt},
+    \end{align*}
+    as desired.
+\end{proof}
+
+
+\newpage
+\section{Week 2}
+
+\subsection{Darboux's theorem}
+
+\begin{theorem}[Darboux]
+    Let $(M,\omega)$ be a symplectic $2n$-manifold. Then $M$ is locally symplectomorphic to
+    $(\R^{2n},\omega_{\R^{2n}})$.
+\end{theorem}
+
+We prove Darboux's theorem using the following stronger statement.
+
+\begin{theorem}
+    Let $M$ be a $2n$-dimensional manifold and $Q\subset M$ be a compact submanifold. Suppose that
+    $\omega_1,\omega_2\in\Omega^2(M)$ are closed 2-forms such that at each point $q$ of $Q$ the forms
+    $\omega_0$ and $\omega_1$ are equal and nondegenerate on $T_qM$. Then there exist neighborhoods
+    $N_0$ and $N_1$ of $Q$ and a diffeomorphism $\psi:N_0\to N_1$ such that $\psi|_Q=\id_Q$ and
+    $\psi^*\omega_1=\omega_0$.
+\end{theorem}
+\begin{proof}
+    Consider the family of closed two-forms
+    \begin{equation*}
+        \omega_t = \omega_0 + t(\omega_1-\omega_0)
+    \end{equation*}
+    on $M$ for $t\in[0,1]$. Note that $\omega_t|_Q=\omega_0|_Q$ is nondegenerate and hence there exists
+    an open neighborhood $N_0$ of $Q$ such that $\omega_t|_{N_0}$ is nondegenerate.\footnote{Why?} Suppose,
+    for now, that there is a one-form $\sigma\in\Omega^1(N_0)$ (possibly shrinking $N_0$), such that
+    $\sigma|_{T_QM}=0$ and $d\sigma=\omega_1-\omega_0$ on $N_0$. Then
+    \begin{equation*}
+        \omega_t = \omega_0+td\sigma
+    \end{equation*}
+    and we obtain by nondegeneracy a smooth vector field $X_t$ on $N_0$ characterized by
+    \begin{equation*}
+        \iota_{X_t}\omega_t = -\sigma.
+    \end{equation*}
+    The condition $\sigma|_{T_QM}=0$ implies, again by nondegeneracy of $\omega_t$, that $X_t|_Q=0$.
+    Now consider the initial value problem for the flow $\psi_t$ of $X_t$,
+    \begin{align*}
+        \frac{d}{dt}\psi_t &= X_t \circ \psi_t\\
+        \psi_0 &= \id.
+    \end{align*}
+    This differential equation can be solved uniquely for $t\in[0,1]$ on some open neighborhood of
+    $Q$ contained in $N_0$, call it again $N_0$.\footnote{Why?} Note that $\psi_t|_Q=\id_Q$ since $X_t|_Q=0$.
+    We compute now that
+    \begin{align*}
+        \frac{d}{dt}\psi_t^*\omega_t &= \psi_t^*\left( \frac{d}{dt}\omega_t + \mathcal{L}_{X_t}\omega_t \right)\\
+        &= \psi_t^*\left( d\sigma + d\iota_{X_t}\omega_t\right)\\
+        &= 0.
+    \end{align*}
+    Hence $\psi_1^*\omega_1=\psi_0^*\omega_0=\omega_0$. Thus the desired diffeomorphism is
+    $\psi_1$ and the desired neighborhoods are $N_0$ and $N_1$.
+    The above argument is known as \textbf{Moser's trick}, and is extremely useful in symplectic
+    geometry.
+    
+    It remains to construct a smooth one-form $\sigma$ satisfying $\sigma|_{T_QM}=0$ and $d\sigma=\omega_1-\omega_0$.
+    If $Q$ were a point (or more generally, diffeomorphic to a star-shaped subset of Euclidean space),
+    we could simply use the Poincar\'e lemma; in general, however the construction is as follows.
+    Fix any Riemannian metric on $M$ and consider the restriction of the exponential map
+    $\exp: TM\to M$ to a neighbhorhood $U_\varepsilon$ of the zero section of the normal bundle
+    $TQ^\perp\to M$:
+    \begin{equation*}
+        U_\varepsilon = \{(q,v)\in TM \mid q\in Q, v\in T_qQ^\perp, |v|<\varepsilon\}.
+    \end{equation*}
+    Recall that $\exp$ becomes a diffeomorphism for $\varepsilon$ sufficiently small, so we choose
+    $\varepsilon$ such that $N_0=\exp(U_\varepsilon)$ is contained in the neighborhood of $Q$ above
+    on which $\omega_t$ is nondegenerate. Define now a family of maps $\phi_t:N_0\to N_0$
+    for $t\in[0,1]$ by
+    \begin{equation*}
+        \phi_t(\exp(q,v)) = \exp(q,tv).
+    \end{equation*}
+    Note that $\phi_t$ is a diffeomorphism onto its image for $t\neq 0$. Moreover, $\phi_t|_Q=\id_Q$,
+    $\phi_0(N_0)$, and $\phi_1 = \id_{N_0}$. If we now write $\tau = \omega_1-\omega_0$, we find that
+    \begin{align*}
+        \phi_0^*\tau &= 0\\
+        \phi_1^*\tau &= \tau,
+    \end{align*}
+    since $\tau=0$ on $T_QM$. Now, for $t\in(0,1]$, we define a family of vector fields,
+    \begin{equation*}
+        Y_t = \left( \frac{d}{dt}\phi_t \right)\circ\phi_t^{-1}.
+    \end{equation*}
+    Then for any $\delta>0$,
+    \begin{align*}
+        \phi_1^*\tau - \phi_\delta^*\tau &= \int_\delta^1 \frac{d}{dt}\phi_t^*\tau dt=\int_\delta\phi_t^*\mathcal{L}_{Y_t}\tau dt\\
+        &= \int_\delta^1 \phi_t^*(d\iota_{Y_t}\tau)dt\\
+        &= d\int_\delta^1 \phi_t^*(\iota_{Y_t}\tau)dt
+    \end{align*}
+    Clearly $\phi_1^*\tau-\phi_\delta^*\tau=\tau-\phi_\delta^*\tau$ approaches $\tau$ as $\delta\to0^+$,
+    so we find that
+    \begin{equation*}
+        \tau=d\int_0^1\phi_t^*(\iota_{Y_t}\tau)dt.
+    \end{equation*}
+    Defining
+    \begin{equation*}
+        \sigma = \int_0^1\phi_t^*(\iota_{Y_t}\tau) dt,
+    \end{equation*}
+    we find that $\tau=\omega_1-\omega_0=d\sigma$ and $\sigma|_{T_QM}=0$ because $\phi_t|_Q=\id_Q$ and
+    $\tau=0$ on $Q$, forcing the integrand to vanish on $T_QM$. Hence $\sigma$ is the one-form required
+    above for Moser's trick, and we are done.\todo{Why is $\sigma$ smooth?}
+    \label{thm:moser}
+\end{proof}
+
+The proof of Darboux's theorem is now straightforward: we choose a coordinate chart $\phi$ so that
+$\phi^*\omega$ is equal to the standard form on a subset of $\R^{2n}$ at a single point, and then
+apply Moser's theorem with $Q$ equal to the chosen point.
+
+\begin{proof}[Proof of Darboux's theorem]
+    Let $q\in M$ and fix a symplectic basis $\{u_i,v_i\}$ for the symplectic vector space $(T_qM,\omega_q)$.
+    Fix any Riemannian metric on $M$ and pick an open $U\ni 0$ small enough such that $\exp$ restricted to
+    $U\subset T_qM$ is a diffeomorphism and hence a chart $(x^i,y_i)=\exp:U\subset\R^{2n}\to M$
+    ($i=1,\ldots,n$) such that $x^i(p)=y_i(p)=0$. Now we can compute, for example,
+    \begin{align*}
+        \exp^*\omega_p\left( \frac{\partial}{\partial x^j},\frac{\partial}{\partial y^k} \right) &=\omega_p\left(\exp_*\frac{\partial}{\partial x^j},\exp_*\frac{\partial}{\partial y^k}\right)\\
+        &=\omega_p\left( u_j,v_k \right)=\delta_{jk},
+    \end{align*}
+    to check that $\exp^*\omega_p=(\omega_0)_0$ where $\omega_0$ is the standard form on $T_0U$.
+    Here we have used the fact that $\exp_*=\id$ at $0\in U$.
+    Applying Theorem \ref{thm:moser} to $U$ with $Q=0\in U$, we obtain a diffeomorphism $\psi$ of
+    (some possibly smaller) $U$ such that $\psi^*\exp^*\omega=\omega_0$ on $U$. But now
+    $\exp\circ\psi$ provides a symplectomorphism in a neighborhood of $q$ to a neighborhood of $\R^{2n}$
+    pulling $\omega$ back to the standard form $\omega_0$.
+\end{proof}
+
+\end{document}

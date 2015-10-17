@@ -1,0 +1,6 @@
+{
+    "geometry" :
+        {"notes_symp" : "Notes on McDuff & Salamon's Introduction to Symplectic Topology."},
+    "physics" : 
+        {"gaugetheory" : "Notes (unfinished) on connections on principal bundles."}
+}
