@@ -36,6 +36,7 @@ characterization.
 \begin{proposition}
     The canonical one-form $\theta$ is the (unique) one-form such that for every $\lambda\in\Omega^1(X)$,
     $\lambda^*\theta=\lambda$.
+    \label{prop:can}
 \end{proposition}
 \begin{proof}
     We compute, for $v\in T_pX$,
@@ -90,10 +91,18 @@ characterization.
     and hence that $v^i=\nu^i=0$, i.e. $v=0$. We conclude that $\omega_p$ is nondegenerate at each $p\in M$.
 \end{proof}
 
+\begin{remark}
+    Note that a 2-form $\omega$ on a manifold $M$ is nondegenerate if and only if $\omega^n$ is
+    nowhere vanishing. Fix $p\in M$ and consider the vector space $(T_pM, \omega_p)$. If
+    $\omega_p$ is nondegenerate, we can find a symplectic basis for $T_pM$, and so $\omega_p^n$
+    evaluated on $(u_1,\ldots,u_n,v_1,\ldots ,v_n)$ is nonzero, whence $\omega_p^n$ is not zero
+    on $V$. On the other hand, suppose $\omega_p$ is degenerate, i.e. there is a $v\neq0$ such
+    that $\omega_p(v,w)=0$ for all $w\in V$. Choosing a basis $v_1,\ldots,v_{2n}$ for $V$ such
+    that $v_1=v$, we find that $\omega_p(v_1,\ldots,v_{2n})=0$ and hence $\omega_p=0$ on $V$.
 
-
-%Now suppose $(X,g)$ is a Riemannian manifold, i.e. $g$ is a symmetric positive-definite covariant
-%two-tensor on $X$.
+    We conclude that every symplectic manifold is orientable.
+    \label{rem:nondeg}
+\end{remark}
 
 It is easy to see that $\omega$ provides an isomorphism $\iota:T_xX\xrightarrow{\sim} T_x^*X$
 between tangent and cotangent spaces at each point $x\in X$: since $\omega_x$ is nondegenerate, the linear
@@ -292,6 +301,7 @@ We prove Darboux's theorem using the following stronger statement.
     $\omega_0$ and $\omega_1$ are equal and nondegenerate on $T_qM$. Then there exist neighborhoods
     $N_0$ and $N_1$ of $Q$ and a diffeomorphism $\psi:N_0\to N_1$ such that $\psi|_Q=\id_Q$ and
     $\psi^*\omega_1=\omega_0$.
+    \label{thm:moser}
 \end{theorem}
 \begin{proof}
     Consider the family of closed two-forms
@@ -395,5 +405,296 @@ apply Moser's theorem with $Q$ equal to the chosen point.
     $\exp\circ\psi$ provides a symplectomorphism in a neighborhood of $q$ to a neighborhood of $\R^{2n}$
     pulling $\omega$ back to the standard form $\omega_0$.
 \end{proof}
+
+\newpage
+
+\section{Week 3}
+\subsection{Submanifolds of symplectic manifolds}
+
+\begin{definition}
+    Let $(V,\omega)$ be a symplectic vector space. We define the \textbf{symplectic complement}
+    $U^{\omega}$ of a subspace $U\subset V$ as
+    \begin{equation*}
+        U^{\omega} = \{v\in V \mid \omega(v,u)=0\text{ for all }u\in U\}.
+    \end{equation*}
+\end{definition}
+
+\begin{lemma}
+    For any subspace $U\subset V$, $U^{\omega\omega}=U$ and
+    \begin{equation*}
+        \dim U + \dim U^{\omega} = \dim V.
+    \end{equation*}
+    \label{lem:dim}
+\end{lemma}
+\begin{proof}
+    Nondegeneracy of $\omega$ yields an isomorphism $\iota_{\omega}:V\to V^*$ which identifies
+    $U^\omega$ with $U^{\perp}\equiv\{\nu\in V^*\mid \nu(u)=0\text{ for all }u\in U\}$. The result
+    now follows from the fact that $\dim U + \dim U^{\perp} = \dim V$.
+\end{proof}
+
+\begin{definition}
+    Let $(M,\omega)$ be a symplectic manifold. A submanifold $Q\subset M$ is called
+    \textbf{symplectic, isotropic, coisotropic, or Lagrangian} if for each $q\in Q$, the linear
+    subspace $T_qQ\equiv V_q$ of $(T_qM,\omega_q)$ is
+    \begin{enumerate}[(a)]
+        \item symplectic: $V_q\cap V_q^{\omega_q}=0$,
+        \item isotropic: $V_q\subset V_q^{\omega_q}$,
+        \item coisotropic: $V_q^{\omega_q}\subset V_q$,
+        \item Lagrangian: $V_q=V_q^{\omega_q}$,
+    \end{enumerate}
+    respectively.
+\end{definition}
+
+\begin{remark}
+    Note that $Q\subset M$ is Lagrangian if and only if the restriction of $\omega$ to $Q$
+    is zero and $\dim Q=\dim M/2$.
+\end{remark}
+
+\begin{example}
+    Let $X$ be any manifold, and $(M=T^*X,\omega)$ be its cotangent bundle with the usual symplectic
+    structure. Recall that $\omega=-d\theta$, where $\theta_\xi(v)=\xi(d_x\pi(v))$.\footnote{Can we do
+    this coordinate-invariantly?}
+    In coordinates, if $(x^i,\xi^i)$ are coordinates for $M$, we can write 
+    $\omega=dx^i\wedge d\xi^i$.
+
+    It is then easy to see that the fibre $T_x^*X\subset M$ is Lagrangian, as 
+    \begin{align*}
+        0 &= (dx^i\wedge d\xi^i)\left( a_j\frac{\partial}{\partial\xi^j}, b_k\frac{\partial}{\partial\xi^k}+c_l\frac{\partial}{\partial x^l} \right)\\
+        &= (dx^i\wedge d\xi^i)\left( a_j\frac{\partial}{\partial\xi^j},c_l\frac{\partial}{\partial x^l} \right)\\
+        &= a_ic_i,
+    \end{align*}
+    forces $c_i=0$.
+
+    Similarly, the zero section $\Gamma_0\subset M$ is Lagrangian, as
+    \begin{align*}
+        0 &= (dx^i\wedge d\xi^i)\left( a_j\frac{\partial}{\partial x^j}, b_k\frac{\partial}{\partial\xi^k}+c_l\frac{\partial}{\partial x^l} \right)\\
+        &= (dx^i\wedge d\xi^i)\left( a_j\frac{\partial}{\partial x^j},b_k\frac{\partial}{\partial \xi^k} \right)\\
+        &= a_ib_i,
+    \end{align*}
+    forces $b_i=0$.
+
+    More generally, given a submanifold $Q\subset L$, the annihilator
+    \begin{equation*}
+        TQ^{\perp} = \{(q,\nu)\in T^*L \mid q\in Q, \nu|_{T_qQ}=0\}
+    \end{equation*}
+    is Lagrangian.
+\end{example}
+
+\begin{example}
+    Let $(M,\omega)$ be a symplectic manifold. The product $M\times M$ can be given
+    a symplectic structure $\omega'=\alpha\pi_1^*\omega+\beta\pi_2^*\omega$ for $\alpha,\beta\in\R$.
+    Consider in particular the case of $\alpha=1,\beta=-1$. Then it is clear that $M\times\{m\}$
+    and $\{m\}\times M$ are symplectic submanifolds. Moreover, the diagonal $\Delta\subset M\times M$
+    is Lagrangian, as
+    \begin{align*}
+        0&=\omega'\left( (u,u), (v,w) \right)\\
+        &=\omega(u,v)-\omega(u,w)\\
+        &=\omega(u,v-w)
+    \end{align*}
+    and hence $v=w$, as desired.
+\end{example}
+
+\begin{example}
+    Let $S\subset (M,\omega)$ be a codimension 1 submanifold. Then $S$ is coisotropic.
+    Indeed, fix $s\in S$, and note that $T_sS\subset T_sM$ is codimension one. By Lemma
+    \ref{lem:dim}, $T_sS^{\omega_s}$ is a one-dimensional subspace. Pick any vector
+    $v\in T_sS^{\omega_s}$; $v$ spans the entire symplectic complement, and hence if $v$
+    is not in $T_sS^{\omega_s}$, $T_sS\cap T_sS^{\omega_s}=0$ and $T_sS$ is symplectic
+    and thus even-dimensional. This is a contradiction, and hence $T_sS$ must be
+    coisotropic.
+\end{example}
+
+\begin{proposition}
+    The graph $\Gamma_\sigma\subset T^*X$ of a one-form is Lagrangian if and only if $\sigma$
+    is closed.
+\end{proposition}
+\begin{proof}
+    Note that $\Gamma_\sigma$ is defined to be the image of the embedding $\sigma:X\to T^*X$.
+    Then $\dim\Gamma_\sigma=n$, so it remains to show that $\omega$
+    restricts to zero on $\Gamma_\sigma$ if and only if $\sigma$ is closed. Using Proposition
+    \ref{prop:can}, we compute
+    \begin{align*}
+        d\sigma = d\sigma^*\theta=\sigma^*d\theta=-\sigma^*\omega,
+    \end{align*}
+    which yields the desired statement, as $\sigma^*\omega=0$ on $X$ if and only if $\omega=0$
+    on $\Gamma_\sigma$, by virtue of $\sigma$ being an embedding.
+\end{proof}
+
+\subsection{Some neighborhood theorems}
+
+\begin{definition}
+    Let $V$ be a vector space. A \textbf{complex structure} on $V$ is an automorphism
+    $J:V\to V$ such that $J^2=-\id_V$. Note that a complex structre gives $V$ the structure
+    of a complex vector space ($i$ acts by $J$). We denote the set of all complex
+    structures on $V$ by $\mathcal{J}(V)$. Now suppose $(V,\omega)$ is a symplectic
+    vector space. We say that a complex structure $J$ is \textbf{compatible} with
+    $\omega$ if
+    \begin{equation*}
+        \omega(Jv, Jw)=\omega(v,w)
+    \end{equation*}
+    for all $v,w\in V$, and
+    \begin{equation*}
+        \omega(v,Jv)>0
+    \end{equation*}
+    for all nonzero $v\in V$. We denote the set of all compatible complex structures
+    on $(V,\omega)$ by $\mathcal{J}(V,\omega)$.
+\end{definition}
+
+\begin{lemma}
+    Let $J\in\mathcal{J}(V,\omega)$ be a compatible complex structure on $(V,\omega)$.
+    Then 
+    \begin{equation*}
+        g_J(v,w) = \omega(v,Jw)
+    \end{equation*}
+    defines an inner product on $V$.
+\end{lemma}
+
+\begin{definition}
+    A \textbf{symplectic vector bundle} $(E,\omega)$ over $X$ is a real vector bundle
+    $\pi:E\to X$ together with a smooth symplectic bilinear form $\omega\in\Gamma(X,E^*\wedge E^*)$,
+    i.e. a symplectic bilinear form on each $E_x$ that varies smoothly with $x$.
+    A \textbf{complex structure} on $\pi:E\to M$ is a bundle automorphism $J:E\to E$
+    such that $J^2=-\id_{E}$. We say $J$ is \textbf{compatible} with $\omega$ if the
+    induced complex structure on $E_x$ is compatible with $\omega_x$ for all $x\in X$.
+    By the above lemma, we obtain a symmetric, positive-definite bilinear form
+    $g_J\in\Gamma(X,\Sym^2 E^*)$, and we call the triple $(E, \omega, g_J)$ a
+    \textbf{Hermitian structure} on $E$.
+\end{definition}
+
+\begin{theorem}
+    Every symplectic vector bundle $(E,\omega)$ over a manifold $X$ admits a
+    Hermitian structure.
+\end{theorem}
+
+With these definitions out of the way, we present a number of theorems characterizing
+neighbhorhoods of special submanifolds of symplectic manifolds. 
+
+\begin{theorem}[Symplectic neighborhood theorem]
+    Let $(M_0,\omega_0),(M_1,\omega_1)$ be symplectic manifolds with compact symplectic
+    submanifolds $Q_0,Q_1$ respectively. Suppose there is an isomorphism $\Phi:TQ_0^\omega\to TQ_1^\omega$
+    of symplectic normal bundles covering a symplectomorphism $\phi:(Q_0,\omega_0)\to(Q_1,\omega_1)$.
+    Then $\phi$ extends to a symplectomorphism $\psi:(N(Q_0),\omega_0)\to(N(Q_1),\omega_1)$
+    such that $d\psi$ induces the map $\Phi$ on $TQ_0^{\omega}$.
+\end{theorem}
+\begin{proof}
+    Let $\exp_0,\exp_1$ be diffeomorphisms mapping neighborhoods of the zero section
+    in the normal bundle to neighborhoods of $Q_0,Q_1$ in $X$, respectively. Then
+    we obtain 
+    \begin{equation*}
+        \phi' = \exp_1\circ\Phi\circ\exp_0^{-1},
+    \end{equation*}
+    a diffeomorphism between these neighborhoods of $Q_0$ and $Q_1$. Now $\phi'^*\omega_1$
+    and $\omega_0$ are two symplectic forms on $M_0$ whose restrictions to $Q_0$ agree.
+    Now $\phi'$ extends to the desired $\psi$ by Theorem \ref{thm:moser}.
+\end{proof}
+
+\begin{theorem}[Lagrangian neighborhood theorem]
+    Let $(M,\omega)$ be a symplectic manifold and let $L\subset M$ be a compact
+    Lagrangian submanifold. Then there exists a neighborhood $N(\Gamma_0)\subset T^*L$
+    of the zero section $\Gamma_0$, a neighborhood $U\subset M$ of $L$, and a
+    diffeomorphism $\phi:N(\Gamma_0)\to U$ such that $\phi^*\omega=-d\theta$ and
+    $\phi|_L=\id$, where $\theta$ is the canonical one-form on $T^*L$.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\subsection{Contact manifolds}
+
+Let $X$ be a differential manifold and $H\subset TX$ be a smooth hyperplane field,
+i.e. a smooth subbundle of codimension one.
+Then, locally on some open $U$, we can write $H=\ker\alpha$,
+for $\alpha\in\Omega_1(U)$. In fact, if we assume that $H$ is \textbf{coorientable},
+we can extend $U$ to all of $X$.\footnote{Why?} We will assume for what
+follows that $H$ is coorientable.
+
+\begin{definition}
+    Let $X$ be a manifold of odd dimension $2n+1$. A \textbf{contact structure}
+    on $X$ is a hyperplane field $H=\ker\alpha$ where the top-dimensional form
+    $\alpha\wedge(d\alpha)^n$ is nowhere vanishing. We call $\alpha$ a
+    \textbf{contact form}, and the pair $(X,H)$ a \textbf{contact manifold}.
+\end{definition}
+
+\begin{remark}
+    Suppose we have $\alpha,\alpha'\in\Omega^1(X)$ such that $H=\ker\alpha=\ker\alpha'$.
+    Then $\alpha$ is a contact form if and only if $\alpha'$ is. This is because
+    the condition that $\alpha,\alpha'$ cut out $H$ requires $\alpha'=f\alpha$ for some
+    nonzero $f:X\to\R$.
+\end{remark}
+
+\begin{remark}
+    In the language of distributions, $H$ can be described as a codimension one
+    distribution that is maximally non-integrable in the following sense. Recall
+    that a distribution on $X$ is said to be integrable if every point $p$ of $X$ is
+    contained in a integral manifold of $H$, i.e. in a nonempty immersed submanifold
+    $N\subset X$ such that $T_pN=H_p$. The Frobenius theorem tells us that $H$ is
+    integrable if and only if $H$ is involutive, i.e. $H$ is closed under the Lie
+    bracket of local sections. Now, since
+    \begin{equation*}
+        d\alpha(X,Y) = X\alpha(Y)-Y\alpha(X)-\alpha[X,Y],
+    \end{equation*}
+    we find that $H$ is integrable if and only if $d\alpha=0$ on $H$. Thus asking for
+    $d\alpha$ to be nondegenerate on $H$ forces the distribution to be ``as non-integrable
+    as possible.''
+    
+    Indeed, we obtain the above definition of a contact structure by
+    noting that $d\alpha$ is nondegenerate on $H$ if and only if $\alpha\wedge(d\alpha)^n$
+    is nowhere vanishing, as follows. By remark \ref{rem:nondeg}, $d\alpha$ is nondegenerate
+    on $H$ if and only if $(d\alpha)^n$ is nowhere vanishing, but this is simply
+    equivalent to asking that $\alpha\wedge(d\alpha)^n$ be nowhere vanishing.
+\end{remark}
+
+Armed simply with the definition of a contact manifold, one might think that contact
+geometry is somewhat obscure. We provide the following list of examples as evidence
+that contact manifolds are actually quite common.
+
+\begin{example}
+    Let $X=\R^{2n+1}$ with coordinates $(x^1,\ldots,x^n,y^1,\ldots,y^n,z)$. The
+    one-form
+    \begin{equation*}
+        \alpha = dz + x^i dy^i
+    \end{equation*}
+    is a contact form, as
+    \begin{equation*}
+        \alpha\wedge(d\alpha)^n = dz\wedge dx^1\wedge dy^1\wedge\cdots\wedge dx^n\wedge dy^n,
+    \end{equation*}
+    which is nowhere vanishing. We define the standard contact structure on $\R^{2n+1}$
+    to be $H=\ker\alpha$.
+\end{example}
+
+For the next few examples the following lemma will be useful.
+\begin{lemma}
+    Let $(M,\omega)$ be a symplectic manifold of dimension $2n$.
+    A vector field $Y$ on $M$ satisfying
+    $\mathcal{L}_Y\omega=\omega$ is called a \textbf{Liouville vector field}. In
+    this case, $\alpha=\iota_Y\omega$ is a contact form on any hypersurface $Q\subset M$
+    transverse to $Y$ (i.e. at any point $p$, $T_pQ$ and $Y_p$ span $T_pM$).
+\end{lemma}
+\begin{proof}
+    Cartan's magic formula in this case tells us that $\omega=d\iota_Y\omega$, and hence
+    \begin{align*}
+        \alpha\wedge (d\alpha)^{n-1} &= \iota_Y\omega\wedge\omega^{n-1}\\
+        &= \iota_Y(\omega^n)/n.
+    \end{align*}
+    Now, since $\omega^n$ is a volume form on $M$, we find that $\alpha\wedge(d\alpha)^{n-1}$
+    is a volume form when restricted to the tangent bundle of any hypersurface transverse
+    to $Y$.
+\end{proof}
+
+\begin{example}
+    Consider $M=\R^4$ with its usual symplectic form $\omega=dx^1\wedge dy^1+dx^2\wedge dy^2$.
+    The vector field
+    \begin{equation*}
+        Y=\frac{1}{2}\left( x_1\frac{\partial}{\partial x^1}+y^1\frac{\partial}{\partial y^1}+x^2\frac{\partial}{\partial x^2}+y^2\frac{\partial}{\partial y^2} \right)
+    \end{equation*}
+    is clearly transverse to the sphere $S^3$ given by $(x^1)^2+(y^1)^2+(x^2)^2+(y^2)^2=1$.
+    It is a straightforward computation to check that $Y$ is Liouville, using
+    the identity
+    \begin{equation*}
+        (\mathcal{L}_Y\omega)(v,w) = \mathcal{L}_Y(\omega(v,w)) - \omega([Y,v],w) - \omega(v,[Y,w]).
+    \end{equation*}
+    We conclude, using the previous lemma, that $S^3$ is a contact manifold, with a contact
+    structure $\ker\iota_Y\omega$.
+\end{example}
 
 \end{document}
