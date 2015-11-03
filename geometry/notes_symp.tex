@@ -409,6 +409,8 @@ apply Moser's theorem with $Q$ equal to the chosen point.
 \newpage
 
 \section{Week 3}
+
+
 \subsection{Submanifolds of symplectic manifolds}
 
 \begin{definition}
@@ -520,52 +522,6 @@ apply Moser's theorem with $Q$ equal to the chosen point.
     on $\Gamma_\sigma$, by virtue of $\sigma$ being an embedding.
 \end{proof}
 
-\subsection{Some neighborhood theorems}
-
-\begin{definition}
-    Let $V$ be a vector space. A \textbf{complex structure} on $V$ is an automorphism
-    $J:V\to V$ such that $J^2=-\id_V$. Note that a complex structre gives $V$ the structure
-    of a complex vector space ($i$ acts by $J$). We denote the set of all complex
-    structures on $V$ by $\mathcal{J}(V)$. Now suppose $(V,\omega)$ is a symplectic
-    vector space. We say that a complex structure $J$ is \textbf{compatible} with
-    $\omega$ if
-    \begin{equation*}
-        \omega(Jv, Jw)=\omega(v,w)
-    \end{equation*}
-    for all $v,w\in V$, and
-    \begin{equation*}
-        \omega(v,Jv)>0
-    \end{equation*}
-    for all nonzero $v\in V$. We denote the set of all compatible complex structures
-    on $(V,\omega)$ by $\mathcal{J}(V,\omega)$.
-\end{definition}
-
-\begin{lemma}
-    Let $J\in\mathcal{J}(V,\omega)$ be a compatible complex structure on $(V,\omega)$.
-    Then 
-    \begin{equation*}
-        g_J(v,w) = \omega(v,Jw)
-    \end{equation*}
-    defines an inner product on $V$.
-\end{lemma}
-
-\begin{definition}
-    A \textbf{symplectic vector bundle} $(E,\omega)$ over $X$ is a real vector bundle
-    $\pi:E\to X$ together with a smooth symplectic bilinear form $\omega\in\Gamma(X,E^*\wedge E^*)$,
-    i.e. a symplectic bilinear form on each $E_x$ that varies smoothly with $x$.
-    A \textbf{complex structure} on $\pi:E\to M$ is a bundle automorphism $J:E\to E$
-    such that $J^2=-\id_{E}$. We say $J$ is \textbf{compatible} with $\omega$ if the
-    induced complex structure on $E_x$ is compatible with $\omega_x$ for all $x\in X$.
-    By the above lemma, we obtain a symmetric, positive-definite bilinear form
-    $g_J\in\Gamma(X,\Sym^2 E^*)$, and we call the triple $(E, \omega, g_J)$ a
-    \textbf{Hermitian structure} on $E$.
-\end{definition}
-
-\begin{theorem}
-    Every symplectic vector bundle $(E,\omega)$ over a manifold $X$ admits a
-    Hermitian structure.
-\end{theorem}
-
 With these definitions out of the way, we present a number of theorems characterizing
 neighbhorhoods of special submanifolds of symplectic manifolds. 
 
@@ -669,6 +625,7 @@ For the next few examples the following lemma will be useful.
     $\mathcal{L}_Y\omega=\omega$ is called a \textbf{Liouville vector field}. In
     this case, $\alpha=\iota_Y\omega$ is a contact form on any hypersurface $Q\subset M$
     transverse to $Y$ (i.e. at any point $p$, $T_pQ$ and $Y_p$ span $T_pM$).
+    \label{lem:Liouville}
 \end{lemma}
 \begin{proof}
     Cartan's magic formula in this case tells us that $\omega=d\iota_Y\omega$, and hence
@@ -694,7 +651,279 @@ For the next few examples the following lemma will be useful.
         (\mathcal{L}_Y\omega)(v,w) = \mathcal{L}_Y(\omega(v,w)) - \omega([Y,v],w) - \omega(v,[Y,w]).
     \end{equation*}
     We conclude, using the previous lemma, that $S^3$ is a contact manifold, with a contact
-    structure $\ker\iota_Y\omega$.
+    structure $\ker\iota_Y\omega$. This example is easily extended to show that $S^{2n+1}$
+    has a contact structure.
 \end{example}
+
+\begin{example}
+    Let $(M,g)$ be a Riemannian $n$-manifold. We define the \textbf{unit cotangent bundle}
+    \begin{equation*}
+        ST^*M = \{(p,\xi)\in T^*M \mid |\xi_p|_g^2=1\}\subset T^*M.
+    \end{equation*}
+    The unit cotangent bundle is a manifold of dimension $2n-1$ as it can be written as the level set of a
+    Hamiltonian $H(p,\xi)=|\xi_p|^2_g/2$. Moreover, it is a sub-fiber bundle of the
+    cotangent bundle, with fiber $S^{n-1}$. We claim that the canonical one-form on $T^*M$
+    is a contact form for $ST^*M$. Indeed, let $Y$ be a vector field on $T^*M$ given by $\iota_Y\omega=\theta$.
+    Then $Y$ is Liouville: $d(\iota_Y\omega)=d\theta=\omega$. In coordinates, $Y=p^i\partial/\partial p^i$,
+    and hence is transverse to $ST^*M$. Note that if $M$ is compact, so is $SY^*M$ and in this
+    case $ST^*M$ is an example of a compact contact manifold.
+\end{example}
+
+\begin{example}
+    Let $(M,H=\ker\alpha)$ be a contact manifold. Then, if $\pi_M:M\times\R\to M$ is the projection
+    onto the second factor, we claim that $(M\times\R, \omega=d(e^t\pi^*_M\alpha))$ is a symplectic manifold.
+    Indeed, if $M$ has dimension $2n-1$, we compute
+    \begin{align*}
+        \omega^n &= (e^tdt\wedge\pi^*_M\alpha+\pi_M^*d\alpha)^n\\
+        &=ne^{nt}dt\wedge\pi_M^*\alpha\wedge\pi_M^*(d\alpha)^{n-1}\\
+        &=ne^{nt}dt\wedge\pi^*_M\left(\alpha\wedge (d\alpha)^{n-1}\right)\\
+        &\neq0.
+    \end{align*}
+    We call $(M\times\R,d(e^t\pi_M^*\alpha))$ the \textbf{symplectization} of $(M,\alpha)$.
+    Note that $\partial/\partial t$ is a Liouville vector field for $\omega$\footnote{why?}
+    and $M\subset M\times\R$ is a hypersurface transverse to $\partial/\partial t$.
+\end{example}
+
+\newpage
+
+\section{Week 4}
+\subsection{Symplectic linear group and linear complex structures}
+%Let $(V,\omega)$ be a real symplectic vector space. We define the symplectic linear group $\Sp(V,\omega)$
+%to be the group of symplectomorphisms of $V$.
+%Since all symplectic vector spaces are symplectomorphic
+%to $(\R^{2n},\omega_0)$, it suffices to consider $\Sp(2n)=\Sp(2n,\R)=\Sp(\R^{2n},\omega_0)$.
+%We claim that $\Sp(2n)$ is not compact; indeed, its maximal compact subgroup is $U(n)$.
+%\begin{proposition}
+%    The unitary group $U(n)$ is a maximal compact subgroup of $\Sp(2n)$ and the quotient
+%    $\Sp(2n)/U(n)$ is contractible.
+%\end{proposition}
+%
+%\begin{lemma}
+%    Viewing $\GL(n,\C)$ as a closed subgroup of $\GL(2n,\R)$ under the inclusion
+%    \begin{equation*}
+%            A+iB \mapsto
+%            \begin{pmatrix}
+%                A & -B\\
+%                B & A
+%            \end{pmatrix}.
+%    \end{equation*}
+%\end{lemma}
+%
+\begin{definition}
+    Let $(V,\omega)$ be a symplectic vector space. We denote the group of symplectomorphisms
+    from $V$ to itself as $\Sp(V,\omega)$, the \textbf{symplectic linear group}. In the case
+    of the standard symplectic structure on $\R^{2n}$ we write the group as $\Sp(2n)$.
+\end{definition}
+
+\begin{lemma}
+    A real $2n\times 2n$ matrix $\Psi$ is in $\Sp(2n)$ if and only if
+    \begin{equation*}
+        \Psi^\top J_0\Psi = J_0,
+    \end{equation*}
+    where
+    \begin{equation*}
+        J_0=
+        \begin{pmatrix}
+            0 & -I_n\\
+            I_n & 0
+        \end{pmatrix}\in\Sp(2n).
+    \end{equation*}
+    \label{lem:matrixform}
+\end{lemma}
+\begin{proof}
+    Let $u_i,v_i$ be a symplectic basis for $V$. For $x,y\in V$ write $x=(a,b),y=(c,d)$
+    for $a,b,c,d\in\R^n$. Then
+    \begin{align*}
+        \omega(x,y) &= a^id^i - b^ic^i = -x^\top J_0y.
+    \end{align*}
+    Clearly $\Psi^*\omega=\omega$ if and only if $\Psi^\top J_0\Psi=J_0$.
+\end{proof}
+
+
+\begin{definition}
+    Let $V$ be a vector space. A \textbf{complex structure} on $V$ is an automorphism
+    $J:V\to V$ such that $J^2=-\id_V$. We denote the set of all complex
+    structures on $V$ by $\mathcal{J}(V)$. Now suppose $(V,\omega)$ is a symplectic
+    vector space. We say that a complex structure $J$ is \textbf{compatible} with
+    $\omega$ if
+    \begin{equation*}
+        \omega(Jv, Jw)=\omega(v,w)
+    \end{equation*}
+    for all $v,w\in V$, and
+    \begin{equation*}
+        \omega(v,Jv)>0
+    \end{equation*}
+    for all nonzero $v\in V$. We denote the set of all compatible complex structures
+    on $(V,\omega)$ by $\mathcal{J}(V,\omega)$.
+\end{definition}
+
+\begin{lemma}
+    Let $J\in\mathcal{J}(V,\omega)$ be a compatible complex structure on $(V,\omega)$.
+    Then 
+    \begin{equation*}
+        g_J(v,w) = \omega(v,Jw)
+    \end{equation*}
+    defines an inner product on $V$.
+    \label{lem:inner}
+\end{lemma}
+
+\begin{lemma}
+    Let $(V,\omega)$ be a symplectic vector space and $J$ be a complex structure on $V$.
+    Then the following are equivalent:
+    \begin{enumerate}[(a)]
+        \item $J$ is compatible with $\omega$;
+        \item the bilinear form $g_J:V\times V\to\R$ defined by
+            \begin{equation*}
+                g_J(v,w)=\omega(v,Jw)
+            \end{equation*}
+            is symmetric, positive-definite, and $J$-invariant.
+        \item if we view $V$ as a complex vector space with $J$ as its complex structure,
+            the form $H:V\times V\to\C$ defined by
+            \begin{equation*}
+                H(v,w) = \omega(v,Jw)+i\omega(v,w)
+            \end{equation*}
+            is complex linear in $w$, complex antilinear in $v$, satisfies $H(w,v)=\overline{H(v,w)}$,
+            and has a positive-definite real part. Such a form is called a \textbf{Hermitian inner product}
+            on $(V,J)$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    That (a) implies (b) is clear from Lemma \ref{lem:inner}. For (b) implies (c), note first
+    that the real part of $H$ is simply $g_J$ and hence is positive-definite. For linearity,
+    we compute
+    \begin{align*}
+        H(Jv,w) &= \omega(Jv,Jw) + i\omega(Jv,w)\\
+        &= g_J(Jv,w) - ig_J(w,v)\\
+        &= g_J(w,Jv) - ig_J(v,w)\\
+        &= -i H(v,w),
+    \end{align*}
+    and
+    \begin{align*}
+        H(v,Jw) &= -\omega(v,w) + i\omega(Jv,Jw)\\
+        &= -\omega(v,w)+ig_J(Jv,w)\\
+        &= -\omega(v,w)+i\omega(v,w)\\
+        &= iH(v,w),
+    \end{align*}
+    as desired. Finally, note that
+    \begin{align*}
+        H(w,v) &= \omega(w,Ju)+i\omega(w,v)\\
+        &= \omega(v,Jw)-i\omega(v,w)\\
+        &= \overline{H(v,w)}.
+    \end{align*}
+    For (c) implies (a), $\omega(v,Jv)>0$ because the real part $\omega(v,Jw)$ is by hypothesis
+    positive-definite. Moreover, $\omega(Jv,Jw)=\im H(Jv,Jw)=\im H(v,w)=\omega(v,w)$.
+\end{proof}
+
+
+The following result shows that all linear complex structures are isomorphic to the
+standard complex structure.
+
+\begin{proposition}
+    Let $V$ be a $2n$-dimensional real vector space and let $J\in\mathcal{J}(V)$. Then
+    there exists a vector space isomorphism $\Phi:\R^{2n}\to V$ such that
+    \begin{equation*}
+        J\Phi = \Phi J_0.
+    \end{equation*}
+    \label{lem:complex_iso}
+\end{proposition}
+\begin{proof}
+    Consider the extension $J^\C$ of $J$ to the complexification $V^\C=V\otimes_\R\C\cong V$
+    given by $J\otimes1$. Clearly $J^\C$ is a complex structure on $V^\C$ and thus has
+    eigenvalues $\pm i$. We obtain a direct sum decomposition $V^\C\cong E^+\oplus E^-$
+    of the $\pm i$ eigenspaces respectively, i.e. $J^\C|_{E^\pm}=\pm iI$. Clearly $\dim_\C E^{\pm}=n$.
+    We claim that a basis $w_j=u_j+iv_j$ for $E^+$ yields a basis $u_j,v_j$ for $V$.
+    It suffices to show that these vectors are linearly independent. Since $w_j$ is a basis
+    for $E^+$,
+    \begin{equation*}
+        \sum_{j=1}^n (a_j+ib_j)(u_j\otimes 1+v_j\otimes i) = 0
+    \end{equation*}
+    for $a_j,b_j\in\R$ implies that $a_j=b_j=0$ for all $j$. Suppose there exist $\alpha_j,\beta_j\in\R$
+    such that
+    \begin{equation*}
+        \sum_{j=1}^n \alpha_ju_j+\beta_jv_j=0.
+    \end{equation*}
+    Now since $w_j\in\ker(I-iJ)$, a straightforward computation reveals that $Ju_j=-v_j$ and $Jv_j=u_j$.
+    Applying $J$ to the above equation, we obtain
+    \begin{equation*}
+        \sum_{j=1}^n \beta_j u_j - \alpha_j v_j = 0.
+    \end{equation*}
+    Then, taking $a_j=\beta_j,b_j=\alpha_j$, we find that
+    \begin{align*}
+        \sum_{j=1}^n(\beta_j+i\alpha_j)(u_j\otimes 1+v_j\otimes i) &= \left( \sum_{j=1}^n\beta_ju_j-\alpha_jv_j \right)\otimes 1
+        + \left( \sum_{j=1}\beta_jv_j+\alpha_ju_j \right)\otimes i\\
+        &=0.
+    \end{align*}
+    Linear independence of the $w_j$ now forces $\alpha_j=\beta_j=0$. Hence $u_j,v_j$ forms a basis
+    for $V$.
+
+    The required $\Phi:\R^{2n}\to V$ can now be written explicitly as
+    \begin{equation*}
+        \Phi(x_1,\ldots,x_n,y_1,\ldots,y_n) = \sum_{j=1}^n\left( x_ju_j-y_jv_j \right).
+    \end{equation*}
+    This map is clearly an isomorphism; moreover, if $x=(r_1,\ldots,r_n,s_1,\ldots,s_n)\in\R^{2n}$
+    then
+    \begin{equation*}
+        J\Phi x = -s_1u_1-r_1v_1-\cdots-s_nu_n-r_nv_n = \Phi J_0x,
+    \end{equation*}
+    as desired.
+\end{proof}
+
+\begin{remark}
+    Define an action of $\GL(2n,\R)$ on the set $\mathcal{J}(V)$ by $g\cdot J=g^{-1}Jg$.
+    By Lemma \ref{lem:complex_iso}, $\GL(2n,\R)\cdot J_0=\mathcal{J}(V)$, i.e. the orbit
+    of $J_0$ is the entire set. Moreover, since $\GL(n,\C)$ is naturally embedded (as a Lie
+    subgroup) in $\GL(2n,\R)$ as $\{A\in\GL(2n,\R) \mid J_0A=AJ_0\}$, the stabilizer of $J_0$ is
+    $\GL(n,\C)$.\footnote{The embedding is given by replacing each entry $a+bi$ with a block of the
+    form $\begin{pmatrix}a&-b\\b&a\end{pmatrix}$.}
+    We conclude that $\mathcal{J}(V)$ can be given the structure of a smooth manifold such
+    that $\mathcal{J}(V)\cong\GL(2n,\R)/\GL(n,\C)$.
+\end{remark}
+
+\begin{proposition}
+    The set $\mathcal{J}(V,\omega)$ of compatible complex structures is naturally identified
+    with the space $\mathcal{P}$ of symmetric positive-definite symplectic matrices. In particular,
+    $\mathcal{J}(V,\omega)$ is contractible.
+\end{proposition}
+\begin{proof}
+    By fixing a symplectic basis for $V$ we may assume that $(V,\omega)=(\R^{2n},\omega_0)$.
+    By the proof of Lemma \ref{lem:matrixform}, we note that $J\in\Aut(\R^{2n})$ is a compatible
+    complex structure if and only if the conditions
+    \begin{align*}
+        J^2 &= -\id_{\R^{2n}},\\
+        J_0&=J^\top J_0J,\\
+        0&<-v^\top J_0Jv,
+    \end{align*}
+    hold (for $v\neq0$). Set $P=J_0J$. $P$ is symmetric, since
+    \begin{equation*}
+        (J_0J)^\top = -J^\top J_0=J^\top J_0J^2=J_0J,
+    \end{equation*}
+    as well as positive-definite, and symplectic. Moreover, it is easy to check that 
+    if any matrix $P$ has these three properties, then $J=-J_0P$ is a compatible complex structure.
+    Hence $\mathcal{J}(V,\omega)$ is in bijective correspondence with the space $\mathcal{P}$ of
+    symmetric positive-definite symplectic matrices.\footnote{Finish!}
+\end{proof}
+
+
+\subsection{Symplectic vector bundles}
+
+\begin{definition}
+    A \textbf{symplectic vector bundle} $(E,\omega)$ over $X$ is a real vector bundle
+    $\pi:E\to X$ together with a smooth symplectic bilinear form $\omega\in\Gamma(X,E^*\wedge E^*)$,
+    i.e. a symplectic bilinear form on each $E_x$ that varies smoothly with $x$.
+    A \textbf{complex structure} on $\pi:E\to M$ is a bundle automorphism $J:E\to E$
+    such that $J^2=-\id_{E}$. We say $J$ is \textbf{compatible} with $\omega$ if the
+    induced complex structure on $E_x$ is compatible with $\omega_x$ for all $x\in X$.
+    By the above lemma, we obtain a symmetric, positive-definite bilinear form
+    $g_J\in\Gamma(X,\Sym^2 E^*)$, and we call the triple $(E, \omega, g_J)$ a
+    \textbf{Hermitian structure} on $E$.
+\end{definition}
+
+\begin{theorem}
+    Every symplectic vector bundle $(E,\omega)$ over a manifold $X$ admits a
+    Hermitian structure.
+\end{theorem}
+
+
+
 
 \end{document}
