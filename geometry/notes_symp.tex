@@ -16,6 +16,10 @@
 \maketitle
 \tableofcontents
 
+These notes were written for a reading course with Professor Eric Zaslow on
+the basics of symplectic geometry.
+These notes are quite rough: \textit{caveat lector}.\footnote{add references!}
+
 \section{Week 1}
 
 \subsection{The cotangent bundle}
@@ -295,7 +299,7 @@ to associate $\xi_x$ with its corresponding vector (or, equivalently, using $g^{
 
 We prove Darboux's theorem using the following stronger statement.
 
-\begin{theorem}
+\begin{theorem}[Moser's trick]
     Let $M$ be a $2n$-dimensional manifold and $Q\subset M$ be a compact submanifold. Suppose that
     $\omega_1,\omega_2\in\Omega^2(M)$ are closed 2-forms such that at each point $q$ of $Q$ the forms
     $\omega_0$ and $\omega_1$ are equal and nondegenerate on $T_qM$. Then there exist neighborhoods
@@ -533,6 +537,7 @@ neighbhorhoods of special submanifolds of symplectic manifolds.
     such that $d\psi$ induces the map $\Phi$ on $TQ_0^{\omega}$.
 \end{theorem}
 \begin{proof}
+    We use implicitly throughout that since $Q$ is symplectic, there is an isomorphism $TQ^\omega\to TQ^\perp$.
     Let $\exp_0,\exp_1$ be diffeomorphisms mapping neighborhoods of the zero section
     in the normal bundle to neighborhoods of $Q_0,Q_1$ in $X$, respectively. Then
     we obtain 
@@ -550,10 +555,9 @@ neighbhorhoods of special submanifolds of symplectic manifolds.
     of the zero section $\Gamma_0$, a neighborhood $U\subset M$ of $L$, and a
     diffeomorphism $\phi:N(\Gamma_0)\to U$ such that $\phi^*\omega=-d\theta$ and
     $\phi|_L=\id$, where $\theta$ is the canonical one-form on $T^*L$.
+    \label{thm:lnt}
 \end{theorem}
-\begin{proof}
-    
-\end{proof}
+We postpone the proof of this theorem until after the discussion of complex structures.
 
 \subsection{Contact manifolds}
 
@@ -680,9 +684,15 @@ For the next few examples the following lemma will be useful.
         &\neq0.
     \end{align*}
     We call $(M\times\R,d(e^t\pi_M^*\alpha))$ the \textbf{symplectization} of $(M,\alpha)$.
-    Note that $\partial/\partial t$ is a Liouville vector field for $\omega$\footnote{why?}
+    Note that $\partial/\partial t$ is a Liouville vector field for $\omega$\footnote{compute!}
     and $M\subset M\times\R$ is a hypersurface transverse to $\partial/\partial t$.
 \end{example}
+
+\begin{definition}
+    A \textbf{contactomorphism} from $(M_1,H_1)$ to $(M_2,H_2)$ is a diffeomorphism $f:M_1\to M_2$
+    such that $df(H_1)=H_2$. Equivalently, if $H_1=\ker\alpha_1$ and $H_2=\ker\alpha_2$ then we
+    require $f^*\alpha_2=g\alpha_1$ for some nowhere vanishing function $g:M_1\to\R\setminus\{0\}$.
+\end{definition}
 
 \newpage
 
@@ -877,12 +887,17 @@ standard complex structure.
     form $\begin{pmatrix}a&-b\\b&a\end{pmatrix}$.}
     We conclude that $\mathcal{J}(V)$ can be given the structure of a smooth manifold such
     that $\mathcal{J}(V)\cong\GL(2n,\R)/\GL(n,\C)$.
+    \label{rem:gl}
 \end{remark}
+
+The following result shows that the choice of complex structure compatible with a fixed
+symplectic form on $V$ is canonical up to homotopy.
 
 \begin{proposition}
     The set $\mathcal{J}(V,\omega)$ of compatible complex structures is naturally identified
     with the space $\mathcal{P}$ of symmetric positive-definite symplectic matrices. In particular,
     $\mathcal{J}(V,\omega)$ is contractible.
+    \label{prop:contr}
 \end{proposition}
 \begin{proof}
     By fixing a symplectic basis for $V$ we may assume that $(V,\omega)=(\R^{2n},\omega_0)$.
@@ -900,8 +915,59 @@ standard complex structure.
     as well as positive-definite, and symplectic. Moreover, it is easy to check that 
     if any matrix $P$ has these three properties, then $J=-J_0P$ is a compatible complex structure.
     Hence $\mathcal{J}(V,\omega)$ is in bijective correspondence with the space $\mathcal{P}$ of
-    symmetric positive-definite symplectic matrices.\footnote{Finish!}
+    symmetric positive-definite symplectic matrices.
+    It remains to show that $\mathcal{P}$ is contractible. Suppose, for now, that if $P\in\mathcal{P}$
+    then $P^{\alpha}\in\mathcal{P}$ for all $\alpha>0$, $\alpha\in\R$. Then the map
+    $h:[0,1]\times\mathcal{P}\to\mathcal{P}$ given by $h(t,P)=P^{1-t}$ is a homotopy from
+    $\id_\mathcal{P}$ to the constant map $P\mapsto \id_V$, and we are done.
+
+    We now show that if $P\in\mathcal{P}$ then $P^\alpha\in\mathcal{P}$ for all $\alpha>0$.
+    It is easy to see that $P^\alpha$ is symmetric and positive-definite. It remains to
+    show that $\omega_0(P^\alpha v,P^\alpha w)=\omega_0(v,w)$ for all $\alpha>0$. Decompose
+    $\R^{2n}$ into eigenspaces $V_\lambda$ for eigenvalues $\lambda$ of $P$. Note that for
+    a symplectic matrix $P$, if $\lambda,\lambda'$ are eigenvalues such that $\lambda\lambda'\neq1$
+    then $\omega_0(z,z')=0$, where $z,z'$ are the eigenvectors of $\lambda,\lambda'$, respectively:
+    \begin{equation*}
+        \lambda\lambda'\omega_0(z,z')=\omega_0(Pz,Pz')=\omega_0(z,z').
+    \end{equation*}
+    Now, since $V_\lambda$ is also the eigenspace for the eigenvalue $\lambda^\alpha$ for $P^\alpha$,
+    if $z\in V_\lambda,z'\in V_{\lambda'}$,
+    \begin{equation*}
+        \omega_0(P^\alpha z,P^\alpha z') = (\lambda\lambda')^\alpha\omega_0(z,z').
+    \end{equation*}
+    Writing any $v,w\in\R^{2n}$ in the basis of eigenvectors for $P^\alpha$, we find by linearity,
+    and the remarks about $\lambda,\lambda'$ above, that $\omega_0(P^\alpha v,P^\alpha w)=\omega_0(v,w)$
+    for all $\alpha>0$.
 \end{proof}
+
+Often it is enough to consider a slightly weaker notion of compatibility.
+\begin{definition}
+    A complex structure $J\in\mathcal{J}(V)$ is called \textbf{$\omega$-tame} if $\omega(v,Jv)>0$
+    for all nonzero $v\in V$. The set of all $\omega$-tame complex structures on $V$ is
+    written $\mathcal{J}_{\tau}(V,\omega)$. Note that $\mathcal{J}_\tau(V,\omega)$ is an
+    open subset of $\mathcal{J}(V)\cong\GL(2n,\R)/\GL(n,\C)$ (as per Remark \ref{rem:gl}).
+\end{definition}
+In this case, we note that $g_J(v,w)=(\omega(v,Jw)+\omega(w,Jv))/2$ defines an inner product on $V$,
+for all $J\in\mathcal{J}_\tau(V,\omega)$. We note that there is an analog of Proposition \ref{prop:contr}
+for $\omega$-tame complex structures.
+
+\begin{proposition}
+    The space $\mathcal{J}_\tau(V,\omega)$ is contractible.
+\end{proposition}
+\begin{proof}
+    See, for instance, McDuff/Salamon or Gromov.
+\end{proof}
+
+%\begin{proof}
+%    Let $\Omega$ be the set of symplectic forms on $V$. By an argument similar to that in Remark
+%    \ref{rem:gl}, we have a homeomorphism $\Omega\cong\GL(2n,\R)/\Sp(2n)$.
+%    Define
+%    \begin{align*}
+%        \mathcal{C}_\tau &= \{(\omega,J)\in\Omega\times\mathcal{J}(V)\mid J\in\mathcal{J}_\tau(V,\omega)\},\\
+%        \mathcal{C} &= \{(\omega,J)\in\Omega\times\mathcal{J}(V)\mid J\in\mathcal{J}(V,\omega)\}.
+%    \end{align*}
+%    Clearly $\mathcal{C}_\tau$ injects into $\mathcal{C}$.
+%\end{proof}
 
 
 \subsection{Symplectic vector bundles}
@@ -913,7 +979,7 @@ standard complex structure.
     A \textbf{complex structure} on $\pi:E\to M$ is a bundle automorphism $J:E\to E$
     such that $J^2=-\id_{E}$. We say $J$ is \textbf{compatible} with $\omega$ if the
     induced complex structure on $E_x$ is compatible with $\omega_x$ for all $x\in X$.
-    By the above lemma, we obtain a symmetric, positive-definite bilinear form
+    We thus obtain a symmetric, positive-definite bilinear form
     $g_J\in\Gamma(X,\Sym^2 E^*)$, and we call the triple $(E, \omega, g_J)$ a
     \textbf{Hermitian structure} on $E$.
 \end{definition}
@@ -921,7 +987,88 @@ standard complex structure.
 \begin{theorem}
     Every symplectic vector bundle $(E,\omega)$ over a manifold $X$ admits a
     Hermitian structure.
+    \label{thm:herm}
 \end{theorem}
+
+We now prove the Theorem \ref{thm:lnt}, the Lagrangian neighborhood theorem, with the help
+of the following lemma.
+
+\begin{lemma}
+    Let $J\in\mathcal{J}(V,\omega)$. Then a subspace $\Lambda\subset V$ is Lagrangian
+    if and only if $J\Lambda^\perp=\Lambda$ with respect to $g_J$.
+\end{lemma}
+\begin{proof}
+    %If $\Lambda$ is Lagrangian then for $v\in\Lambda,w\in V$,
+    %\begin{equation*}
+    %    g_J(Jv,w)=\omega(Jv,Jw)=\omega(v,w)=0
+    %\end{equation*}
+    %if and only if $w\in\Lambda$ and hence $J\Lambda^\perp=\Lambda$. Conversely,
+    %if $J\Lambda^\perp=\Lambda$, for $v\in\Lambda,w\in V$,
+    %\begin{equation*}
+    %    \omega(v,w)=\omega(Jv,Jw)=g_J(Jv,w)=0
+    %\end{equation*}
+    %if and only if $w\in J\Lambda^\perp=\Lambda$ and hence $\Lambda$ is Lagrangian.
+    For $v\in\Lambda,w\in V$, the assertion that
+    \begin{equation*}
+        g_J(Jv,w)=\omega(Jv,Jw)=\omega(v,w)=0
+    \end{equation*}
+    implies that $\Lambda$ is Lagrangian if and only if $J\Lambda^\perp=\Lambda$.
+\end{proof}
+
+\begin{theorem}[Lagrangian neighborhood theorem]
+    Let $(M,\omega)$ be a symplectic manifold and let $L\subset M$ be a compact
+    Lagrangian submanifold. Then there exists a neighborhood $N(\Gamma_0)\subset T^*L$
+    of the zero section $\Gamma_0$, a neighborhood $U\subset M$ of $L$, and a
+    diffeomorphism $\phi:N(\Gamma_0)\to U$ such that $\phi^*\omega=-d\theta$ and
+    $\phi|_L=\id$, where $\theta$ is the canonical one-form on $T^*L$.
+\end{theorem}
+\begin{proof}
+    By Theorem \ref{thm:herm}, we can fix an arbitrary complex structure $J$ on the
+    tangent bundle $TM$ and denote the associated metric by $g_J$. Note that the metric yields
+    a diffeomorphism of bundles $\Phi:T^*L\to TL$ given by
+    \begin{equation*}
+        g_J(\Phi_q(v^*),v)=v^*(v)
+    \end{equation*}
+    for $v\in T_qL,v^*\in T_q^*L$. Now the map $\phi:T^*L\to M$ defined by
+    \begin{equation*}
+        \phi(q,v^*)=\exp_q(J_q\Phi_qv^*)
+    \end{equation*}
+    is a diffeomorphism from some neighborhood $N(\Gamma_0)$ of $\Gamma_0$ onto its image $U$,
+    where $\exp$ is the exponential map on $M$ corresponding to $g_J$.
+    
+    Now if $v=(v_0,v_1^*)\in T_{(q,0)}T^*L=T_qL\oplus T_q^*L$, we claim that
+    \begin{equation*}
+        d\phi_{(q,0)}(v) = v_0+J_q\Phi_qv_1^*.
+    \end{equation*}
+    By linearity, it suffices to compute $\d\phi_{(q,0)}$ on $T_qL$ and $T_q^*L$ separately.
+    In particular, let $c:[0,1]\to TM$ be a curve given by $c(t)=(a(t),0)$, with $c'(0)=(v_0,0)$.
+    Then
+    \begin{align*}
+        d\phi_{(q,0)}(v_0,0) &= \frac{d}{dt}\bigg|_{t=0}\exp_{a(t)}\left( J_{a(t)}\Phi_{a(t)}0 \right)\\
+        &=\frac{d}{dt}\bigg|_{t=0}a(t)\\
+        &=v_0.
+    \end{align*}
+    Next take $c(t)=(q,tv_1^*)$. Clearly $c'(0)=(0,v_1^*)$. Then
+    \begin{align*}
+        d\phi_{(q,0)}(0,v_1^*) &= \frac{d}{dt}\bigg|_{t=0}\exp_p(J_p\Phi_p tv_1^*)\\
+        &= J_p\Phi_pv_1^*,
+    \end{align*}
+    as desired.
+    
+    We can now compute, for $v=(v_0,v_1^*),w=(w_0,w_1^*)\in T_{(q,0)}T^*L$,
+    \begin{align*}
+        \phi^*\omega_{(q,0)}(v,w) &= \omega_q\left( v_0+J_q\Phi_qv_1^*, w_0+J_q\Phi_qw_1^* \right)\\
+        &= \omega_q(v_0,J_q\Phi_qw_1^*)-\omega_q(w_0,J_q\Phi_qv_1^*)\\
+        &= g_J(v_0,\Phi_qw_1^*) - g_J(w_0,\Phi_qv_1^*)\\
+        &= w_1^*(v_0) - v_1^*(w_0)\\
+        &= -d\theta_{(q,0)}(v,w).
+    \end{align*}
+    This shows that $\phi^*\omega=-d\theta$ on the zero section. Now the result follows
+    from Moser's trick, Theorem \ref{thm:moser}.
+\end{proof}
+
+\newpage
+\section{Week 5}
 
 
 
