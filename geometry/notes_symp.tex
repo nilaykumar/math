@@ -985,10 +985,15 @@ for $\omega$-tame complex structures.
 \end{definition}
 
 \begin{theorem}
-    Every symplectic vector bundle $(E,\omega)$ over a manifold $X$ admits a
-    Hermitian structure.
+    Let $E\to X$ be a $2n$-dimensional vector bundle. For any symplectic structure
+    $\omega$ on $E$, the space of compatible complex structures is nonempty and
+    contractible. For any complex structure $J$ on $E$, the space of symplectic
+    structures compatible with $J$ is nonempty and contractible.
     \label{thm:herm}
 \end{theorem}
+\begin{proof}
+    See McDuff/Salamon.\footnote{Understand this!}
+\end{proof}
 
 We now prove the Theorem \ref{thm:lnt}, the Lagrangian neighborhood theorem, with the help
 of the following lemma.
@@ -1070,7 +1075,237 @@ of the following lemma.
 \newpage
 \section{Week 5}
 
+\subsection{Almost complex structures}
+\begin{definition}
+    Let $M$ be a $2n$-dimensional real manifold. An \textbf{almost complex structure} on
+    $M$ is a complex structure $J$ on the tangent bundle $TM$. The almost complex structure
+    is \textbf{compatible} with a nondegenerate two-form $\omega$ on $M$ if $J$ is compatible 
+    with $\omega$.
+\end{definition}
 
+\begin{theorem}
+    For each nondegenerate two-form $\omega$ on $M$ the space of almost complex structures
+    compatible with $\omega$ is nonempty and contractible. Conversely, for every almost
+    complex structure on $M$ the space of compatible nondegenerate two-forms is nonempty
+    and contractible.
+\end{theorem}
+\begin{proof}
+    See Theorem \ref{thm:herm}.
+\end{proof}
+
+\begin{example}
+    Let $X\subset\R^3$ be an oriented hypersurface. Let $\nu:X\to S^2$ be the Gauss map,
+    which assigns to each point $x\in X$ the outward-pointing normal vector $\nu(x)\perp T_xX$.
+    Define, for $u\in T_xX$,
+    \begin{equation*}
+        J_xu = \nu(x)\times u,
+    \end{equation*}
+    where the product is the vector (cross) product on $\R^3$. It follows from the vector triple
+    product identity $a\times (b\times c)=b(g(a,c))-c(g(a,b))$, where $g$ is the standard
+    metric on $\R^3$, that $J_x^2=-\id_{T_xX}$. Define a two-form $\omega$ on $X$ by 
+    \begin{align*}
+        \omega(v,w) &= \iota(\nu(x))\Omega\\
+        &= g(\nu(x),v\times w),
+    \end{align*}
+    where $\Omega(u,v,w)$ is the determinant of the matrix whose columns are $u,v,w$.
+    It is straightforward to check that $J$ is compatible with $\omega$: for $v,w\in T_xX$,
+    \begin{align*}
+        \omega(J_xv,J_xw) &= g\left(\nu(x),(\nu(x)\times v)\times(\nu(x)\times w)\right)\\
+        &= g\left( \nu(x),\nu(x) g(\nu(x)\times v,w) \right)\\
+        &= g(w,\nu(x)\times v)\\
+        &= g(\nu(x),v\times w)\\
+        &= \omega(v,w)\\
+        \omega(v, J_xv) &= g(\nu(x), v\times (\nu(x)\times v))\\
+        &=g(\nu(x),g(v,v)\nu(x))\\
+        &=g(v,v)\\
+        &>0,
+    \end{align*}
+    where we have used the vector triple product identity as well as the cyclic property of
+    the scalar triple product.
+    \label{ex:vecprod}
+\end{example}
+
+\begin{example}
+    Consider $S^2\subset\R^3$ with the almost complex structure $J$ from the previous example.
+    We compute the expression of $J$ in stereographic coordinates. Recall we have $\phi:S^2-(0,0,1)\to\R^2$
+    given by
+    \begin{equation*}
+        \phi(x,y,z) = \left( \frac{x}{1-z}, \frac{y}{1-z} \right)
+    \end{equation*}
+    and inverse
+    \begin{equation*}
+        \psi(X,Y) = \left( \frac{2X}{1+X^2+Y^2},\frac{2Y}{1+X^2+Y^2},\frac{X^2+Y^2-1}{X^2+Y^2+1} \right).
+    \end{equation*}
+    For a point $p=(x,y,z)\in S^2$ and a vector $u=(v,w)\in T_pS^2$, a tedious computation reveals that
+    \begin{align*}
+        J_p(v,w) &= d\phi\left((x,y,z)\times d\psi(v,w)\right)\\
+        &= (w, -v).
+    \end{align*}
+    See \texttt{notes\_symp.nb} for the computation in Mathematica.
+\end{example}
+
+\begin{definition}
+    Let $(X,J)$ be an almost complex manifold. We define the \textbf{Nijenhuis tensor} $N_J$ by
+    \begin{equation*}
+        N_J(v,w) = [Jv,Jw] - J[Jv,w] - J[v,Jw] - [v,w]
+    \end{equation*}
+    for $v,w$ vector fields on $X$.
+\end{definition}
+
+\begin{lemma}
+    The Nijenhuis tensor is a covariant (2,0)-tensor on $X$ satisfying
+    \begin{enumerate}[(a)]
+        \item $N_J(v,Jv)=0$ for all vector fields $v$;
+        \item $N_{J_0}=0$;
+        \item If $\phi\in\Diff(M)$ and $v,w$ are vector fields then
+            \begin{equation*}
+                N_{\phi^*J}(\phi^*v,\phi^*w) = \phi^*N_J(v,w).
+            \end{equation*}
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Writing $v=v^i\partial/\partial x^i, w=w^i\partial/\partial x^i$ in local coordinates,
+    the Lie bracket $[v,w]$ becomes\footnote{We follow McDuff/Salamon in the convention that
+        $[v,w]\equiv-\mathcal{L}_vw$.}
+    \begin{equation*}
+        [v,w] = \left( w^j\frac{\partial v^i}{\partial x^j} - v^j\frac{\partial w^i}{\partial x^j} \right)\frac{\partial}{\partial x^i}.
+    \end{equation*}
+    Finish this.
+\end{proof}
+
+Suppose now that $(X,J)$ is an almost complex manifold. Denote by $T_\C X$ the complexification
+of the real vector bundle $TX$, i.e. $T_\C X=TX\otimes\C$. We note that the complexified
+tangent bundle splits into $\pm i$ $J$-eigenbundles $T_\C X = T^{1,0}X\oplus T^{0,1}X$,
+respectively.\footnote{Here, $J$ is really $J\otimes\C$.} These are often referred to as the
+holomorphic and antiholomorphic tangent bundles of $X$.
+
+\begin{definition}
+    Let $X$ be an almost complex manifold. We define the vector bundles
+    \begin{align*}
+        \bigwedge\nolimits^k_\C X &\equiv \bigwedge\nolimits^k(T_\C X)^*\\
+        \bigwedge\nolimits^{p,q}X &\equiv \bigwedge\nolimits^p(T^{1,0}X)^*\otimes_\C\bigwedge\nolimits^q(T^{0,1}X)^*.
+    \end{align*}
+    and write $\mathcal{A}^k_{X,\C}$ and $\mathcal{A}^{p,q}_X$ for their sheaves of sections,
+    respectively. We denote the projections $\mathcal{A}^\bullet\to \mathcal{A}^k$ and
+    $\mathcal{A}^\bullet\to\mathcal{A}^{p,q}$ by $\Pi^k$ and $\Pi^{p,q}$ respectively. It
+    is not hard to show that
+    \begin{align*}
+        \bigwedge\nolimits^k_\C X &= \bigoplus_{p+q=k}\bigwedge\nolimits^{p,q}X\\
+        \mathcal{A}^k_{\C} &= \bigoplus_{p+q=k}\mathcal{A}^{p,q}
+    \end{align*}
+    and additionally, that $\overline{\bigwedge^{p,q}X}=\bigwedge^{q,p}X$ and
+    $\overline{\mathcal{A}^{p,q}}=\mathcal{A}^{q,p}$.
+    Now if $d:\mathcal{A}^k_\C\to\mathcal{A}^{k+1}_\C$ is the exterior
+    derivative\footnote{Here, $d$ is really $d\otimes\C$.}, we write
+    \begin{align*}
+        \partial &\equiv \Pi^{p+1,q}\circ d\\
+        \bar\partial &\equiv \Pi^{p,q+1}\circ d,
+    \end{align*}
+    and $\partial,\bar\partial$ satisfy the appropriate graded Leibniz rule.
+\end{definition}
+
+With this notation now set, we come to the key definition.
+\begin{proposition}
+    Let $(X,J)$ be a complex manifold. Then the following conditions are equivalent:
+    \begin{enumerate}[(a)]
+        \item $d=\partial+\bar\partial$ on $\mathcal{A}^\bullet$;
+        \item $\Pi^{0,2}\circ d=0$ on $\mathcal{A}^{1,0}$;
+        \item $[T^{0,1}X,T^{0,1}X]\subset T^{0,1}X$;
+        \item $N_J=0$.
+    \end{enumerate}
+    If $X$ satisfies one of these equivalent conditions then $J$ is said to be an
+    \textbf{integrable} almost complex structure.
+    \label{prop:integrable}
+\end{proposition}
+\begin{proof}
+    We show that (a) is equivalent to (b), (b) is equivalent to (c), and that (c) is
+    equivalent to (d).
+
+    For (a)$\leftrightarrow$(b),
+    suppose first that $d=\partial+\bar\partial$ and $\alpha\in\mathcal{A}^{1,0}$.
+    Then
+    \begin{align*}
+        \Pi^{0,2}d\alpha &= \Pi^{0,2}(\partial+\bar\partial)\alpha\\
+        &= \Pi^{0,2}(\Pi^{2,0}+\Pi^{1,1})d\alpha\\
+        &= 0.
+    \end{align*}
+    Conversely, suppose $\Pi^{0,2}d=0$ on $\mathcal{A}^{1,0}$. Clearly $d=\partial+\bar\partial$
+    if and only if $d\alpha\in\mathcal{A}^{p+1,q}\oplus\mathcal{A}^{p,q+1}$ for
+    all $\alpha\in\mathcal{A}^{p,q}$. Now any $\alpha\in\mathcal{A}^{p,q}$ can locally
+    be written as a linear combination of terms of the form
+    $f_{IJ}w_{i_1}\wedge\cdots\wedge w_{i_p}\wedge w'_{j_1}\wedge\cdots\wedge w'_{j_q}$,
+    with the $w\in \mathcal{A}^{1,0}$ and $w'\in\mathcal{A}^{0,1}$. Then $d\alpha$
+    is expressed as a linear combination of terms involving $df_{IJ}$, $dw_i$, and $dw_j'$.
+    We have that $df\in\mathcal{A}^2_\C=\mathcal{A}^{1,0}\oplus\mathcal{A}^{0,1}$,
+    which takes care of the terms containing $df_{IJ}$. Similarly, since $\Pi^{0,2}d=0$
+    on $\mathcal{A}^{1,0}$ by assumption, $dw_i\in\mathcal{A}^{2,0}\oplus\mathcal{A}^{1,1}$,
+    which takes care of the terms containing the $dw_i$. Finally, we have that
+    $dw_j'\in\mathcal{A}^{1,1}\oplus\mathcal{A}^{0,2}$ since $\Pi^{2,0}d=0$ on $\mathcal{A}^{0,1}$
+    (seen by conjugating (b)), which takes care of the terms containing the $dw'_j$. We
+    conclude that $d\alpha\in\mathcal{A}^{p+1,q}\oplus\mathcal{A}^{p,q+1}$, as desired.
+
+    We now prove (b)$\leftrightarrow$(c). Fix any $\alpha\in\mathcal{A}^{1,0}$ and
+    $v,w$ sections of $T^{0,1}$. Then, by definition of $d\alpha$, and since $\alpha$
+    vanishes on $T^{0,1}$, we find that
+    \begin{align*}
+        (d\alpha)(v,w) &= v\alpha(w)-w\alpha(v)-\alpha[v,w]\\
+        &= -\alpha[v,w].
+    \end{align*}
+    We conclude that $\Pi^{0,2}d=0$ if and only if $[v,w]\in T^{0,1}$.
+
+    We now prove $(c)\leftrightarrow(d)$. Suppose for now that any section of $T^{0,1}$
+    can be written as $v+iJv$ for $v$ a section of $TX\otimes\C$. Then
+    \begin{equation*}
+        [v+iJv, w+iJw] = [v,w]-[Jv,Jw]-i\left( [Jv,w]+[v,Jw] \right).
+    \end{equation*}
+    This is of the form $u+iJu$ if and only if
+    \begin{equation*}
+        J\left( [v,w]-[Jv,Jw] \right)=[Jv,w]+[v,Jw],
+    \end{equation*}
+    which is equivalent to $N_J(v,w)=0$. It remains to show that any section of
+    $T^{0,1}$ can be written as $v+iJv$. Finish this.
+\end{proof}
+
+\begin{example}
+    Let $X$ be a complex manifold. Then we have local coordinates $z_i,\bar z_i$
+    for $i=1,\ldots,n$ and the standard almost complex structure $J_0$ 
+    acting as $i$ on $\partial/\partial z_i$ and $-i$ on $\partial/\partial\bar z_i$.
+    Now we note that for $\alpha\in\mathcal{A}^{p,q}$ written $\alpha=\alpha_{IJ}dz^I\wedge d\bar z^J$,
+    we have
+    \begin{equation*}
+        d\alpha = \left(\frac{\partial\alpha_{IJ}}{\partial z^k}dz^k+\frac{\partial\alpha_{IJ}}{\partial\bar z^k}d\bar z^k\right)\wedge dz^I\wedge d\bar z^J.
+    \end{equation*}
+    Clearly then $d=\partial + \bar\partial$, as $\partial=\Pi^{p+1,q}d$ and $\bar\partial=\Pi^{p,q+1}$.
+    Hence, by Proposition \ref{prop:integrable}(a), $J_0$ is integrable.
+\end{example}
+
+The above example shows that complex manifolds induce integrable almost complex
+structures on their underyling real manifolds in a natural way. It is a highly
+nontrivial fact that the converse is also true.
+
+\begin{theorem}[Newlander-Nirenberg, 1957]
+    Let $(X,J)$ be an almost complex manifold. Then $J$ is integrable if and only if
+    $X$ has a holomorphic atlas (making it a complex manifold) such that the induced almost
+    complex structure is $J$.
+\end{theorem}
+
+\begin{example}
+    Let $(X,J)$ be a two-dimensional almost complex manifold. In this case
+    $\mathcal{A}^2_\C=\mathcal{A}^{1,1}$ and hence by Proposition \ref{prop:integrable}(b),
+    we find that $J$ is integrable. We conclude using the Newlander-Nirenberg theorem
+    that every two-dimensional almost complex manifold is in fact a complex manifold.
+\end{example}
+
+\begin{example}
+    It turns out that there exists a vector product on $\R^7$ that is bilinear and skew-symmetric,
+    and hence it follows along the lines of Example \ref{ex:vecprod} that every oriented
+    hypersurface $X\subset\R^7$ carries an almost complex structure. This argument shows, in
+    particular, that $S^6$ is an almost complex manifold. It was shown by Calabi, however,
+    that this almost complex structure is not integrable. Indeed, the existence of an integrable
+    almost complex structure on $S^6$ is still an open problem.
+\end{example}
+
+\subsection{K\"ahler manifolds}
 
 
 \end{document}
