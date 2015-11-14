@@ -17,8 +17,8 @@
 \tableofcontents
 
 These notes were written for a reading course with Professor Eric Zaslow on
-the basics of symplectic geometry.
-These notes are quite rough: \textit{caveat lector}.\footnote{add references!}
+the basics of symplectic geometry. They follow Mcduff/Salamon quite closely.
+These notes are rather rough, and in several places woefully incomplete: \textit{caveat lector}.\footnote{add references!}
 
 \section{Week 1}
 
@@ -153,7 +153,7 @@ constant along the Hamiltonian flow, as
 \begin{equation*}
     dH(v_H) = (\iota_{v_H}\omega)(v_H)=\omega(v_H,v_H) = 0,
 \end{equation*}
-i.e. $v_H$ is perpendicular to the level sets of $H$. In a physical system, where $H$ is the
+i.e. $v_H$ is tangent to the level sets of $H$. In a physical system, where $H$ is the
 energy functional on phase space, this phenomenon is the law of conservation of energy.
 
 \begin{proposition}
@@ -1342,5 +1342,161 @@ nontrivial fact that the converse is also true.
     Let $J$ be the induced integrable almost complex structure.
 \end{example}
 
+
+\newpage
+\section{Week 6}
+\subsection{Poisson brackets}
+\begin{definition}
+    Let $(M,\omega)$ be a symplectic manifold. We say that a vector field $X\in\mathcal{X}(M)$
+    is \textbf{symplectic} if
+    \begin{equation*}
+        d(\iota(X)\omega) = 0,
+    \end{equation*}
+    or equivalently,
+    \begin{equation*}
+        \mathcal{L}_X\omega=0.
+    \end{equation*}
+    We denote the vector space of symplectic vector fields by $\mathcal{X}(M,\omega)$.
+\end{definition}
+
+\begin{proposition}
+    Let $M$ be closed and let $X\in\mathcal{X}(M)$ be a smooth vector field with flow
+    $F:I\times M\to M$. Then $F_t$ is a symplectomorphism for all $t$ if and only if
+    $X$ is symplectic.
+\end{proposition}
+\begin{proof}
+    Note that $F_t^*\omega:I\to \Gamma(M,\bigwedge^2T^*M)$ gives us a smooth curve in
+    the vector space $\Gamma(M,\bigwedge^2T^*M)$. Then
+    \begin{align*}
+        \frac{d}{dt}\left( F_t^*\omega \right) &= \frac{d}{ds}\bigg|_{s=0}\left( F_{s+t}^*\omega\right)\\
+        &=F_t^*\mathcal{L}_X\omega\\
+        &= F_t^*d(\iota_{X}\omega)
+    \end{align*}
+    and we see that the curve is constant at $\omega$ if and only if $X\in\mathcal{X}(M,\omega)$.\footnote{Understand
+    this computation better.}
+\end{proof}
+
+For the most part, we will focus on a subset of symplectic vector fields known as
+Hamiltonian vector fields (also introduced in section 1).
+\begin{definition}
+    Let $H:M\to \R$ be a smooth function and let $X_H$ be the vector field determined
+    uniquely by
+    \begin{equation*}
+        \iota_{X_H}\omega = dH.
+    \end{equation*}
+    We say that $X_H$ is a \textbf{Hamiltonian vector field} for the \textbf{Hamiltonian} $H$.
+    If $M$ is closed, $X_H$ generates a smooth one-parameter group of symplectomorphisms
+    $F_H^t$ as its flow. We call this the \textbf{Hamiltonian flow}
+    associated to $H$. Computing as in the proof of the proposition above, we find that
+    \begin{align*}
+        \frac{d}{dt}\left( (F_H^t)^*H\right) &= X_HH = dH(X_H)\\
+        &=(\iota_{X_H}\omega)(X_H)\\
+        &=\omega(X_H,X_H)\\
+        &=0.
+    \end{align*}
+    We conclude that $H$ is constant along the Hamiltonian flow.
+\end{definition}
+
+\begin{example}
+    Sphere with cylindrical polar coordinates and H the height function.
+\end{example}
+
+\begin{definition}
+    Let $k$ be a field.
+    A \textbf{Poisson algebra} $A$ over $k$ is an $k$-vector space equipped with bilinear products
+    $\cdot$ and $\{\cdot,\cdot\}$ such that
+    \begin{enumerate}[(a)]
+        \item the product $\cdot$ gives $A$ the structure of an associative $k$-algebra;
+        \item the bracket $\{\cdot,\cdot\}$ gives $A$ the structure of a Lie algebra;
+        \item the bracket $\{\cdot,\cdot\}$ is a $k$-derivation over the product $\cdot$.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Let $(M,\omega)$ be a symplectic manifold. Define a product on $C^\infty(M)$ as
+    \begin{equation*}
+        \{f,g\} \equiv \omega(X_f,X_g).
+    \end{equation*}
+    Then $C^\infty(M)$ forms a real Poisson algebra.
+    \label{prop:symppoisson}
+\end{proposition}
+\begin{proof}
+    That $C^\infty(M)$ is an associative $\R$-algebra under multiplication is clear
+    (in fact, it is even commutative).
+    Now, since
+    \begin{equation*}
+        \iota_{X_{f_1}+X_{f_2}}\omega=\iota_{X_{f_1}}\omega+\iota_{X_{f_2}}\omega=df_1+df_2=d(f_1+f_2)=\iota_{X_{f_1+f_2}}\omega.
+    \end{equation*}
+    uniqueness forces $X_{f_1}+X_{f_2}=X_{f_1+f_2}$. It follows immediately that the
+    Poisson bracket is bilinear.
+    That the bracket is alternating follows from the fact that $\omega$ is.
+    Similarly, since
+    \begin{equation*}
+        \iota_{gX_h+hX_g}\omega=g\iota_{X_h}\omega+h\iota_{X_g}\omega=gdh+hdg=d(gh)=\iota_{X_{gh}\omega},
+    \end{equation*}
+    we conclude that $X_{gh}=gX_h+hX_g$, and hence
+    \begin{equation*}
+        \{f,gh\}=\omega(X_f,X_{gh})=g\omega(X_f,X_h)+h\omega(X_f,X_g)=g\{f,h\}+h\{f,g\},
+    \end{equation*}
+    which proves the derivation property (that the bracket is zero on a constant in $\R$ is easy to check).
+    
+    It remains to check the Jacobi identity
+    \begin{equation*}
+        \{f,\{g,h\}\} + \{g,\{h,f\}\} + \{h,\{f,g\}\} = 0.
+    \end{equation*}
+    Using anticommutativity and the fact that
+    \begin{equation*}
+        \{f,g\}=(\iota_{X_f}\omega)(X_g)=df(X_g)=X_g f,
+    \end{equation*}
+    we can rewrite the left-hand side as
+    \begin{align*}
+        X_fX_gh-X_gX_fh+X_{\{f,g\}}h &= [X_f,X_g]h+X_{\{f,g\}}h.
+    \end{align*}
+    Hence it suffices to show that $X_{\{f,g\}}=[X_g,X_f]$ (in words, the assignment
+    $f\mapsto X_f$ is a Lie algebra antihomomorphism).
+    To see this, note that
+    \begin{equation*}
+        \mathcal{L}_{X_f}\iota_{X_g}\omega = d\iota_{X_f}\iota_{X_g}\omega=d\{g,f\}=\iota_{X_{\{g,f\}}}\omega
+    \end{equation*}
+    and, using Cartan's (second magic) formula,\footnote{See Morita's Geometry of Differential Forms, Theorem 2.11(1).}
+    \begin{equation*}
+        \mathcal{L}_{X_f}\iota_{X_g}\omega=\iota_{\mathcal{L}_{X_f}X_g}\omega+\iota_{X_g}\mathcal{L}_{X_f}\omega=\iota_{[X_f,X_g]}\omega
+    \end{equation*}
+    (since $\mathcal{L}_{X_f}\omega=0$), so
+    \begin{equation*}
+        \iota_{X_{\{g,f\}}}\omega=\iota_{[X_f,X_g]}\omega.
+    \end{equation*}
+    Now uniqueness implies that $X_{\{g,f\}}=[X_f,X_g]$, as desired.
+\end{proof}
+
+A manifold equipped with a Poisson algebra structure on its smooth functions is called a
+Poisson manifold. The previous proposition shows that every symplectic manifold is a Poisson
+manifold. The following example shows that the converse is not true, as a Poisson manifold
+can have arbitrary dimension.
+
+\begin{example}[Lie-Poisson structure]
+    Let $\fr g$ be a real Lie algebra. Denote by $\fr g^*$ the dual vector space. Treating
+    $\fr g^*$ as a manifold, we note that the de Rham differential of $f\in C^\infty(\fr g^*)$
+    is $df_\alpha:T_\alpha\fr g^*=\fr g^*\to\R$ for $\alpha\in\fr g^*$. Since $\fr g^{**}$ is
+    naturally identified with $\fr g$, it is easy to check that
+    \begin{equation*}
+        \{f,g\}(\alpha) = \alpha[dg,df].
+    \end{equation*}
+    provides a Poisson structure on $\fr g^*$.
+\end{example}
+
+Moreover, note that the Poisson algebra obtained from a symplectic structure is
+commutative in the product $\cdot$. Give an example of a deformation.
+
+Morphisms in the category of Poisson manifolds? (see Wikipedia)
+
+What happens if $H:M\to\R$ is Morse? This implies that $dH:M\hookrightarrow T^*M$ intersects the zero section
+of $T^*M$ transversely. What does this give us?
+
+Can we extend the Poisson structure to the exterior algebra of forms?
+
+
+\subsection{Group actions}
+\subsection{Examples}
 
 \end{document}
