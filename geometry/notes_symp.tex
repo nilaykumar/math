@@ -1075,10 +1075,12 @@ of the following lemma.
 \newpage
 \section{Week 5}
 
-\subsection{Almost complex structures}
+\subsection{Almost complex manifolds}
 \begin{definition}
     Let $M$ be a $2n$-dimensional real manifold. An \textbf{almost complex structure} on
-    $M$ is a complex structure $J$ on the tangent bundle $TM$. The almost complex structure
+    $M$ is a complex structure $J$ on the tangent bundle $TM$.
+    In this situation  we say that $(M,J)$ is an almost complex manifold.
+    The almost complex structure
     is \textbf{compatible} with a nondegenerate two-form $\omega$ on $M$ if $J$ is compatible 
     with $\omega$.
 \end{definition}
@@ -1136,24 +1138,23 @@ of the following lemma.
     \begin{equation*}
         \psi(X,Y) = \left( \frac{2X}{1+X^2+Y^2},\frac{2Y}{1+X^2+Y^2},\frac{X^2+Y^2-1}{X^2+Y^2+1} \right).
     \end{equation*}
-    For a point $p=(x,y,z)\in S^2$ and a vector $u=(v,w)\in T_pS^2$, a tedious computation reveals that
+    For a point $p=(x,y,z)\in S^2$ and a vector $u=(v,w)\in T_pS^2$, some computation reveals that
     \begin{align*}
         J_p(v,w) &= d\phi\left((x,y,z)\times d\psi(v,w)\right)\\
         &= (w, -v).
     \end{align*}
-    See \texttt{notes\_symp.nb} for the computation in Mathematica.
 \end{example}
 
 \begin{definition}
     Let $(X,J)$ be an almost complex manifold. We define the \textbf{Nijenhuis tensor} $N_J$ by
     \begin{equation*}
-        N_J(v,w) = [Jv,Jw] - J[Jv,w] - J[v,Jw] - [v,w]
+        N_J(v,w) = [v,w] + J[Jv,w] + J[v,Jw] - [Jv,Jw]
     \end{equation*}
     for $v,w$ vector fields on $X$.
 \end{definition}
 
 \begin{lemma}
-    The Nijenhuis tensor is a covariant (2,0)-tensor on $X$ satisfying
+    The Nijenhuis tensor is a skew-symmetric covariant (2,0)-tensor on $X$ satisfying
     \begin{enumerate}[(a)]
         \item $N_J(v,Jv)=0$ for all vector fields $v$;
         \item $N_{J_0}=0$;
@@ -1206,7 +1207,7 @@ holomorphic and antiholomorphic tangent bundles of $X$.
 
 With this notation now set, we come to the key definition.
 \begin{proposition}
-    Let $(X,J)$ be a complex manifold. Then the following conditions are equivalent:
+    Let $(X,J)$ be an almost complex manifold. Then the following conditions are equivalent:
     \begin{enumerate}[(a)]
         \item $d=\partial+\bar\partial$ on $\mathcal{A}^\bullet$;
         \item $\Pi^{0,2}\circ d=0$ on $\mathcal{A}^{1,0}$;
@@ -1294,6 +1295,7 @@ nontrivial fact that the converse is also true.
     $\mathcal{A}^2_\C=\mathcal{A}^{1,1}$ and hence by Proposition \ref{prop:integrable}(b),
     we find that $J$ is integrable. We conclude using the Newlander-Nirenberg theorem
     that every two-dimensional almost complex manifold is in fact a complex manifold.
+    \label{ex:riemannintegrable}
 \end{example}
 
 \begin{example}
@@ -1306,6 +1308,39 @@ nontrivial fact that the converse is also true.
 \end{example}
 
 \subsection{K\"ahler manifolds}
+
+\begin{definition}
+    A \textbf{K\"ahler} manifold is a symplectic manifold $(M,\omega)$ equipped
+    with an integrable almost complex structure $J\in\mathcal{J}(M,\omega)$.
+\end{definition}
+
+\begin{example}
+    The most basic example of a K\"ahler manifold is $(\R^{2n},\omega_0,J_0)$.
+    Indeed, viewing $\R^{2n}$ as $\C^n$ we can introduce coordinates $z^i=x^i+iy^i,\bar z^i=x^i-iy^i$ with
+    respect to which $T^{1,0}\C^{n}$ and $T^{0,1}\C^{n}$ are trivialized by
+    the frames $\partial/\partial z^i$ and $\partial/\partial \bar z^i$, respectively.
+    Then it is straightforward to check that $d=\partial+\bar\partial$ on $\mathcal{A}^\bullet_\C$.
+    In these coordinates,
+    \begin{align*}
+        dz^i &= dx^i+idy^i\\
+        d\bar z^i &= dx^i - idy^i.
+    \end{align*}
+    and a easy computation reveals that the symplectic form $\omega_0$ can be written
+    \begin{equation*}
+        \omega_0 = \frac{i}{2}\sum_{i=1}^ndz^i\wedge d\bar z^i.
+    \end{equation*}
+    In fact, if we let $f=\sum_i^n\bar z^iz^i$, we can write $\omega_0=i\partial\bar\partial f/2$.
+\end{example}
+
+\begin{example}
+    Every two-dimensional symplectic manifold is K\"ahler with respect to any compatible
+    almost complex structure.
+\end{example}
+
+\begin{example}[Complex projective space]
+    Let $\PP^n$ denote the complex projective space, which is a complex manifold of dimension $n$. 
+    Let $J$ be the induced integrable almost complex structure.
+\end{example}
 
 
 \end{document}
