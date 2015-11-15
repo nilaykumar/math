@@ -1450,23 +1450,23 @@ Hamiltonian vector fields (also introduced in section 1).
     \end{equation*}
     we can rewrite the left-hand side as
     \begin{align*}
-        X_fX_gh-X_gX_fh+X_{\{f,g\}}h &= [X_f,X_g]h+X_{\{f,g\}}h.
+        X_fX_gh-X_gX_fh+X_{\{f,g\}}h &= -[X_f,X_g]h+X_{\{f,g\}}h.
     \end{align*}
-    Hence it suffices to show that $X_{\{f,g\}}=[X_g,X_f]$ (in words, the assignment
-    $f\mapsto X_f$ is a Lie algebra antihomomorphism).
+    Hence it suffices to show that $X_{\{f,g\}}=[X_f,X_g]$\footnote{We follow Mcduff/Salamon in the
+        convention that $[X,Y]=-\mathcal{L}_XY$.}
     To see this, note that
     \begin{equation*}
         \mathcal{L}_{X_f}\iota_{X_g}\omega = d\iota_{X_f}\iota_{X_g}\omega=d\{g,f\}=\iota_{X_{\{g,f\}}}\omega
     \end{equation*}
     and, using Cartan's (second magic) formula,\footnote{See Morita's Geometry of Differential Forms, Theorem 2.11(1).}
     \begin{equation*}
-        \mathcal{L}_{X_f}\iota_{X_g}\omega=\iota_{\mathcal{L}_{X_f}X_g}\omega+\iota_{X_g}\mathcal{L}_{X_f}\omega=\iota_{[X_f,X_g]}\omega
+        \mathcal{L}_{X_f}\iota_{X_g}\omega=\iota_{\mathcal{L}_{X_f}X_g}\omega+\iota_{X_g}\mathcal{L}_{X_f}\omega=\iota_{[X_g,X_f]}\omega
     \end{equation*}
     (since $\mathcal{L}_{X_f}\omega=0$), so
     \begin{equation*}
         \iota_{X_{\{g,f\}}}\omega=\iota_{[X_f,X_g]}\omega.
     \end{equation*}
-    Now uniqueness implies that $X_{\{g,f\}}=[X_f,X_g]$, as desired.
+    Now uniqueness implies that $X_{\{f,g\}}=[X_f,X_g]$, as desired.
 \end{proof}
 
 A manifold equipped with a Poisson algebra structure on its smooth functions is called a
@@ -1480,13 +1480,13 @@ can have arbitrary dimension.
     is $df_\alpha:T_\alpha\fr g^*=\fr g^*\to\R$ for $\alpha\in\fr g^*$. Since $\fr g^{**}$ is
     naturally identified with $\fr g$, it is easy to check that
     \begin{equation*}
-        \{f,g\}(\alpha) = \alpha[dg,df].
+        \{f,g\}(\alpha) = \alpha[dg_\alpha,df_\alpha].
     \end{equation*}
     provides a Poisson structure on $\fr g^*$.
 \end{example}
 
-Moreover, note that the Poisson algebra obtained from a symplectic structure is
-commutative in the product $\cdot$. Give an example of a deformation.
+Note that the Poisson algebras in the two examples above are
+commutative in the product $\cdot$, but these need not be the case in general.
 
 Morphisms in the category of Poisson manifolds? (see Wikipedia)
 
@@ -1497,6 +1497,110 @@ Can we extend the Poisson structure to the exterior algebra of forms?
 
 
 \subsection{Group actions}
+Before discussing group actions on symplectic manifolds, we review some basic notions
+from Lie theory. Let $G$ be a Lie group and $\fr g=T_eG$ be its Lie algebra, and denote
+left (right) multiplication by $g$ as $L_g$ ($R_g$).
+
+\begin{lemma}
+    There is a Lie algebra isomorphism between the Lie algebra $\fr g$ of $G$ and the space
+    of left-invariant vector fields on $G$. In particular $X\in\fr g$ is sent to the vector field
+    $\tilde X$ satisfying $(L_g^*\tilde X)_h=\tilde X_{gh}$ for all $g\in G$ such that $\tilde X_e=X$.
+\end{lemma}
+
+\begin{lemma}
+    The left-invariant vector fields on $G$ are complete, i.e. their flows define
+    diffeomorphisms of $G$.
+\end{lemma}
+\begin{proof}
+    By the uniqueness of integral curves, it suffices to show that if $\gamma:I\to G$ is
+    an integral curve then $L_g\circ\gamma$ is as well. This is a straightforward computation:
+    \begin{align*}
+        \frac{d}{dt}\left( L_g\circ \gamma \right) &= (dL_g\circ d\gamma)\left( \frac{d}{dt} \right)\\
+        &= dL_g(X_{\gamma(t)})\\
+        &= X_{L_g\circ\gamma(t)},
+    \end{align*}
+    as desired.
+\end{proof}
+
+\begin{definition}
+    The \textbf{exponential map} is the smooth map $\exp: \fr g\to G$ given by
+    \begin{equation*}
+        \exp(\xi) = \phi_\xi^1(e),
+    \end{equation*}
+    where $\phi_\xi^1:G\to G$ is the time 1 flow associated to the left-invariant
+    vector field $\tilde \xi$. It is easy to see that $\exp(t\xi)=\phi^t_\xi(e)$.
+    Moreover, if $[\xi,\eta]=0$ then $\exp(\xi+\eta)=\exp(\xi)\exp(\eta)$.
+    Finally, for a morphism $f:G\to H$ of Lie groups, we obtain a commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            G\ar{r}{f} & H\\
+            \fr g\ar{r}{df_e}\ar{u}{\exp} & \fr h\ar[swap]{u}{\exp}
+        \end{tikzcd}
+    \end{equation*}
+    which we will refer to as the naturality of $\exp$.
+    Note that the differential at $e$ of a Lie group homomorphism is a Lie algebra
+    homomorphism, as is $df_e$ here.
+\end{definition}
+
+We now consider the symplectic case.
+
+\begin{proposition}
+    The Lie algebra of the Lie group of symplectomorphisms $\Symp(M,\omega)$ is
+    the space of symplectic vector fields $\mathcal{X}(M,\omega)$.
+    \label{prop:sympvf}
+\end{proposition}
+\begin{proof}
+    This involves dealing with time-dependent vector fields, so I'll work through
+    it later.
+\end{proof}
+
+Now suppose $G$ acts on
+$(M,\omega)$ symplectomorphically, i.e. there is a group homomorphism $\psi:G\to\Symp(M,\omega)$
+taking $g\mapsto\psi_g$. Differentiating this map at the identity yields a Lie
+algebra homomorphism $d\psi_e:\fr g\to \mathcal{X}(M,\omega)$. We denote the image of $\xi\in\fr g$
+under $d\psi_e$ by $\xi_M$. Now let $c:G\to\Aut(G)$ be the conjugation homomorphism $c_gh=ghg^{-1}$ and
+denote by $\Ad:G\to\Aut(\fr g)$ the homomorphism taking $g$ to $(dc_g)_e$.
+
+\begin{lemma}
+    In the notation above, we have an equality of vector fields
+    \begin{equation*}
+        (\Ad_g\xi)_M = \psi_{g^{-1}}^*\xi_M,
+    \end{equation*}
+    for $\xi\in\fr g$.
+\end{lemma}
+\begin{proof}
+    For $p\in M$ we can write, using the naturality of $\exp$ and the chain rule,\footnote{Review this.}
+    \begin{align*}
+        (\Ad_g\xi)_M(p) &= \frac{d}{dt}\bigg|_{t=0}\psi_{\exp(t\Ad_g\xi)}(p)\\
+        &= \frac{d}{dt}\bigg|_{t=0}\psi_{g\exp(t\xi)g^{-1}}(p)\\
+        &= \frac{d}{dt}\bigg|_{t=0}\psi_g\psi_{\exp(t\xi)}(\psi_{g^{-1}}(p))\\
+        &= d\psi_g|_{\psi_{g^{-1}}(p)}\xi_M(\psi_{g^{-1}}(p))\\
+        &= (\psi^*_{g^{-1}}d\psi|_e\xi)(p).
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    An action $\psi$ of $G$ on $(M,\omega)$ is \textbf{weakly Hamiltonian} if the vector
+    field $\xi_M$ is Hamiltonian for each $\xi\in\fr g$, i.e.
+    \begin{equation*}
+        \iota_{\xi_M}\omega = dH_\xi
+    \end{equation*}
+    for some $H_\xi\in C^\infty(M)$. For a weakly Hamiltonian action, then, we obtain a map
+    $\fr g\to C^\infty(M)$ taking $\xi\mapsto H_\xi$. This map is \textit{a priori} not even
+    linear. However, since each $H_\xi$ is defined only up to a constant, we can choose the
+    $H_\xi$ to make $\fr g\to C^\infty(M)$ linear.
+
+    We say the action $\psi$ of $G$ on $(M,\omega)$ is \textbf{Hamiltonian} if the map
+    $\fr g\to C^\infty(M)$ can be chosen to be a Lie algebra homomorphism (with respect
+    to the Poisson structure on $C^\infty(M)$).
+\end{definition}
+
+\begin{example}
+    Circle action on $S^2$.
+\end{example}
+
+\subsection{Lie algebra cohomology}
+
 \subsection{Examples}
 
 \end{document}
