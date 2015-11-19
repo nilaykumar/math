@@ -1356,7 +1356,7 @@ nontrivial fact that the converse is also true.
     \begin{equation*}
         \mathcal{L}_X\omega=0.
     \end{equation*}
-    We denote the vector space of symplectic vector fields by $\mathcal{X}(M,\omega)$.
+    We denote the Lie algebra of symplectic vector fields by $\mathcal{X}(M,\omega)$.
 \end{definition}
 
 \begin{proposition}
@@ -1497,6 +1497,7 @@ Can we extend the Poisson structure to the exterior algebra of forms?
 
 
 \subsection{Group actions}
+
 Before discussing group actions on symplectic manifolds, we review some basic notions
 from Lie theory. Let $G$ be a Lie group and $\fr g=T_eG$ be its Lie algebra, and denote
 left (right) multiplication by $g$ as $L_g$ ($R_g$).
@@ -1551,7 +1552,7 @@ We now consider the symplectic case.
 \end{proposition}
 \begin{proof}
     This involves dealing with time-dependent vector fields, so I'll work through
-    it later.
+    it later.\footnote{Finish}
 \end{proof}
 
 Now suppose $G$ acts on
@@ -1595,12 +1596,201 @@ denote by $\Ad:G\to\Aut(\fr g)$ the homomorphism taking $g$ to $(dc_g)_e$.
     to the Poisson structure on $C^\infty(M)$).
 \end{definition}
 
+\begin{definition}
+    Suppose $\psi$ is a Hamiltonian action of $G$ on $(M,\omega)$. We say that a map
+    $\mu:M\to\fr g^*$ is a \textbf{moment map} for the action if
+    \begin{equation*}
+        H_\xi(p) = \langle \mu(p), \xi\rangle,
+    \end{equation*}
+    where $\langle\cdot,\cdot\rangle$ is the pairing between $\fr g^*$ and $\fr g$.
+\end{definition}
+
 \begin{example}
-    Circle action on $S^2$.
+    Consider the action of $S^1$ on the sphere (with its usual symplectic structure)
+    that rotates the sphere about its vertical axis. More precisely, using cylindrical
+    coordinates $\theta,z$ away from the poles, the action is given by $\psi:S^1\times S^2\to S^2$
+    as $(\rho, (\theta,z))\mapsto (\theta+\rho,z)$. The associated Lie algebra
+    action is then $d\psi_e:\fr u(1)\cong\R\to \mathcal{X}(S^2,\omega)$ given by
+    $\xi\mapsto \xi\partial/\partial\theta$. In the notation above,
+    \begin{equation*}
+        \xi_M = \xi\frac{\partial}{\partial\theta}.
+    \end{equation*}
+    Now, since $\omega=d\theta\wedge dz$ away from the poles, we find that
+    $\iota_{\xi_M} \omega = \xi dz$. Hence the action is Hamiltonian (the Poisson condition
+    is trivial as $\fr u(1)$ is one-dimensional) since 
+    \begin{equation*}
+        H_\xi=\xi z.
+    \end{equation*}
+    We obtain a moment map $\mu:S^2\to\fr u(1)^*\cong\R$ given simply by
+    \begin{equation*}
+        \mu(\theta,z) = z.
+    \end{equation*}
+    This is simply the height function on the sphere, whose fibers are precisely
+    the orbits of the $S^1$ action.
 \end{example}
 
-\subsection{Lie algebra cohomology}
+\begin{definition}
+    Suppose $(M,\omega=-d\lambda)$ be an exact symplectic manifold. We say that the
+    action $\psi$ of $G$ on $M$ is \textbf{exact} if $\psi^*_g\lambda=\lambda$ for each
+    $g\in G$.
+\end{definition}
 
-\subsection{Examples}
+\begin{remark}
+    Recall that a closed symplectic $2n$-manifold $(M,\omega)$ cannot be exact. Indeed,
+    if it were, the volume form $\omega^n$ would be exact and Stokes' theorem would imply
+    that $\int_M\omega^n=0$, which is not possible. Hence for $M$ closed, $\omega$ must
+    represent a nontrivial class in $\HH^{2}(M;\R)$.
+\end{remark}
+
+\begin{proposition}
+    Let $(M,\omega=-d\lambda)$ be an exact symplectic manifold. Then every exact action of $G$
+    on $M$ is Hamiltonian with
+    \begin{equation*}
+        H_\xi = \iota_{X_\xi}\lambda
+    \end{equation*}
+    for $\xi\in\fr g$.
+\end{proposition}
+
+\subsection{Cohomological obstructions}
+
+In general, weakly Hamiltonian actions need not be Hamiltonian. 
+In this section, we digress briefly to derive sufficient conditions for an action to be
+weakly Hamiltonian, and a necessary condition for a weakly Hamiltonian action to be
+Hamiltonian.
+For this, we quickly present Lie algebra cohomology, following Ortega/Ratiu.\footnote{add citation!}
+
+Let $G$ be a real Lie group of dimension $n$. Similarly to the case of vector fields, we say that a differential
+$k$-form $\omega\in\Omega^k(G)$ is left invariant if $L_g^*\omega=\omega$ for each $g\in G$.
+Note that left invariant $k$-forms can be identified with the $k$-forms $\Lambda^k\fr g^*$,
+since they are determined by their action at the identity. We now obtain a chain complex
+of left-invariant forms
+\begin{equation*}
+    \begin{tikzcd}
+        0\ar{r}& \Lambda^0\fr g^*\cong\R\ar{r}& \Lambda^1\fr g\cong\fr g^*\ar{r} & \cdots\ar{r} & \Lambda^n\fr g^*\cong\R\ar{r} & 0,
+    \end{tikzcd}
+\end{equation*}
+where the differentials are given by the expected formula: for $\omega\in\Lambda^k\fr g^*$,
+\begin{equation*}
+    d\omega(\xi_0,\ldots,\xi_k) = \sum_{0\leqslant i<j\leqslant k}(-1)^{i+j}\omega([\xi_i,\xi_j],\xi_0,\ldots,\hat\xi_i,\ldots,\hat\xi_j,\ldots,\xi_k).
+\end{equation*}
+We note the following low-dimensional cases, which will be the ones of interest to us.
+For $\omega\in\Lambda^0\fr g^*$, clearly $d\omega=0$. For $\omega\in\Lambda^1\fr g^*\cong\fr g^*$,
+\begin{equation*}
+    d\omega(\xi_1,\xi_2) = -\omega [\xi_1,\xi_2]
+\end{equation*}
+and for $\omega\in\Lambda^2\fr g^*$,
+\begin{equation*}
+    d\omega(\xi_1,\xi_2,\xi_3)=-\omega([\xi_1,\xi_2],\xi_3) + \omega([\xi_3,\xi_1],\xi_2) + \omega([\xi_2,\xi_3],\xi_1).
+\end{equation*}
+We now define the \textbf{Lie algebra cohomology} $\HH^\bullet(\fr g,\R)$ to be the cohomology of the above complex.
+
+\begin{remark}
+    More generally, let $\fr g$ be a Lie algebra over $k$ and let $M$ be a $\fr g$-module.
+    Denote by $-^\fr g:\fr g\textsc{-Mod}\to\fr g\textsc{-Mod}$ the invariants functor.
+    Then one defines $\HH^\bullet(\fr g,M)$, the cohomology groups of $\fr g$ with coefficients
+    in $M$, as the right derived functors $R^\bullet(-^\fr g)(M)$. Of course, this is much more
+    generality than we will need; the formulation above is computing
+    the cohomology of the Chevalley-Eilenberg resolution of $\R$.\footnote{Cite Weibel}
+\end{remark}
+
+The first cohomology group is quite easily computed. Indeed,
+\begin{equation*}
+    \HH^1(\fr g,\R)=\{\omega\in\fr g^*\mid \omega[\xi_1,\xi_2]=0\}.
+\end{equation*}
+Noting that $\omega\in\fr g^*$ is a map $\omega:\fr g\to\R$ annihilating precisely $[\fr g,\fr g]$,
+and that such maps are in correspondence with maps $\fr g/[\fr g, \fr g]\to\R$, we conclude that
+\begin{equation*}
+    \HH^1(\fr g,\R) \cong (\fr g/[\fr g, \fr g])^*.
+\end{equation*}
+In particular, we note that if $\fr g$ is abelian or even semisimple, $\HH^1(\fr g,\R)=0$.
+We now relate these cohomology groups back to Hamiltonian actions.
+
+\begin{proposition}
+    The commutator of two symplectic vector fields on $(M,\omega)$ is Hamiltonian.
+\end{proposition}
+\begin{proof}
+    Let $X,Y\in\mathcal{X}(M,\omega)$, i.e. $d\iota_X\omega=d\iota_Y\omega=0$ or equivalently
+    $\mathcal{L}_X\omega=\mathcal{L}_Y\omega=0$. Now, using both of Cartan's magic formulas,
+    we find that
+    \begin{align*}
+        \iota_{[X,Y]}\omega &= [\mathcal{L}_X,\iota_Y]\omega\\
+        &= \mathcal{L}_X\iota_Y\omega\\
+        &= d\iota_X\iota_Y\omega.
+    \end{align*}
+    We conclude that $[X,Y]$ is Hamiltonian with $H_{[X,Y]}=\omega(X,Y)$.
+\end{proof}
+
+\begin{corollary}
+    Suppose $G$ acts on $(M,\omega)$ through symplectomorphisms and that 
+    $\HH^1(\fr g,\R)=0$ or $\HH^1_\mathrm{dR}(M,\R)=0$. Then the action is
+    weakly Hamiltonian.
+\end{corollary}
+\begin{proof}
+    If the first Lie algebra cohomology vanishes, we must have that $\fr g=[\fr g,\fr g]$.
+    In particular, the induced symplectic vector fields on $M$ must be Hamiltonian by
+    the previous proposition. If the first de Rham cohomology vanishes, every closed one-form
+    on $M$ is exact and thus, by definition, every symplectic vector field is Hamiltonian.
+\end{proof}
+
+Less trivial are the obstructions for a weakly Hamiltonian action to be Hamiltonian.
+\begin{proposition}
+    Suppose the action of $G$ on $(M,\omega)$ is weakly Hamiltonian, where $M$ is connected.
+    Then the action
+    determines a cocycle $[\tau]\in\HH^2(\fr g,\R)$ which vanishes if and only if the
+    action is Hamiltonian.
+\end{proposition}
+\begin{proof}
+    Since the action is weakly Hamiltonian we may choose a linear map $\fr g\to C^\infty(M)$
+    sending $\xi\mapsto H_\xi$ such that $\iota_{\xi_M}\omega=dH_\xi$.
+    For each pair $\xi,\eta\in\fr g$, define a function on $M$
+    \begin{equation*}
+        \tau(\xi,\eta) = \{H_\xi,H_\eta\}-H_{[\xi,\eta]}.
+    \end{equation*}
+    Since
+    \begin{equation*}
+        X_{H_{[\xi,\eta]}}=[\xi,\eta]_M=[\xi_M,\eta_M]=[X_{H_\xi},X_{H_\eta}]=X_{\{H_\xi,H_\eta\}},
+    \end{equation*}
+    we find that
+    \begin{equation*}
+        d\left(H_{[\xi,\eta]}-\{H_\xi,H_\eta\}\right)=0
+    \end{equation*}
+    so $\tau$ is locally constant, hence constant. Clearly then $\tau\in\Lambda^2\fr g^*$.
+
+    We now claim that $d\tau=0$, i.e.
+    \begin{equation*}
+        \tau([\xi,\eta],\zeta) + \tau([\eta,\zeta],\xi)+\tau([\zeta,\xi],\eta) = 0.
+    \end{equation*}
+    Reasoning as in the previous paragraph, we find that
+    \begin{equation*}
+        \{H_{[\xi,\eta]},H_\zeta\}=\{\{H_\xi,H_\eta\},H_\zeta\},
+    \end{equation*}
+    so by the Jacobi identity for the Poisson bracket,
+    \begin{equation*}
+        d\tau(\xi,\eta,\zeta)=-\left(H_{[ [\xi,\eta],\zeta]}+H_{[ [\eta,\zeta],\xi]}+H_{[ [\zeta,\xi],\eta]}\right)=0,
+    \end{equation*}
+    by linearity of the map $\xi\mapsto H_\xi$ and the Jacobi identity for $\fr g$.
+
+    Hence $\tau$ represents a cocycle $[\tau]\in\HH^2(\fr g,\R)$. If the action is Hamiltonian
+    to begin with, obviously $\tau=0$, since $\xi\mapsto H_\xi$ is a Lie algebra homomorphism.
+    Conversely, suppose $[\tau]=0$. This is equivalent to asking that $\tau$ be a coboundary
+    \begin{equation*}
+        \tau(\xi,\eta)=\sigma[\xi,\eta]
+    \end{equation*}
+    for some $\sigma\in\fr g^*$. Modifying the given map $\xi\mapsto H_\xi$ to $\xi\mapsto H_\xi+\sigma(\xi)$,
+    we find that
+    \begin{equation*}
+        [\xi,\eta]\mapsto H_{[\xi,\eta]} + \sigma[\xi,\eta]=\{H_\xi,H_\eta\},
+    \end{equation*}
+    and we conclude that the action is Hamiltonian.
+\end{proof}
+
+\begin{example}
+    The second Whitehead lemma states that for $\fr g$ semisimple, $\HH^2(\fr g,\R)=0$.\footnote{Reference Weibel}
+    Thus, if the Lie algebra of $G$ is semisimple, every weakly Hamiltonian $G$-action on
+    $(M,\omega)$ is Hamiltonian.
+\end{example}
+
+\newpage
+\section{Week 7}
 
 \end{document}
