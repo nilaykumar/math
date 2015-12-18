@@ -1702,7 +1702,7 @@ and that such maps are in correspondence with maps $\fr g/[\fr g, \fr g]\to\R$, 
 \begin{equation*}
     \HH^1(\fr g,\R) \cong (\fr g/[\fr g, \fr g])^*.
 \end{equation*}
-In particular, we note that if $\fr g$ is abelian or even semisimple, $\HH^1(\fr g,\R)=0$.
+In particular, we note that if $\fr g$ is semisimple, $\HH^1(\fr g,\R)=0$.
 We now relate these cohomology groups back to Hamiltonian actions.
 
 \begin{proposition}
@@ -1792,5 +1792,283 @@ Less trivial are the obstructions for a weakly Hamiltonian action to be Hamilton
 
 \newpage
 \section{Week 7}
+
+The following section is essentially a rewrite of the previous section in order
+to clear things up in my head.\footnote{Add pictures.}
+
+\subsection{Group actions on symplectic manifolds}
+
+\begin{definition}
+    Suppose $G$ acts on $(M,\omega)$ through symplectomorphisms. The $G$-action
+    induces a $\fr g$-action on $(M,\omega)$, i.e. a symplectic vector field $\xi_M\in\Gamma(TM,\omega)$
+    associated to each $\xi\in\fr g$. We say that the action is \textbf{weakly Hamiltonian}
+    if there exists a linear \textbf{comoment map} $\kappa:\fr g\to C^\infty(M)$ such
+    that
+    \begin{equation*}
+        \iota_{\xi_M}\omega = d\kappa(\xi)
+    \end{equation*}
+    for all $\xi\in\fr g$. Furthermore, we say that the action is \textbf{Hamiltonian}
+    if $\kappa$ is a Lie algebra homomorphism with respect to the Poisson structure on $M$,
+    i.e.
+    \begin{equation*}
+        \kappa([\xi,\eta]) = \{\kappa(\xi),\kappa(\eta)\}.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Recall that a symplectic vector field $\xi_M$ on $(M,\omega)$ satisfies
+    \begin{equation*}
+        \mathcal{L}_{\xi_M}\omega = d\iota_{\xi_M}\omega = 0.
+    \end{equation*}
+    Note that since every closed form is locally exact, every $G$-action through symplectomorphisms
+    is locally weakly Hamiltonian.
+    \label{rem:lwh}
+\end{remark}
+
+\begin{example}
+    Consider $S^2$ with its usual symplectic structure written in cylindrical coordinates
+    (away from the poles) as
+    \begin{align*}
+        \omega = d\theta\wedge dz.
+    \end{align*}
+    Let $S^1$ act on the sphere by rotating it about its vertical axis. More precisely,
+    the action is given by
+    \begin{align*}
+        \psi: S^1\times S^2 &\to S^2\\
+        (t, \theta, z) &\mapsto (\theta + t, z).
+    \end{align*}
+    It is easy to see that $S^1$ acts through symplectomorphisms.
+    The associated Lie algebra action is then
+    \begin{align*}
+        d\psi_e:\fr u(1)\cong\R&\to \Gamma(TS^2,\omega)\\
+        \xi&\mapsto \xi_{S^2}=\xi\frac{\partial}{\partial\theta}.
+    \end{align*}
+    We find that
+    \begin{equation*}
+        \iota_{\xi_{S^2}} \omega = \xi dz.
+    \end{equation*}
+    Since $\fr u(1)$ is an abelian Lie algebra and $\{z,z\}=0$, we conclude that the action
+    is Hamiltonian with comoment map $\kappa:\R\to C^\infty(S^2)$ given
+    \begin{equation*}
+        \kappa(\xi)=\xi z.
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    Consider $T^*S^1$ with its usual symplectic structure written in local cylindrical coordinates as
+    \begin{align*}
+        \omega = d\theta\wedge dz.
+    \end{align*}
+    Consider the action of $\R$ on $T^*S^1=S^1\times\R$ that translates the fiber direction:
+    \begin{align*}
+        \psi: \R\times S^1\times\R &\to S^1\times\R\\
+        (t,\theta,z) &\mapsto (\theta, z+t).
+    \end{align*}
+    It is easy to see that $\R$ acts through symplectomorphisms.
+    The associated Lie algebra action is
+    \begin{align*}
+        d\psi_e:\Lie\R\cong\R &\to \Gamma(TT^*S^1,\omega)\\
+        \xi &\mapsto \xi_{T^*S^1}=\xi\frac{\partial}{\partial z}.
+    \end{align*}
+    We find that
+    \begin{equation*}
+        \iota_{\xi_{T^*S^1}}\omega = -\xi d\theta.
+    \end{equation*}
+    Now, since the one-form $d\theta$ is not exact on $T^*S^1$, we conclude that the action
+    is not even weakly Hamiltonian. Of course, if $U\subset S^1$ is any proper open subset,
+    then $d\theta$ is indeed exact on $T^*U$, as alluded to in Remark \ref{rem:lwh}.
+    \label{ex:notwh}
+\end{example}
+
+\begin{proposition}
+    Consider an exact symplectic manifold $(M,\omega=-d\lambda)$ and let $G$ act
+    on $M$ through symplectomorphisms. Suppose $\psi_g^*\lambda=\lambda$ for every
+    $g\in G$, i.e. the $G$-action is \textbf{exact}. Then the $G$-action is Hamiltonian
+    with a comoment map
+    \begin{equation*}
+        \kappa(\xi) = \iota_{\xi_M}\lambda.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    We first verify that the action is weakly Hamiltonian, i.e. $\iota_{\xi_M}\omega = d\kappa(\xi)$:
+    \begin{align*}
+        d\left( \iota_{\xi_m}\lambda \right)&=\mathcal{L}_{\xi_M}\lambda - \iota_{\xi_M}d\lambda\\
+        &=\frac{d}{dt}\bigg|_{t=0}\psi^*_{\exp(t\xi)}\lambda+\iota_{\xi_M}\omega\\
+        &=\frac{d}{dt}\bigg|_{t=0}\lambda+\iota_{\xi_M}\omega\\
+        &=\iota_{\xi_M}\omega.
+    \end{align*}
+    To see that it is in fact Hamiltonian, we check that $\kappa$ is a Lie algebra homomorphism:
+    \begin{align*}
+        \{\kappa(\xi),\kappa(\eta)\} &= \{\iota_{\xi_M}\lambda,\iota_{\eta_M}\lambda\}\\
+        &= d\lambda(\eta_M,\xi_M)\\
+        &=\eta_M\lambda(\xi_M) - \xi_M\lambda(\eta_M)-\lambda[\eta_M,\xi_M]\\
+        &=\iota_{[\xi_M,\eta_M]}\lambda=\kappa([\xi_M,\eta_M]).
+    \end{align*}
+\end{proof}
+
+\begin{lemma}
+    Let $G$ act through diffeomorphisms $\psi_g$ on a manifold $X$. Then the action
+    lifts to symplectomorphisms $\tilde \psi_g:T^*X\to T^*X$ by
+    \begin{equation*}
+        \tilde\psi_g(\alpha_x)(v) = \alpha_x(d\psi_gv)
+    \end{equation*}
+    for $v\in T_{\psi_g^{-1}x}X$. In particular, the lifted action is exact with respect
+    to the canonical one-form on $T^*X$.
+\end{lemma}
+\begin{proof}
+    More generally, we show that any diffeomorphism $f:X\to X$ lifts to a diffeomorphism 
+    $\tilde f:T^*X\to T^*X$ preserving the canonical one-form on $T^*X$. Define
+    \begin{equation*}
+        \tilde f(\alpha_x)v = \alpha_x(df v)
+    \end{equation*}
+    for $v\in T_{f^{-1}x}$. Fix a vector $w\in T_{\alpha_x}T^*X$. Then, invoking the definitions
+    of $\theta$ and $\tilde f$ respectively,
+    \begin{align*}
+        (\tilde f^*\theta)_{\alpha_x}w &= \theta_{\tilde f(\alpha_x)}(d\tilde fw)\\
+        &= \tilde f(\alpha_x)(d(\pi\circ\tilde f)w)\\
+        &= \alpha_x(d(f\circ \pi\circ \tilde f)w)\\
+        &= \alpha_x(d\pi w)\\
+        &= \theta_{\alpha_x}w,
+    \end{align*}
+    as desired. We have used that $f\circ\pi\circ\tilde f=\pi:T^*X\to X$.
+\end{proof}
+
+The cotangent bundle of a manifold is the prototypical exact symplectic manifold, and hence
+every exact action on a cotangent bundle yields a Hamiltonian action. Thus the previous two
+results generate a large class of Hamiltonian actions on the cotangent bundle. We will see
+some examples shortly.
+
+Note that Example
+\ref{ex:notwh} -- though an action on the cotangent bundle -- is not an example of an
+exact action, as $\lambda=zd\theta$ is not preserved under $z\mapsto z+t$.
+
+\subsection{Cohomological obstructions}
+
+In the sequel we will concern ourselves primarily with Hamiltonian actions.
+It is then natural to ask what the obstructions are to a $G$-action by symplectomorphisms
+being Hamiltonian. In this section we digress briefly to show that such obstructions 
+are cohomological in nature. For this we quickly introduce the machinery of Lie
+algebra cohomology.
+
+\begin{definition}
+    Let $V$ be a left $\fr g$-module, i.e. a real vector space $V$ equipped with a Lie algebra
+    homomorphism $\fr g\to \End V$. A map of $\fr g$-modules is a linear map commuting with
+    the $\fr g$-action. There is a functor $-^\fr g:\textsc{Mod}(\fr g)\to \textsc{Mod}(\R)$ taking
+    $V$ to $V^\fr g=\{v\in V \mid \xi v=0, \xi\in\fr g\}$, the invariant submodule. This functor
+    is only left-exact in general, so if $V$ is a $\fr g$-module, we define the
+    \textbf{Lie algebra cohomology of $\fr g$ with coefficients in $V$} to be
+    \begin{equation*}
+        \HH^\bullet(\fr g, V) \equiv R^\bullet(-)^{\fr g}(V)
+    \end{equation*}
+    the associated right derived functors.
+\end{definition}
+
+In practice, we use the following standard resolution.
+\begin{definition}
+    The \textbf{Chevalley-Eilenberg resolution} of $\fr g$ with coefficients in a $\fr g$-module
+    $V$ is the cochain complex of linear maps $(\Hom(\Lambda^\bullet\fr g,V),d_\textrm{CE})$,
+    where the differential is given by
+    \begin{align*}
+        d_\textrm{CE}^n\sigma(\xi_1,\ldots,\xi_{n+1}) &= \sum_i (-1)^{i+1}\xi_i\cdot\sigma(\xi_1,\ldots,\hat\xi_i,\ldots,\xi_n)\\
+        &+\sum_{i,j}(-1)^{i+j}\sigma([\xi_i,\xi_j],\xi_1,\ldots,\hat \xi_i,\ldots,\hat \xi_j,\ldots,\xi_n),
+    \end{align*}
+    for $\sigma\in\Hom(\Lambda^n\fr g,V)$.\footnote{That this is a complex relies nontrivially
+    on the Jacobi identity and the fact that $V$ is a $\fr g$-module.}
+    Note that, by convention, we take $\Lambda^0\fr g$ to be the trivial $\fr g$-module $\R$
+    and $d^0_\textrm{CE}=0$.
+\end{definition}
+
+We will use the following result in the sequel without further mention.
+\begin{theorem}
+    The Chevalley-Eilenberg resolution of $\fr g$ with coefficients in a $\fr g$-module
+    $V$ computes the Lie algebra cohomology $\HH^\bullet(\fr g;V)$ of $\fr g$.
+\end{theorem}
+\begin{proof}
+    See, for instance, Weibel's book.
+\end{proof}
+
+\begin{remark}
+    The Chevalley-Eilenberg resolution of $\fr g$ is closely tied to the de Rham cohomology of
+    any Lie group $G$ with the given Lie algebra, as we now outline. For simplicity, we fix our
+    coefficients to be the the trivial $\fr g$-module $\R$. 
+
+    This argument can be generalized by replacing $\R$ with an arbitrary $\fr g$-module
+    and $G$ by any $G$-homogeneous space. We refer the interested reader to the original
+    1948 article (cite!) of Chevalley and Eilenberg.
+\end{remark}
+
+\subsection{Moment maps}
+
+\begin{definition}
+    Suppose $(M,\omega)$ has a weakly Hamiltonian $G$-action with comoment map $\kappa:\fr g\to C^\infty(M)$.
+    Then we say that a map $\mu:M\to \fr g^*$ is a \textbf{moment map} for the action if for $p\in M$
+    \begin{equation*}
+        \kappa(\xi)(p) = \langle \mu(p), \xi\rangle,
+    \end{equation*}
+    where $\langle\cdot,\cdot\rangle$ is the evaluation pairing between $\fr g^*$ and $\fr g$.\footnote{Uniqueness of moment maps?}
+\end{definition}
+
+From the perspective of physical systems, interest in the moment map is due to the following
+result, analogous to Noether's theorem in the Lagrangian case.
+
+\begin{theorem}
+    Let $\mu$ be a moment map for a weakly Hamiltonian $G$-action on $(M,\omega)$. Then the
+    moment map is a constant of motion for the Hamiltonian vector field associated to any
+    $G$-invariant function $H\in C^\infty(M)^G$.
+\end{theorem}
+\begin{proof}
+    Since $H\in C^\infty(M)^G$, we have
+    \begin{equation*}
+        H=\psi_{\exp(t\xi)}^*H
+    \end{equation*}
+    for each $\xi\in\fr g$. Differentiating this identity at $t=0$, we find that
+    \begin{align*}
+        0 &= \frac{d}{dt}\bigg|_{t=0} \psi_{\exp(t\xi)}^*H\\
+        &= \mathcal{L}_{\xi_M}H=dH(\xi_M)\\
+        &= \omega(X_H,\xi_M)=\{H,\kappa(\xi)\}\\
+        &= X_H\kappa(\xi),
+    \end{align*}
+    and hence the function $\kappa(\xi)$ is constant along the Hamiltonian flow of $H$ for all
+    $\xi\in\fr g$.  Now since $\kappa(\xi) = \langle \mu, \xi\rangle$, we find that $\mu$ must be
+    constant along the Hamiltonian flow of $H$.
+\end{proof}
+
+\begin{example}
+    Consider the phase space $(T^*\R^3,\omega)$ of a 1-particle system in $\R^3$. We have an action
+    of $\R^3$ by spatial translation: for $v\in\R^3$, we take $(q,p)\mapsto (q+v,p)$, for $q,p\in\R^3$.
+    Clearly $\R^3$ acts through symplectomorphisms, and the associated Lie algebra
+    action by $\Lie\R^3\cong\R^3$ is
+    \begin{equation*}
+        \xi \mapsto \xi_{T^*\R^{3}}=\xi^i\frac{\partial}{\partial q^i}.
+    \end{equation*}
+    Then
+    \begin{equation*}
+        \iota_{\xi_{T^*\R^3}}\omega = \sum_i\xi^idp^i
+    \end{equation*}
+    and a comoment map is given
+    \begin{equation*}
+        \kappa(\xi) = \xi^i p_i.
+    \end{equation*}
+    We thus obtain a moment map
+    \begin{equation*}
+        \mu(q,p) = p.
+    \end{equation*}
+    Note that this is easily extended to the case of an $N$-particle system in $\R^3$.
+    We conclude -- with some relief -- that the moment map is well-named.
+\end{example}
+
+\begin{example}
+    
+\end{example}<++>
+
+State Noether's theorem. Give some easy physical examples. Look at the examples in Ratiu/Ortega
+and see if the statement about Lagrangian makes any sense.
+
+Show that $\mu$ is a moment map for a Hamiltonian action if and only if $\mu$ is equivariant.
+
+Is there anything that Morse theory has to say?
+
+Maybe make the whole next section on coadjoint orbits?
+
 
 \end{document}
