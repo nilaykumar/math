@@ -1888,6 +1888,7 @@ to clear things up in my head.\footnote{Add pictures.}
     \begin{equation*}
         \kappa(\xi) = \iota_{\xi_M}\lambda.
     \end{equation*}
+    \label{prop:exact}
 \end{proposition}
 \begin{proof}
     We first verify that the action is weakly Hamiltonian, i.e. $\iota_{\xi_M}\omega = d\kappa(\xi)$:
@@ -1914,6 +1915,7 @@ to clear things up in my head.\footnote{Add pictures.}
     \end{equation*}
     for $v\in T_{\psi_g^{-1}x}X$. In particular, the lifted action is exact with respect
     to the canonical one-form on $T^*X$.
+    \label{lem:liftexact}
 \end{lemma}
 \begin{proof}
     More generally, we show that any diffeomorphism $f:X\to X$ lifts to a diffeomorphism 
@@ -1970,7 +1972,7 @@ In practice, we use the following standard resolution.
     where the differential is given by
     \begin{align*}
         d_\textrm{CE}^n\sigma(\xi_1,\ldots,\xi_{n+1}) &= \sum_i (-1)^{i+1}\xi_i\cdot\sigma(\xi_1,\ldots,\hat\xi_i,\ldots,\xi_n)\\
-        &+\sum_{i,j}(-1)^{i+j}\sigma([\xi_i,\xi_j],\xi_1,\ldots,\hat \xi_i,\ldots,\hat \xi_j,\ldots,\xi_n),
+        &+\sum_{i<j}(-1)^{i+j}\sigma([\xi_i,\xi_j],\xi_1,\ldots,\hat \xi_i,\ldots,\hat \xi_j,\ldots,\xi_n),
     \end{align*}
     for $\sigma\in\Hom(\Lambda^n\fr g,V)$.\footnote{That this is a complex relies nontrivially
     on the Jacobi identity and the fact that $V$ is a $\fr g$-module.}
@@ -1981,7 +1983,7 @@ In practice, we use the following standard resolution.
 We will use the following result in the sequel without further mention.
 \begin{theorem}
     The Chevalley-Eilenberg resolution of $\fr g$ with coefficients in a $\fr g$-module
-    $V$ computes the Lie algebra cohomology $\HH^\bullet(\fr g;V)$ of $\fr g$.
+    $V$ computes the Lie algebra cohomology $\HH^\bullet(\fr g,V)$ of $\fr g$.
 \end{theorem}
 \begin{proof}
     See, for instance, Weibel's book.
@@ -1989,16 +1991,143 @@ We will use the following result in the sequel without further mention.
 
 \begin{remark}
     The Chevalley-Eilenberg resolution of $\fr g$ is closely tied to the de Rham cohomology of
-    any Lie group $G$ with the given Lie algebra, as we now outline. For simplicity, we fix our
-    coefficients to be the the trivial $\fr g$-module $\R$. 
+    any compact connected Lie group $G$ with the given Lie algebra, as we now sketch in some detail.
+    For simplicity,
+    we fix our coefficients to be the the trivial $\fr g$-module $\R$. Recall that the de Rham complex on
+    $G$ is $(\Omega^\bullet(G),d_\textrm{dR})$, the cochain complex of differential forms on $G$
+    together with the usual exterior derivative. On the other hand, one can consider the subcomplex
+    of left-invariant differential forms $(\Omega_G^\bullet(G),d_\textrm{dR})$. Identifying the
+    space of left-invariant vector fields on $G$ with the Lie algebra $\fr g$ as usual, we find
+    by dualizing that $\Omega_G^\bullet\cong\Hom(\Lambda^\bullet\fr g, \R)$. Under this identification,
+    the exterior derivative becomes $d_\textrm{CE}$ by virtue of our definition above, so we conclude
+    that the Chevalley-Eilenberg complex of $\fr g$ is naturally identified with the subcomplex of
+    left-invariant differential forms on $G$.
+
+    Now we claim that the inclusion $\iota$
+    \begin{equation*}
+        \begin{tikzcd}
+            0\ar{r} & \Omega_G^\bullet(G)\ar{r}{\iota} & \Omega^\bullet(G)
+        \end{tikzcd}
+    \end{equation*}
+    is a quasi-isomorphism, i.e. $\Omega_G^\bullet(G)$ computes the de Rham cohomology of $G$.
+    We construct the quasi-inverse explicitly using the existence of the left-invariant Haar
+    measure on $G$: if $\alpha\in\Omega^k(G)$, the average
+    \begin{equation*}
+        \alpha^\textrm{L} = \int_G L_g^*\alpha \d g
+    \end{equation*}
+    is now left-invariant. Since $d$ commutes with pullbacks and the integral over $g\in G$,
+    we find that $-^\textrm{L}:\Omega^\bullet(G)\to\Omega_G^\bullet(G)$ is a map of cochain
+    complexes. Clearly the composition $-^\mathrm{L}\circ\iota$ yields the identity on
+    $\Omega_G^\bullet(G)$. It remains to show that $\iota\circ-^\mathrm{L}$ is cochain-homotopic
+    to the identity on $\Omega^\bullet(G)$, i.e. there exists a linear map
+    $h:\Omega^k(G)\to\Omega^{k-1}(G)$ such that
+    \begin{equation*}
+        \alpha - \iota(\alpha^\mathrm{L}) = d_\textrm{dR}h + hd_\textrm{dR}
+    \end{equation*}
+    for $\alpha\in\Omega^k(G)$.
+
+    The construction of $h$ is somewhat involved.\footnote{Work through the argument
+    via integration over fibers of $G\times G\to G$.}
 
     This argument can be generalized by replacing $\R$ with an arbitrary $\fr g$-module
-    and $G$ by any $G$-homogeneous space. We refer the interested reader to the original
-    1948 article (cite!) of Chevalley and Eilenberg.
+    and $G$ by any $G$-homogeneous space. 
 \end{remark}
+
+The first result characterizes when an action is weakly Hamiltonian.
+\begin{proposition}
+    Let $G$ act on $(M,\omega)$ through symplectomorphisms. Then we have a linear map
+    $\fr g/[\fr g, \fr g]\to \HH^1_\textrm{dR}(M,\R)$ taking $[\xi]\mapsto[\iota_{\xi_M}\omega]$.
+    The action of $G$ is weakly Hamiltonian if and only if this map is identically zero.
+\end{proposition}
+By the remark above, $\HH^1_\textrm{dR}(M,\R)\cong \HH^1(\fr g;\R)$ if $G$ is compact and connected.
+In general, the left hand side is the Lie algebra \textit{homology} of $\fr g$, because
+$\HH^1(\fr g,\R)\cong (\fr g/[\fr g,\fr g])^*$, as is checked by an explicit computation.
+
+\begin{proof}
+    To show that the map is well-defined, it suffices to show that the commutator of
+    two symplectic vector fields is Hamiltonian (as elements of $[\fr g, \fr g]$ are
+    linear combinations of commutators):
+    \begin{equation*}
+        \iota_{[\xi_M,\eta_M]}\omega = (\mathcal{L}_{\xi_M}-\iota_{\eta_M}\mathcal{L}_{\xi_M}) \omega= \mathcal{L}_{\xi_M}\iota_{\eta_M}\omega=d\iota_{\xi_M}\iota_{\eta_M}\omega.
+    \end{equation*}
+    Here we have used both of Cartan's magic formulae. Now, by definition, the action
+    is weakly Hamiltonian if and only if $\iota_{\xi_M}\omega$ is exact for all $\xi$.
+\end{proof}
+
+In what follows, we will focus on Hamiltonian actions over those that are only weakly
+Hamiltonian. The next proposition, together with Whitehead's lemmas below show that in
+many cases of practical interest, where $\fr g$ is semisimple, actions through symplectomorphisms
+are automatically Hamiltonian.
+\begin{proposition}
+    Let $(M,\omega)$ be connected and equipped with a weakly Hamiltonian $G$-action.
+    Then the action determines a cocycle $[\tau]\in\HH^2(\fr g,\R)$ which vanishes
+    if and only if the $G$-action is Hamiltonian.
+\end{proposition}
+\begin{proof}
+    Let $\kappa:\fr g\to C^\infty(M)$ be the comoment map for the action such that
+    $\iota_{\xi_M}=d\kappa(\xi)$ for all $\xi\in\fr g$. For each pair $\xi,\eta\in\fr g$
+    the function $\tau_{\xi,\eta}\in C^\infty(M)$ given by
+    \begin{equation*}
+        \tau_{\xi,\eta}(p) = \{\kappa(\xi),\kappa(\eta)\}(p)-\kappa([\xi,\eta])(p)
+    \end{equation*}
+    measures the failure of the comoment map to be a Lie algebra homomorphism.
+    This function is locally constant and hence constant, since
+    \begin{align*}
+        d\tau_{\xi,\eta} &= \iota_{X_{\{\kappa(\xi),\kappa(\eta)\}}}\omega - \iota_{[\xi,\eta]_M}\omega\\
+        &= \iota_{[X_{\kappa(\xi)},X_{\kappa(\eta)}]}\omega - \iota_{[\xi_M,\eta_M]}\omega\\
+        &= 0,
+    \end{align*}
+    where $X_f$ represents the Hamiltonian vector field of $f$, i.e. the uniquely determined
+    vector field satisfying $\iota_{X_f}\omega = df$. As such, we may view $\tau$ as
+    an element of $\Hom(\Lambda^2\fr g,\R)$.
+
+    We now claim that $d_\textrm{CE}\tau=0$, or:
+    \begin{equation*}
+        \tau([\xi,\eta],\zeta) + \tau([\eta,\zeta],\xi) + \tau([\zeta,\xi],\eta) = 0,
+    \end{equation*}
+    for $\xi,\eta,\zeta\in\fr g$. This is immediate in view of
+    \begin{align*}
+        \{\{\kappa(\xi),\kappa(\eta)\},\kappa(\zeta)\} &= \iota_{X_{\{\kappa(\xi),\kappa(\eta)\}}}\iota_{X_{\kappa(\zeta)}}\omega
+        =\iota_{[X_{\kappa(\xi)},X_{\kappa(\eta)}]}\iota_{X_{\kappa(\zeta)}}\omega\\
+        &= \iota_{[\xi_M,\eta_M]}\iota_{\zeta_M}\omega = \{\kappa([\xi,\eta]),\kappa(\zeta)\}
+    \end{align*}
+    because
+    \begin{align*}
+        \tau([\xi,\eta],\zeta) + \tau([\eta,\zeta],\xi)+\tau([\zeta,\xi],\eta) &= \{\{\kappa(\xi),\kappa(\eta)\},\kappa(\zeta)\} - \kappa([ [\xi,\eta],\zeta])\\
+        &+\{\{\kappa(\eta),\kappa(\zeta)\},\kappa(\xi)\} - \kappa([[\eta,\zeta],\xi])\\
+        &+\{\{\kappa(\zeta),\kappa(\xi)\},\kappa(\eta)\} - \kappa([[\zeta,\xi],\eta]),
+    \end{align*}
+    which is zero by the Jacobi identity for $\{-,-\}$ and $[-,-]$ (and linearity of $\kappa$).
+
+    Hence $\tau$ represents a cocycle $[\tau]\in\HH^2(\fr g,\R)$. If the action is Hamiltonian
+    to begin with, obviously $\tau=0$, since $\kappa$ is a Lie algebra homomorphism by construction.
+    Conversely, suppose $[\tau]=0$. This is equivalent to asking that $\tau$ be a coboundary
+    \begin{equation*}
+        \tau(\xi,\eta)=\sigma[\xi,\eta]
+    \end{equation*}
+    for some $\sigma\in\Hom(g,\R)=\fr g^*$. Now define $\tilde\kappa:\fr g\to C^\infty(M)$ as
+    \begin{equation*}
+        \tilde\kappa = \kappa + \sigma
+    \end{equation*}
+    and note that 
+    \begin{align*}
+        \tilde\kappa[\xi,\eta] &= \kappa[\xi,\eta] + \sigma[\xi,\eta]=\kappa[\xi,\eta] + \{\kappa(\xi),\kappa(\eta)\} - \kappa[\xi,\eta]\\
+        &= \{\kappa(\xi),\kappa(\eta)\}.
+    \end{align*}
+    We conclude that the action is Hamiltonian with comoment map $\tilde\kappa$.
+\end{proof}
+
+\begin{theorem}[Whitehead's lemmas]
+    Let $\fr g$ be a semisimple Lie algebra over a field of characteristic zero. If $V$
+    is any finite-dimensional $\fr g$-module then $\HH^1(\fr g,V) = \HH^2(\fr g,V)=0$.
+\end{theorem}
+\begin{proof}
+    See, for instance, Weibel's book.
+\end{proof}
 
 \subsection{Moment maps}
 
+The moment map repackages the data of the comoment map as follows.
 \begin{definition}
     Suppose $(M,\omega)$ has a weakly Hamiltonian $G$-action with comoment map $\kappa:\fr g\to C^\infty(M)$.
     Then we say that a map $\mu:M\to \fr g^*$ is a \textbf{moment map} for the action if for $p\in M$
@@ -2008,14 +2137,17 @@ We will use the following result in the sequel without further mention.
     where $\langle\cdot,\cdot\rangle$ is the evaluation pairing between $\fr g^*$ and $\fr g$.\footnote{Uniqueness of moment maps?}
 \end{definition}
 
-From the perspective of physical systems, interest in the moment map is due to the following
-result, analogous to Noether's theorem in the Lagrangian case.
-
-\begin{theorem}
-    Let $\mu$ be a moment map for a weakly Hamiltonian $G$-action on $(M,\omega)$. Then the
-    moment map is a constant of motion for the Hamiltonian vector field associated to any
-    $G$-invariant function $H\in C^\infty(M)^G$.
+\begin{theorem}[Noether, Souriau, Smale]
+    Let $\mu:M\to\fr g^*$ be a moment map for a weakly Hamiltonian $G$-action on $(M,\omega)$
+    with comoment map $\kappa:\fr g\to C^\infty(M)$.
+    Then $\mu$ is constant along the flow of the Hamiltonian vector field associated to any
+    $G$-invariant function $H\in C^\infty(M)^G$.\footnote{Find references in O-R for N,S,S.}
 \end{theorem}
+
+Thus, from the perspective of physical systems, the moment map carries the data of
+the comoment map, but now as a sort of generalized Hamiltonian that respects the symmetries
+of the system.
+
 \begin{proof}
     Since $H\in C^\infty(M)^G$, we have
     \begin{equation*}
@@ -2033,36 +2165,144 @@ result, analogous to Noether's theorem in the Lagrangian case.
     constant along the Hamiltonian flow of $H$.
 \end{proof}
 
-\begin{example}
-    Consider the phase space $(T^*\R^3,\omega)$ of a 1-particle system in $\R^3$. We have an action
-    of $\R^3$ by spatial translation: for $v\in\R^3$, we take $(q,p)\mapsto (q+v,p)$, for $q,p\in\R^3$.
-    Clearly $\R^3$ acts through symplectomorphisms, and the associated Lie algebra
-    action by $\Lie\R^3\cong\R^3$ is
+\begin{example}[Linear momentum]
+    Consider the phase space $(T^*\R^3,\omega)$ of a 1-particle system in $\R^3$. 
+    The $N$-particle case is a straightforward but index-heavy extension.
+    Translation provides an action of $(\R^3,+)$ on $\R^3$ as $q\mapsto q+v$
+    for $v\in\R^3$. An easy computation reveals that this lifts (in the sense of Lemma
+    \ref{lem:liftexact}) to an action $\psi$ of $\R^3$ on $T^*\R^3$ as $\psi_v:(q,p)\mapsto(q+v,p)$.
+    This action is exact by Lemma \ref{lem:liftexact} and hence Hamiltonian by Proposition
+    \ref{prop:exact}. The associated Lie algebra action by $\Lie\R^3\cong\R^3$ is
     \begin{equation*}
         \xi \mapsto \xi_{T^*\R^{3}}=\xi^i\frac{\partial}{\partial q^i}.
     \end{equation*}
     Then
+    \begin{align*}
+        \iota_{\xi_{T^*\R^3}}\omega &= \left( \sum_k dq^k\wedge dp^k \right)\xi_{T^*\R^3} = \sum_i\xi^idp^i
+    \end{align*}
+    and we obtain a comoment map $\kappa:\Lie\R^3\cong\R^3\to C^\infty(T^*\R^3)$ given by
     \begin{equation*}
-        \iota_{\xi_{T^*\R^3}}\omega = \sum_i\xi^idp^i
+        \kappa(\xi) = \sum_i\xi^i p_i.
     \end{equation*}
-    and a comoment map is given
+    The moment map $\mu:T^*\R^3\to(\R^3)^*$ is therefore given by
     \begin{equation*}
-        \kappa(\xi) = \xi^i p_i.
+        \sum_i\xi^ip_i = \langle \mu(q,p), \xi\rangle.
     \end{equation*}
-    We thus obtain a moment map
+    Identifying $(\R^3)^*$ with $\R^3$ via the standard Euclidean metric, we have that
     \begin{equation*}
-        \mu(q,p) = p.
+        \mu(q,p) = p,
     \end{equation*}
-    Note that this is easily extended to the case of an $N$-particle system in $\R^3$.
-    We conclude -- with some relief -- that the moment map is well-named.
+    the linear momentum of the particle.
 \end{example}
 
-\begin{example}
-    
-\end{example}<++>
+\begin{example}[Angular momentum]
+    Consider again the phase space $(T^*\R^3,\omega)$ of a 1-particle system in $\R^3$.
+    Rotation provides an action of $\SO(3,\R)$ on $\R^3$ by matrix multiplication $q\mapsto A_{ij}q^j$
+    for $A\in\SO(3,\R)$. An easy computation reveals that this lifts (in the sense of Lemma \ref{lem:liftexact})
+    to an action $\psi$ of $\SO(3,\R)$
+    on $T^*\R^3$ as $\psi_A:(q,p)\mapsto (A_{ij}q^j,A_{ij}p_j)$. This action is exact by Lemma \ref{lem:liftexact}
+    and hence Hamiltonian by Proposition \ref{prop:exact}. Recall that the Lie algebra $\fr{so}(3,\R)$
+    is the space of $3\times 3$ antisymmetric matrices, with the commutator as the Lie bracket.
+    Computing the infinitesimal action, we find
+    \begin{align*}
+        \frac{d}{dt}\bigg|_{t=0} \psi_{\exp(t\xi)}(q,p) &= \frac{d}{dt}\bigg|_{t=0}\left( q+t\xi_{ij}q^j+\cdots, p+t\xi_{ij}p_j+\cdots\right)\\
+        &=\sum_{i,j}\xi_{ij} q^j\frac{\partial}{\partial q^i} + \sum_{i,j}\xi_{ij}p_j\frac{\partial}{\partial p^i}
+    \end{align*}
+    for $\xi\in\fr{so}(3,\R)$. Therefore the associated Lie algebra action of $\fr{so}(3,\R)$ by
+    vector fields is given by
+    \begin{equation*}
+        \xi \mapsto \xi_{T^*\R^3}|_{(q,p)}=\sum_{i,j}\xi_{ij} q^j\frac{\partial}{\partial q^i} + \sum_{i,j}\xi_{ij}p_j\frac{\partial}{\partial p^i}
+    \end{equation*}
+    Now we find that
+    \begin{align*}
+        (\iota_{\xi_{T^*\R^3}}\omega)_{(q,p)} &= \left(\sum_kdq^k\wedge dp^k\right)\xi_{T^*\R^3}
+        = \sum_{i,j}\xi_{ij}(q^jdp^i - p_jdq^i)\\
+        &= \sum_{i,j}\xi_{ij}(q^jdp^i + p_idq^j)
+        = d\left(\sum_{i,j}p_i\xi_{ij}q^j\right),
+    \end{align*}
+    by antisymmetry of $\xi_{ij}$. Hence we obtain a comoment map $\kappa:\fr{so}(3,\R)\to C^\infty(T^*\R^3)$
+    for the action given by
+    \begin{equation*}
+        \kappa(\xi)(q,p) = \sum_{i,j} p_i\xi_{ij}q^j.
+    \end{equation*}
+    The moment map $\mu:T^*\R^3\to\fr{so}(3,\R)^*$ is therefore determined by
+    \begin{equation*}
+        \sum_{i,j}p_i\xi_{ij}q^j = \langle \mu(q,p), \xi\rangle.
+    \end{equation*}
+    Identifying $\fr{so}(3,\R)^*$ with $\fr{so}(3,\R)$ via the standard Euclidean metric on $\R^9$
+    which yields an isomorphism $(\R^9)^*\cong\R^9$, we conclude that
+    \begin{equation*}
+        \mu(q,p) =
+        \begin{pmatrix}
+            0 & q_2p_1-q_1p_2 & q_3p_1-q_1p_3 \\
+            q_1p_2-q_2p_1 & 0 & q_3p_2-q_2p_3 \\
+            q_1p_3-q_3p_1 & q_2p_3-q_3p_2 & 0\\
+        \end{pmatrix}.
+    \end{equation*}
+    Moreover, using the Lie algebra isomorphism $\fr{so}(3,\R)\cong (\R^3,\times)$, we can write
+    \begin{equation*}
+        \mu(q,p) = q \times p,
+    \end{equation*}
+    the usual notation for angular momentum.
+\end{example}
 
-State Noether's theorem. Give some easy physical examples. Look at the examples in Ratiu/Ortega
-and see if the statement about Lagrangian makes any sense.
+\begin{example}[Lifted actions]
+    
+\end{example}
+
+We now turn to the equivariance properties of moment maps.
+
+\begin{definition}
+    Let $\fr g$ be a real Lie algebra. Recall that $\fr g$ can be viewed as a $\fr g$-module
+    under the \textbf{adjoint action} $\ad:\fr g\to \End(\fr g)$ where
+    \begin{equation*}
+        \ad_\xi\eta = [\xi,\eta],
+    \end{equation*}
+    for $\xi,\eta\in\fr g$. Dually, $\fr g$ acts on $\fr g^*$ through the \textbf{coadjoint action}
+    $\ad^*:\fr g\to\End\fr g^*$ where
+    \begin{equation*}
+        \langle\ad_\xi^*\sigma,\eta\rangle = \langle \sigma, -\ad_\xi\eta\rangle = \langle \sigma, [\eta,\xi]\rangle,
+    \end{equation*}
+    for $\xi,\eta\in\fr g$ and $\sigma\in\fr g^*$.
+    Note that these actions can be seen as derivatives of actions by $G$ on $\fr g$ and $\fr g^*$,
+    denoted by $\Ad$ and $\Ad^*$, respectively, confusingly also called adjoint and coadjoint actions.
+\end{definition}
+
+\begin{definition}
+    Suppose $(M,\omega)$ has a weakly Hamiltonian $G$-action with moment map $\mu:M\to\fr g^*$.
+    We say that $\mu$ is $\fr g$-\textbf{equivariant} if
+    \begin{equation*}
+        d\mu_p(\xi_M) = -\ad_\xi^*(\mu(p)).
+    \end{equation*}
+    for all $\xi\in\fr g$ and $p\in M$. Here $\ad^*$ is the coadjoint action of $\fr g$ on $\fr g^*$.
+\end{definition}
+\begin{remark}
+    The term $\fr g$-equivariant comes from a more global $G$-equivariance: there
+    are actions of $G$ on both the domain (the given action) and target
+    (the coadjoint action of $G$ on $\fr g^*$) of $\mu$. Hence we say that $\mu$ is $G$-equivariant if
+    \begin{equation*}
+        \psi_g^*\mu = \Ad^*_{g^{-1}}\mu
+    \end{equation*}
+    for all $g\in G$. It can be shown that these two notions of equivariance are equivalent if $G$
+    is connected. However, we will concern ourselves only with $\fr g$-equivariance.
+\end{remark}
+
+Our interest in Hamiltonian actions (or $\fr g$-equivariance) stems from the following.
+\begin{proposition}
+    Suppose $(M,\omega)$ has a weakly Hamiltonian $G$-action with comoment map $\kappa$ and
+    moment map $\mu$. Then the action is Hamiltonian if and only if $\mu$ is $\fr g$-equivariant.
+\end{proposition}
+\begin{proof}
+    Recall that the action is Hamiltonian if and only if the comoment map is a Lie algebra
+    homomorphism, i.e.
+    \begin{equation*}
+        \{\kappa(\xi), \kappa(\eta)\} = \kappa[\xi,\eta].
+    \end{equation*}
+\end{proof}
+
+\begin{example}[Coadjoint actions]
+    
+\end{example}
 
 Show that $\mu$ is a moment map for a Hamiltonian action if and only if $\mu$ is equivariant.
 
