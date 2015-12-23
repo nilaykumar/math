@@ -2036,7 +2036,7 @@ We will use the following result in the sequel without further mention.
 The first result characterizes when an action is weakly Hamiltonian.
 \begin{proposition}
     Let $G$ act on $(M,\omega)$ through symplectomorphisms. Then we have a linear map
-    $\fr g/[\fr g, \fr g]\to \HH^1_\textrm{dR}(M,\R)$ taking $[\xi]\mapsto[\iota_{\xi_M}\omega]$.
+    $\HH^1(\fr g,\R)^*\cong \fr g/[\fr g, \fr g]\to \HH^1_\textrm{dR}(M,\R)$ taking $[\xi]\mapsto[\iota_{\xi_M}\omega]$.
     The action of $G$ is weakly Hamiltonian if and only if this map is identically zero.
 \end{proposition}
 By the remark above, $\HH^1_\textrm{dR}(M,\R)\cong \HH^1(\fr g;\R)$ if $G$ is compact and connected.
@@ -2054,10 +2054,11 @@ $\HH^1(\fr g,\R)\cong (\fr g/[\fr g,\fr g])^*$, as is checked by an explicit com
     is weakly Hamiltonian if and only if $\iota_{\xi_M}\omega$ is exact for all $\xi$.
 \end{proof}
 
+
 In what follows, we will focus on Hamiltonian actions over those that are only weakly
-Hamiltonian. The next proposition, together with Whitehead's lemmas below show that in
+Hamiltonian. The next two propositions, together with Whitehead's lemmas stated below show that in
 many cases of practical interest, where $\fr g$ is semisimple, actions through symplectomorphisms
-are automatically Hamiltonian.
+are automatically Hamiltonian, with unique comoment map.
 \begin{proposition}
     Let $(M,\omega)$ be connected and equipped with a weakly Hamiltonian $G$-action.
     Then the action determines a cocycle $[\tau]\in\HH^2(\fr g,\R)$ which vanishes
@@ -2117,6 +2118,29 @@ are automatically Hamiltonian.
     We conclude that the action is Hamiltonian with comoment map $\tilde\kappa$.
 \end{proof}
 
+In the Hamiltonian case, moroever, comoment maps are unique up to first cohomology.
+\begin{proposition}
+    Let $(M,\omega)$ be connected and equipped with a weakly Hamiltonian $G$-action.
+    Comoment maps for the action are unique up to cocycles in $[c]\in\HH^1(\fr g,\R)\cong(\fr g/[\fr g,\fr g])^*$.
+    In particular, if $\HH^1(\fr g,\R)=0$, there is a unique comoment map for a Hamiltonian
+    action of $G$.
+    \label{prop:comomentunique}
+\end{proposition}
+\begin{proof}
+    Let $\kappa_1,\kappa_2:\fr g\to C^\infty(M)$ be two comoment maps for the action of $G$.
+    By definition, $d\kappa_i(\xi)=\iota_{\xi_M}\omega$ for $\xi\in\fr g$, so $d(\kappa_1(\xi)-\kappa_2(\xi)) = 0$.
+    Therefore $c(\xi)\equiv\kappa_1(\xi)-\kappa_2(\xi)\in C^\infty(M)$ is constant and we
+    obtain a linear map $c:\fr g\to\R$ in $\fr g^*\cong \Hom(\Lambda^1\fr g,\R)$. It remains to show
+    that $d_\textrm{CE}c=0$. For this we use the fact that $\kappa$ is a Lie algebra homomorphism:
+    for $\xi,\eta\in\fr g$,
+    \begin{align*}
+        (d_\textrm{CE}c)(\xi,\eta) &= c[\xi,\eta] = \kappa_1[\xi,\eta] - \kappa_2[\xi,\eta]\\
+        &= \{\kappa_1(\xi),\kappa_1(\eta)\} - \{\kappa_2(\xi),\kappa_2(\eta)\}\\
+        &= \omega(\xi_M,\eta_M) - \omega(\xi_M,\eta_M) = 0,
+    \end{align*}
+    as desired.
+\end{proof}
+
 \begin{theorem}[Whitehead's lemmas]
     Let $\fr g$ be a semisimple Lie algebra over a field of characteristic zero. If $V$
     is any finite-dimensional $\fr g$-module then $\HH^1(\fr g,V) = \HH^2(\fr g,V)=0$.
@@ -2124,6 +2148,12 @@ are automatically Hamiltonian.
 \begin{proof}
     See, for instance, Weibel's book.
 \end{proof}
+
+\begin{corollary}
+    Suppose $G$ acts on a connected symplectic manifold $(M,\omega)$ through symplectomorphisms.
+    If $\fr g$ is semisimple then the action is Hamiltonian with a unique comoment map.
+\end{corollary}
+
 
 \subsection{Moment maps}
 
@@ -2134,7 +2164,9 @@ The moment map repackages the data of the comoment map as follows.
     \begin{equation*}
         \kappa(\xi)(p) = \langle \mu(p), \xi\rangle,
     \end{equation*}
-    where $\langle\cdot,\cdot\rangle$ is the evaluation pairing between $\fr g^*$ and $\fr g$.\footnote{Uniqueness of moment maps?}
+    where $\langle\cdot,\cdot\rangle$ is the evaluation pairing between $\fr g^*$ and $\fr g$.
+    If the action is in fact Hamiltonian, the uniqueness of comoment maps (Proposition \ref{prop:comomentunique} above)
+    implies uniqueness of moment maps.
 \end{definition}
 
 \begin{theorem}[Noether, Souriau, Smale]
@@ -2287,7 +2319,7 @@ We now turn to the equivariance properties of moment maps.
     is connected. However, we will concern ourselves only with $\fr g$-equivariance.
 \end{remark}
 
-Our interest in Hamiltonian actions (or $\fr g$-equivariance) stems from the following.
+A key property that Hamiltonian actions enjoy over weakly Hamiltonian actions is equivariance.
 \begin{proposition}
     Suppose $(M,\omega)$ has a weakly Hamiltonian $G$-action with comoment map $\kappa$ and
     moment map $\mu$. Then the action is Hamiltonian if and only if $\mu$ is $\fr g$-equivariant.
@@ -2298,13 +2330,26 @@ Our interest in Hamiltonian actions (or $\fr g$-equivariance) stems from the fol
     \begin{equation*}
         \{\kappa(\xi), \kappa(\eta)\} = \kappa[\xi,\eta].
     \end{equation*}
+    By definition, the right-hand side can be written
+    \begin{align*}
+        \kappa[\xi,\eta](p) &= \langle \mu(p), [\xi,\eta]\rangle\\
+        &= -\langle \ad_\eta^*(\mu(p)), \xi\rangle.
+    \end{align*}
+    On the other hand, differentiating the definition of the moment map yields
+    \begin{align*}
+        d\kappa(\xi)_p v= \langle d\mu_p v, \xi\rangle
+    \end{align*}
+    for $v\in T_pM$, since $\langle-,\xi\rangle:\fr g^*\to\R$ is linear and hence its own derivative.
+    Now the left-hand side of the Hamiltonian condition becomes
+    \begin{align*}
+        \{\kappa(\xi),\kappa(\eta)\}(p) &= d\kappa(\xi)_p\eta_M|_p = \langle d\mu_p\eta_M|_p, \xi\rangle,
+    \end{align*}
+    we conclude that the action is Hamiltonian if and only if the moment map is $\fr g$-equivariant.
 \end{proof}
 
-\begin{example}[Coadjoint actions]
-    
+\begin{example}[Coadjoint orbits]
+    Let $\fr g$ be a real Lie algebra and $\fr g^*$ be its dual. 
 \end{example}
-
-Show that $\mu$ is a moment map for a Hamiltonian action if and only if $\mu$ is equivariant.
 
 Is there anything that Morse theory has to say?
 
