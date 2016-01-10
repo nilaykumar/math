@@ -1791,7 +1791,7 @@ Less trivial are the obstructions for a weakly Hamiltonian action to be Hamilton
 \end{example}
 
 \newpage
-\section{Week 7}
+\section{Week 7 and winter break}
 
 The following section is essentially a rewrite of the previous section in order
 to clear things up in my head.\footnote{Add pictures.}
@@ -2282,22 +2282,33 @@ of the system.
     
 \end{example}
 
-We now turn to the equivariance properties of moment maps.
+We now turn to the equivariance properties of moment maps. Recall the following
+basic definitions from representation theory.
 
 \begin{definition}
-    Let $\fr g$ be a real Lie algebra. Recall that $\fr g$ can be viewed as a $\fr g$-module
-    under the \textbf{adjoint action} $\ad:\fr g\to \End(\fr g)$ where
+    Let $G$ be a real group and $\fr g$ be its Lie algebra. Conjugation $c:G\to \Diff(G)$
+    given by $c_g(h)=ghg^{-1}$ yields a number of interesting representations of $G$
+    and $\fr g$.
+    
+    Differentiating the conjugation action at the identity, we obtain $\Ad_g\equiv(dc_g)_e:\fr g\to \fr g$,
+    which is a Lie algebra endomorphism
+    because $c_g$ is a Lie group homomorphism. We obtain the \textbf{Adjoint} representation $(\fr g,\Ad)$
+    of $G$ where $\Ad:G\to\End \fr g$ is given by $g\mapsto \Ad_g$. Dually, there is the
+    \textbf{Coadjoint} representation $(\fr g^*, \Ad^*)$ given by
     \begin{equation*}
-        \ad_\xi\eta = [\xi,\eta],
+        \langle\Ad^*_g\sigma,\xi\rangle = \langle \sigma, \Ad_{g^{-1}}\xi\rangle.
     \end{equation*}
-    for $\xi,\eta\in\fr g$. Dually, $\fr g$ acts on $\fr g^*$ through the \textbf{coadjoint action}
-    $\ad^*:\fr g\to\End\fr g^*$ where
+
+    Differentiating in turn the Adjoint action at the identity, we obtain the \textbf{adjoint}
+    representation $(\fr g, \ad)$ of $\fr g$, where $\ad:\fr g\to\End\fr g$ is a Lie algebra
+    homomorphism. One can check that
     \begin{equation*}
-        \langle\ad_\xi^*\sigma,\eta\rangle = \langle \sigma, -\ad_\xi\eta\rangle = \langle \sigma, [\eta,\xi]\rangle,
+        \ad_\xi(\eta) = [\xi,\eta].
     \end{equation*}
-    for $\xi,\eta\in\fr g$ and $\sigma\in\fr g^*$.
-    Note that these actions can be seen as derivatives of actions by $G$ on $\fr g$ and $\fr g^*$,
-    denoted by $\Ad$ and $\Ad^*$, respectively, confusingly also called adjoint and coadjoint actions.
+    Dually, there is the \textbf{coadjoint} representation $(\fr g^*, \ad^*)$ given by
+    \begin{equation*}
+        \langle\ad^*_\xi\sigma, \eta\rangle = \langle\sigma, -\ad_\xi\eta\rangle = \langle \sigma, [\eta,\xi]\rangle.
+    \end{equation*}
 \end{definition}
 
 \begin{definition}
@@ -2306,23 +2317,18 @@ We now turn to the equivariance properties of moment maps.
     \begin{equation*}
         d\mu_p(\xi_M) = -\ad_\xi^*(\mu(p)).
     \end{equation*}
-    for all $\xi\in\fr g$ and $p\in M$. Here $\ad^*$ is the coadjoint action of $\fr g$ on $\fr g^*$.
-\end{definition}
-\begin{remark}
-    The term $\fr g$-equivariant comes from a more global $G$-equivariance: there
-    are actions of $G$ on both the domain (the given action) and target
-    (the coadjoint action of $G$ on $\fr g^*$) of $\mu$. Hence we say that $\mu$ is $G$-equivariant if
+    for all $\xi\in\fr g$ and $p\in M$. Similarly, we say that $\mu$ is $G$-\textbf{equivariant} if
     \begin{equation*}
-        \psi_g^*\mu = \Ad^*_{g^{-1}}\mu
+        (\psi_g^*\mu)(p) = \Ad^*_{g^{-1}}(\mu(p)).
     \end{equation*}
-    for all $g\in G$. It can be shown that these two notions of equivariance are equivalent if $G$
-    is connected. However, we will concern ourselves only with $\fr g$-equivariance.
-\end{remark}
+    for $g\in G$ and $p\in M$.
+\end{definition}
 
-A key property that Hamiltonian actions enjoy over weakly Hamiltonian actions is equivariance.
+The following result demonstrates the equivariant nature of moment maps for Hamiltonian actions.
 \begin{proposition}
     Suppose $(M,\omega)$ has a weakly Hamiltonian $G$-action with comoment map $\kappa$ and
     moment map $\mu$. Then the action is Hamiltonian if and only if $\mu$ is $\fr g$-equivariant.
+    Moreover, if $G$ is connected, $\mu$ is $G$-equivariant if and only if it is $\fr g$-equivariant.
 \end{proposition}
 \begin{proof}
     Recall that the action is Hamiltonian if and only if the comoment map is a Lie algebra
@@ -2345,15 +2351,49 @@ A key property that Hamiltonian actions enjoy over weakly Hamiltonian actions is
         \{\kappa(\xi),\kappa(\eta)\}(p) &= d\kappa(\xi)_p\eta_M|_p = \langle d\mu_p\eta_M|_p, \xi\rangle,
     \end{align*}
     we conclude that the action is Hamiltonian if and only if the moment map is $\fr g$-equivariant.
+
+    That $G$-equivariance implies $\fr g$-equivariance (regardless of whether $G$ is connected) follows
+    by differentiation. Now suppose $G$ is connected and $\mu$ is $\fr g$-equivariant, i.e. the $G$-action
+    is Hamiltonian. It suffices to show that the comoment map is $G$-equivariant,
+    \begin{equation*}
+        \kappa(\Ad_{g^{-1}}\xi) = \psi_g^*\kappa(\xi),
+    \end{equation*}
+    because then, by the usual dualization procedure,
+    \begin{align*}
+        \langle (\psi_g^*\mu)(p), \xi\rangle &= (\psi_g^*\kappa(\xi))(p)\\
+        &= \kappa(\Ad_{g^{-1}}\xi)(p)\\
+        &= \langle \mu(p), \Ad_{g^{-1}}\xi\rangle\\
+        &= \langle \Ad_{g^{-1}}^*(\mu(p)), \xi\rangle,
+    \end{align*}
+    which establishes $G$-equivariance of $\mu$.\footnote{Finish this proof.}
 \end{proof}
 
 \begin{example}[Coadjoint orbits]
-    Let $\fr g$ be a real Lie algebra and $\fr g^*$ be its dual. 
+    Recall the Poisson structure on $\fr g^*$, show that coadjoint orbits have symplectic
+    structure, and compute the moment map. Maybe look at some connections to representation
+    theory?
+
+    Let $\fr g$ be a real Lie algebra. The dual $\fr g^*$ is naturally a Poisson manifold 
+    as we now describe. For any $f\in C^\infty(\fr g)$, the differential $df_\sigma$ at
+    $\sigma\in\fr g^*$ is a linear map $df_\sigma:T_\sigma\fr g^*\cong\fr g^*\to\R$ which
+    can be identified canonically as an element of $\fr g$. With this understood, we
+    define the \textbf{Lie-Poisson bracket} on $\fr g^*$ to be
+    \begin{equation*}
+        \{f,g\}(\sigma) = -\sigma[df_\sigma,dg_\sigma].
+    \end{equation*}
+    Note that this bracket reduces to the original Lie bracket on linear functions
+    $\fr g\hookrightarrow C^\infty(\fr g^*)$.
+
+    Furthermore, each coadjoint $G$-orbit $\mathcal{O}\subset\fr g$ is in fact naturally a
+    symplectic manifold.
 \end{example}
 
-Is there anything that Morse theory has to say?
+\subsection{Symplectic Reduction}
 
-Maybe make the whole next section on coadjoint orbits?
+\subsection{Applications?}
+
+Is there anything that Morse theory has to say? We haven't made any restrictions on Hamiltonians
+$H$. What if $H$ is Morse?  See Atiyah-Guillemin-Sternberg, Duistermaat-Heckmann localization, maybe more.
 
 
 \end{document}
