@@ -15,6 +15,7 @@
 % Fonts
 \newcommand{\A}{\mathbb{A}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -32,6 +33,8 @@
 \DeclareMathOperator{\SL}{SL}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\UU}{U}
+\DeclareMathOperator{\OO}{O}
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\HH}{H}
 \DeclareMathOperator{\Symp}{Symp}
@@ -39,6 +42,7 @@
 % Representation theory
 
 \DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\tr}{tr}
 
 % Algebra
 
@@ -66,4 +70,16 @@
 \makeatletter
 \renewcommand\d[1]{\mspace{6mu}\mathrm{d}#1\@ifnextchar\d{\mspace{-3mu}}{}}
 \makeatother
+
+\newcommand{\naturalto}{%
+    \mathrel{\vbox{\offinterlineskip
+        \mathsurround=0pt
+        \ialign{\hfil##\hfil\cr
+            \normalfont\scalebox{1.2}{.}\cr
+                            %      \noalign{\kern-.05ex}
+        $\longrightarrow$\cr}
+    }}%
+}
+
+
 

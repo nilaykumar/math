@@ -1,4 +1,7 @@
 {
     "geometry" :
         {"notes_symp" : "Notes on McDuff & Salamon's Introduction to Symplectic Topology"}
+
+    "topology" :
+        {"characteristicclasses" : "Notes on Stiefel-Whitney and Chern classes, for a student run seminar"}
 }

@@ -1,0 +1,359 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\input{../macros.tex}
+\DeclareMathOperator{\Vect}{Vect}
+
+\title{Characteristic classes II}
+\author{Nilay Kumar}
+\date{January 20, 2016}
+
+\begin{document}
+
+\maketitle
+
+\section{Stiefel-Whitney classes}
+
+Recall from last time the axiomatic definition of the Stiefel-Whitney classes of a vector bundle
+$\xi:E\to B$:\footnote{Throughout, all base spaces are assumed to be connected and paracompact.}
+\begin{theorem}
+    Let $\xi:E\to B$ be a real vector bundle. Then there exists a unique sequence of cohomology classes
+    \begin{equation*}
+        w_i(\xi) \in \HH^i(B, \F_2)
+    \end{equation*}
+    for $i=0,1,2,\ldots$ called the \textit{Stiefel-Whitney classes} of $\xi$ satisfying the following
+    properties:
+    \begin{enumerate}[(I)]
+        \item the class $w_0(\xi)$ is equal to the unit element $1\in\HH^0(B,\F_2)$ and $w_i(\xi)=0$ for $i>\rk\xi$;
+        \item if $f^*\xi$ is the pullback of $E$ along $f:A\to B$ then $w_i(f^*\xi)=f^*w_i(\xi)$;
+        \item if $\eta:E'\to B$ is another real vector bundle then
+            \begin{equation*}
+                w_k(\xi\oplus \eta) = \sum_{i=0}^k w_i(\xi)\smile w_{k-i}(\eta);
+            \end{equation*}
+        \item if $\gamma_1^1$ is the tautological line bundle over $\R P^1$ then $w_1(\gamma_1^1)\in\HH^1(\R P^1,\F_2)=\F_2$
+            is the unique nonzero element.
+    \end{enumerate}
+    \label{sw}
+\end{theorem}
+
+{\color{magenta} make a remark about bundle map diagrams just being pullback diagrams, as Dylan pointed out
+last time. so we don't lose anything on II}
+
+Thus given, the Stiefel-Whitney classes allowed us to make some strong statements about parallelizability
+and cobordisms. The goal of the first half of this talk is to sketch a proof of the above theorem, i.e.
+show that Stiefel-Whitney classes do indeed exist. We will first prove the existence of certain analogous
+classes:
+\begin{theorem}
+    Let $\iota_n:\OO(n-1)\to\OO(n)$ and $p_{ij}:\OO(i)\times \OO(j)\to \OO(i+j)$ be the obvious
+    inclusions. Denote by the same symbols the induced maps on classifying spaces.
+    Then there are unique classes $w_i\in \HH^i(\mathscr{B}\OO(n), \F_2)$ satisfying:
+    \begin{enumerate}[(I)]
+        \item $w_0=1$ and $w_i=0$ if $i>n$;
+        \item $\iota_n^*w_i=w_i$ (and hence $\iota_n^*w_n=0$);
+        \item $p_{ij}^*w_k=\sum_{a+b=k}w_a\otimes w_b$;
+        \item $w_1\in\HH^1(\mathscr{B}\OO(1),\F_2)=\HH^1(\R P^\infty,\F_2)$ is the unique nonzero element.
+    \end{enumerate}
+    \label{sw2}
+\end{theorem}
+Here, as usual,
+\begin{equation*}
+    \mathscr{B}:\textsc{Grp}\to\textsc{Top}
+\end{equation*}
+denotes the classifying space functor.
+%We can embed $O(1)^n\hookrightarrow O(n)$ as the subgroup of diagonal matrices. Then, since
+%$\mathscr{B}$ is a product-preserving functor (up to homotopy), we obtain a map
+%\begin{equation*}
+%    \omega: (\R P^\infty)^n \simeq \mathscr{B}(O(1)^n) \to \mathscr{B}\OO(n)
+%\end{equation*}
+%of classifying spaces.
+Almost all the work lies in computing the cohomology of $\mathscr{B}\OO(n)$. In an earlier talk,
+Guchuan mentioned that -- via a number of computations using spectral sequences -- one
+can show the following:
+\begin{lemma}
+    Let $\Sigma_n$ be the symmetric group on $n$ letters. Then there is a map $\Psi_n:(\R P^\infty)^n\to\mathscr{B}\OO(n)$
+    inducing an isomorphism
+    \begin{equation*}
+        \Psi_n^*:\HH^\bullet(\mathscr{B}\OO(n),\F_2) \cong \HH^\bullet( (\R P^\infty)^n,\F_2)^{\Sigma_n}\cong\F_2[\sigma_1,\ldots,\sigma_n],
+    \end{equation*}
+    where $\Sigma_n$ acts on $(\R P^\infty)^n$ by permutation and hence $\sigma_i$ are the symmetric
+    polynomials in $n$ variables with $\deg\sigma_i=i$.
+    \label{computation}
+\end{lemma}
+\begin{proof}
+    This is rather technical and requires more wizardry with spectral sequences than I am familiar with. 
+    Reference {\color{magenta}unfinished May}.
+\end{proof}
+With this in hand, the proof of Theorem \ref{sw2} is now a straightforward diagram chase
+with symmetric polynomials.
+\begin{proof}[Proof of Theorem \ref{sw2}]
+    We begin by proving existence of the classes $w_i$.
+    Define the Stiefel-Whitney classes as
+    \begin{equation*}
+        w_i \equiv (\Psi_n^*)^{-1}\sigma_i
+    \end{equation*}
+    where $\Psi_n^*$ is the isomorphism from Lemma \ref{computation} above, and where
+    \begin{align*}
+        \sigma_1 &= x_1+\cdots+x_n\\
+        \sigma_2 &= x_1x_2+x_1x_3+\cdots+x_{n-1}x_n\\
+        &\vdots\\
+        \sigma_n &= x_1\cdots x_n,
+    \end{align*}
+    are the symmetric polynomials on the generators of
+    $\HH^\bullet( (\R P^\infty)^n,\F_2)\cong\otimes_i^n\F_2[x_i]$.
+    Set $\sigma_0=1$ and $\sigma_i=0$ for $i>n$. Under these definitions, axiom I is immediate.
+
+    Next, denoting $h_n:\mathscr{B}\OO(1)^{n-1}\to\mathscr{B}\OO(1)^n$ the map induced by
+    the inclusion, we have a commutative diagram of inclusions
+    \begin{equation*}
+        \begin{tikzcd}
+            \mathscr{B}\OO(1)^{n-1}\ar{r}{\Psi_{n-1}}\ar{d}{h_n} & \mathscr{B}\OO(n-1)\ar{d}{\iota_n}\\
+            \mathscr{B}\OO(1)^n\ar{r}{\Psi_n} & \mathscr{B}\OO(n)
+        \end{tikzcd}
+    \end{equation*}
+    and taking cohomology,
+    \begin{equation*}
+        \begin{tikzcd}
+            \HH^\bullet(\mathscr{B}\OO(n))\ar{r}{\Psi_n^*}\ar{d}{\iota_n^*} & \HH^\bullet(\mathscr{B}\OO(1)^n)\ar{d}{h_n^*}\\
+            \HH^\bullet(\mathscr{B}\OO(n-1))\ar{r}{\Psi_{n-1}^*} & \HH^\bullet(\mathscr{B}\OO(1)^{n-1})
+        \end{tikzcd}
+    \end{equation*}
+    Clearly $h_n^*x_i=x_i$ for $i<n$ and $h_n^*x_n=0$. Therefore $h_n^*\sigma_i=\sigma_i$, which implies
+    -- by the diagram above -- that $\iota_n^*w_i=w_i$. So much for axiom II.
+
+    Consider now the commutative diagram of inclusions
+    \begin{equation*}
+        \begin{tikzcd}
+            \mathscr{B}\OO(1)^i\times\mathscr{B}\OO(1)^j\ar{r}{\Psi_i\times\Psi_j}\ar[equal]{d} & \mathscr{B}\OO(i)\times\mathscr{B}\OO(j)\ar{d}{p_{ij}}\\
+            \mathscr{B}\OO(1)^{i+j}\ar{r}{\Psi_{i+j}} & \mathscr{B}\OO(i+j)
+        \end{tikzcd}
+    \end{equation*}
+    which after taking cohomology and applying K\"unneth becomes
+    \begin{equation*}
+        \begin{tikzcd}
+            \HH^\bullet(\mathscr{B}\OO(i+j))\ar{r}{\Psi_{i+j}^*}\ar{d}{p_{ij}^*} & \HH^\bullet(\mathscr{B}\OO(1)^{i+j})\ar{d}\\
+            \HH^\bullet(\mathscr{B}\OO(i))\otimes\HH^\bullet(\mathscr{B}\OO(j))\ar{r}{\Psi_i^*\otimes\Psi_j^*} & \HH^\bullet(\mathscr{B}\OO(1)^i)\otimes\HH^\bullet(\mathscr{B}\OO(1)^j)
+        \end{tikzcd}
+    \end{equation*}
+    In this diagram, all the arrows are injective except for $p_{ij}^*$ and hence $p_{ij}^*$
+    is injective. Moreover,
+    \begin{equation*}
+        (\Psi_i^*\otimes\Psi_j^*) p_{ij}^*w_k = \Psi_{i+j}^*w_k = \sigma_k(x_1,\ldots,x_{i+j}).
+    \end{equation*}
+    Some algebra with symmetric polynomials reveals that
+    \begin{equation*}
+        \sigma_k(x_1,\ldots,x_{i+j}) = \sum_{a+b=k}\sigma_a(x_1,\ldots,x_i)\sigma_b(x_{i+1},\ldots,x_{i+j}),
+    \end{equation*}
+    whence
+    \begin{equation*}
+        (\Psi_i\otimes\Psi_j^*)p_{ij}^*w_k = \sum_{a+b=k}\Psi_i^*w_a\otimes\Psi_j^*w_b = (\Psi_i^*\otimes\Psi_j^*)\sum_{a+b=k}w_a\otimes w_b,
+    \end{equation*}
+    proving axiom III by injectivity of $\Psi_i\otimes\Psi_j$.
+
+    Axiom IV is clear: $w_1=(\Psi_1^*)^{-1}\sigma_1(x_1)=x_1$, the nonzero element in $\HH^1(\R P^\infty,\F_2)$.
+    Finally, we prove uniqueness by induction on $n$. The base case $n=1$ is trivial.
+    Assume uniqueness of the $w_i$ in $\HH^\bullet(\mathscr{B}\OO(m),\F_2)$ for $m<n$.
+    Then for $i<n$ the $w_i\in\HH^\bullet(\mathscr{B}\OO(n),\F_2)$ are uniquely determined by
+    axiom II and the fact that $\iota_n$ is an isomorphism in degrees smaller than $n$.
+    For $i=n$ we note that $p_{1,n-1}^*w_n\in\HH^\bullet(\mathscr{B}\OO(1),\F_2)\otimes\HH^\bullet(\mathscr{B}\OO(n-1),\F_2)$
+    and hence $w_n$ is determined by the induction hypothesis since $p_{1,n-1}^*$ is injective.
+    This completes the proof.
+\end{proof}
+
+To relate these classes sitting in the cohomology of $\mathscr{B}\OO(n)$ to the previous
+axiomatic definition of classes sitting in the cohomology of the base $B$, we need a classification
+theorem for vector bundles on $B$.
+Before we start, we note that
+\begin{equation*}
+    \Vect_\R:\textsc{Top}^\mathrm{op}\to\textsc{Set}
+\end{equation*}
+will denote the contravariant functor taking $B$ to the set (isomorphism classes) of real vector bundles
+over $B$ and taking $f:B\to B'$ to the pullback $f^*:\Vect_\R B'\to \Vect_\R B$. Recall that two
+vector bundles over $B$ are isomorphic if there is a map lifting $\id_B$ that is a fiberwise linear
+isomorphism.
+
+\begin{theorem}
+    The space $\mathscr{B}\OO(n)\cong\Gr_n\R^\infty$ classifies vector bundles, i.e. the natural
+    transformation
+    \begin{equation*}
+        \Phi: [-,\mathscr{B}\OO(n)] \naturalto \Vect_\R-,
+    \end{equation*}
+    given by pullback $[f]\mapsto f^*\gamma^n_\infty$ of the tautological bundle, is a natural isomorphism.
+    \label{class}
+\end{theorem}
+
+We first check that $\Phi$ is well-defined:
+\begin{lemma}
+    The pullbacks of a vector bundle along homotopic maps are isomorphic, i.e.  the functor $\Vect_\R$ factors
+    through the homotopy category.
+\end{lemma}
+\begin{proof}[Proof sketch]
+    Let $\xi:E\to B$ be a rank $n$ vector bundle and let $f,g:A\to B$ be two maps homotopic via
+    $h:A\times I\to B$. Note first that $h^*E|_{A\times\{0\}}=f^*E$ and $h^*E|_{A\times\{1\}}=g^*E$.
+    %\begin{align*}
+    %    h^*E| &= \{(e,(a,t))\in E\times A\times I \mid \xi(e)=h(a,t)\}\\
+    %    h^*E|_{A\times\{0\}} &= \{(e,a)\in E\times A \mid \xi(e)=h(a,0)=f(a)\}.
+    %\end{align*}
+    Thus it suffices to prove that for a vector bundle $\eta:F\to A\times I$, there is an isomorphism
+    $F|_{A\times\{0\}}\cong F|_{A\times\{1\}}$. The idea, roughly, is to find countably many local
+    trivializations over $U_i\subset B$ for $E$ and to then locally push
+    $F|_{A\times\{0\}}$ to the right along $U_i\times I$. For details, see {\color{magenta}Hatcher, VBKT}.
+\end{proof}
+
+%Before we prove the theorem, let us outline the ideas in the case  of the tangent
+%bundle $TM$ of a smooth compact $n$-manifold embedded in $\R^k$.
+
+\begin{proof}[Proof of Theorem \ref{class}]
+    Naturality of $\Phi$ follows immediately from the fact that if $\alpha:A\to B$ and
+    $f\in[B,\mathscr{B}\OO(n)]$ then $(f\circ\alpha)^*\gamma_n^\infty=\alpha^*f^*\gamma_n^\infty$.
+    We now prove that $\Phi_B:[B,\mathscr{O}(n)]\to\Vect_\R B$ is a bijection.
+
+    The key observation is as follows.  Let $\xi:E\to B$ be a rank $n$ vector bundle. Then an isomorphism
+    $E\cong f^*\gamma_n^\infty$ (for some map $f:B\to\Gr_n\R^\infty$) is equivalent to a map
+    $g:E\to\R^\infty$ that is a linear injection on each fiber. To see this, suppose first that we have
+    such an isomorphism. Then we have a commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            E\ar{d}{\xi}\cong f^*\gamma_n^\infty\ar{d}\ar{r}{\tilde f}&\gamma_n^\infty\ar{r}{\pi}\ar{d} & \R^\infty\\
+            B\ar{r}{f} & \Gr_n\R^\infty
+        \end{tikzcd}
+    \end{equation*}
+    where $\pi$ is the obvious projection. Now $\pi\circ\tilde f:E\to\R^\infty$ is a fiberwise linear
+    injection as both $f$ and $\pi$ are. Conversely, given $g:E\to\R^\infty$ a fiberwise linear
+    injection, we can define a map $f:B\to\Gr_n\R^\infty$ given by $x\mapsto [g(\xi^{-1}(x))]$.
+    Then $E\cong f^*\gamma_n^\infty$ because we have fiberwise linear isomorphisms
+    \begin{equation*}
+        f^*\gamma_n^\infty|_b \cong \gamma_n^\infty|_{f(b)}\cong E|_b.
+    \end{equation*}
+
+    Now, for surjectivity of $\Phi_B$, given $\xi:E\to B$ it suffices by the previous paragraph to
+    construct a map $E\to\R^\infty$ a linear injection on each fiber. To do this, we fix countably
+    many local trivializations over $U_i\subset B$ of $E$ together with partitions of unity $\phi_i$
+    subordinate to the $U_i$. Then for each $i$ we obtain a map $g_i:E\to\R^n$ that is zero outside
+    $\xi^{-1}U_i$ and the composition $E\to U_i\times\R^n\to\R^n$ otherwise. Summing $g=\sum g_i$,
+    we obtain a map $g:E\to (\R^n)^\infty\cong\R^\infty$ that is obviously a linear injection on
+    fibers.
+
+    For injectivity, suppose we have isomorphisms $E\cong f_0^*\gamma_n^\infty$ and
+    $E\cong f_1^*\gamma_n^\infty$ for two maps $f_0,f_1:B\to\Gr_n\R^\infty$. By arguments above,
+    we obtain maps $g_0,g_1:E\to\R^\infty$ that are fiberwise linear injections. We claim that
+    $g_0$ and $g_1$ are homotopic through maps $g_t$ that are fiberwise linear injections; this
+    implies that $f_0$ and $f_1$ are homotopic via $f_t(x)=g_t(\xi^{-1}x)$. To do this, we first
+    homotope $g_0$ so that it takes values only in odd coordinates via
+    \begin{equation*}
+        (x_1,x_2,\ldots) \mapsto (1-t)(x_1,x_2,\ldots)+t(x_1,0,x_2,0,\ldots)
+    \end{equation*}
+    and homotope $g_1$ so that it takes values only in even coordinates similarly. Now
+    $g_t=(1-t)g_0+tg_1$ provides the necessary homotopy and it is clearly linear and injective
+    on fibers.
+\end{proof}
+
+We can finally prove the existence of Stiefel-Whitney classes for vector bundles.
+
+\begin{proof}[Proof of Theorem \ref{sw}]
+    Let $\xi:E\to B$ be a real vector bundle of rank $n$. By Theorem \ref{class} there exists a
+    unique map $\Phi_B:B\to\mathscr{B}O(n)$ such that $E\cong f^*\gamma_n^\infty$.
+    Define
+    \begin{equation*}
+        w_i(\xi) \equiv \Phi_B^*w_i.
+    \end{equation*}
+    Axiom I now follows immediately from Theorem \ref{sw2}. Now suppose we have a pullback
+    diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            f^*E\ar{r}\ar{d} & E\ar{d}{\xi}\\
+            A\ar{r}{f} & B
+        \end{tikzcd}
+    \end{equation*}
+    Then
+    \begin{equation*}
+        w_i(f^*\xi) = \Phi_A^*w_i = f^*\Phi_B^*w_i = f^*w_i(\xi),
+    \end{equation*}
+    which proves axiom II.
+
+    To prove axiom III we recall that the direct sum of vector bundles can be described as a pullback
+    \begin{equation*}
+        \begin{tikzcd}
+            E\oplus E' \cong \Delta^*(E\times E') \ar{r}\ar{d} & E\times E'\ar{d}\\
+            B\ar{r}{\Delta}& B\times B
+        \end{tikzcd}
+    \end{equation*}
+    where $\Delta$ is the diagonal map. Then
+    \begin{equation*}
+        w_k(\xi\oplus\eta) = w_k(\Delta^*(\xi\times\eta)) = \Phi_{B\times B}^*w_k
+    \end{equation*}
+    where $\Phi_{\xi\times\eta}:B\times B\to\mathscr{B}\OO(n+m)$ is the unique classifying
+    map. {\color{magenta} Figure out how to prove axiom III.}
+
+    The tautological line bundle on $\R P^1$ is given by the pullback of $\gamma_1^\infty$
+    along the inclusion $j:\R P^1\hookrightarrow\R P^\infty$ so $w_1(\gamma_1^1)=j^*w_1$
+    is the unique nonzero element in $\HH^1(\R P^1,\Z/2)$ by axiom IV of Theorem \ref{sw2}
+    and because $j^*$ is an isomorphism in degrees $\leqslant 1$.
+
+    {\color{magenta} Uniqueness blah blah blah.}
+\end{proof}
+
+{\color{magenta} Application: $w_1(\xi)=0$ if and only if $E$ is orientable? Why?}
+
+\section{Chern classes}
+
+Chern classes are the complex analog of Stiefel-Whitney classes, but with integral coefficients.
+\begin{theorem}
+    Let $\iota_n:\UU(n-1)\to\UU(n)$ and $p_{ij}:\UU(i)\times \UU(j)\to \UU(i+j)$ be the obvious
+    inclusions. Denote by the same symbols the induced maps on classifying spaces.
+    Then there are unique \textit{Chern classes} $c_i\in \HH^{2i}(\mathscr{B}\UU(n), \Z)$ satisfying:
+    \begin{enumerate}[(I)]
+        \item $c_0=1$ and $c_i=0$ if $i>n$;
+        \item $\iota_n^*c_i=c_i$ (and hence $\iota_n^*c_n=0$);
+        \item $p_{ij}^*c_k=\sum_{a+b=k}c_a\otimes c_b$;
+        \item $c_1\in\HH^2(\mathscr{B}\UU(1),\Z)=\HH^2(\C P^\infty,\Z)$ is the canonical generator.
+    \end{enumerate}
+    \label{chern}
+\end{theorem}
+\begin{proof}
+    The proof is exactly the same as in the case of Stiefel-Whitney classes.
+    We note, in particular, that $\HH^\bullet(\mathscr{B}\UU(n),\Z)=\Z[c_1,\ldots,c_n]$.
+\end{proof}
+
+Chern classes can be related to complex vector bundles via the following analog of Theorem
+\ref{class}. Notice that here $\Gr_n V$ denotes the space of complex $n$-planes in $V$.
+\begin{theorem}
+    The space $\mathscr{B}\UU(n)\cong\Gr_n\C^\infty$ classifies complex vector bundles, i.e. the natural
+    transformation
+    \begin{equation*}
+        \Phi: [-,\mathscr{B}\UU(n)] \naturalto \Vect_\C-,
+    \end{equation*}
+    given by pullback $[f]\mapsto f^*\gamma^n_\infty$ of the tautological bundle, is a natural isomorphism.
+\end{theorem}
+
+We can now define the Chern class of a complex vector bundle.
+\begin{theorem}
+    Let $\xi:E\to B$ be a complex vector bundle. Then there exists a unique sequence of cohomology classes
+    \begin{equation*}
+        c_i(\xi) \in \HH^{2i}(B, \Z)
+    \end{equation*}
+    for $i=0,1,2,\ldots$ called the \textit{Chern classes} of $\xi$ satisfying the following
+    properties:
+    \begin{enumerate}[(I)]
+        \item the class $c_0(\xi)$ is equal to the generator $1\in\HH^0(B,\Z)$ and $c_i(\xi)=0$ for $i>\rk\xi$;
+        \item if $f^*\xi$ is the pullback of $E$ along $f:A\to B$ then $c_i(f^*\xi)=f^*c_i(\xi)$;
+        \item if $\eta:E'\to B$ is another complex vector bundle then
+            \begin{equation*}
+                c_k(\xi\oplus \eta) = \sum_{i=0}^k c_i(\xi)\smile c_{k-i}(\eta);
+            \end{equation*}
+        \item if $\gamma_1^1$ is the tautological complex line bundle over $\C P^1$ then $c_1(\gamma_1^1)\in\HH^2(\C P^1,\Z)=\Z$
+            is the canonical generator.
+    \end{enumerate}
+    \label{sw}
+\end{theorem}
+
+{\color{magenta} How does the Chern class restrict to the Stiefel-Whitney class? See p.47 of May unfinished}
+
+{\color{magenta} What are some applications of this machinery different than the ones Yajit gave?}
+
+\end{document}
