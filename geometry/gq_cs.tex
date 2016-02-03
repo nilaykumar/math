@@ -7,11 +7,14 @@
 \usepackage{tikz-cd}
 \usepackage{amssymb}
 
+\usepackage[backend=bibtex, style=alphabetic]{biblatex}
+\addbibresource{gq_cs_ref.bib}
+
 \input{../macros.tex}
 
 \DeclareMathOperator{\CS}{CS}
 
-\title{Notes on ``Geometric quantization of Cherns-Simons gauge theory''}
+\title{Notes on ADPW's ``Geometric quantization of Cherns-Simons gauge theory''}
 \author{Nilay Kumar}
 \date{Winter 2016}
 
@@ -59,7 +62,7 @@ and the quantities of interest are expectation values of observables $\mathscr{O
 Here $\mathscr{G}$ is the group of automorphisms of $P\to\Sigma$, which acts by pullback on
 $\mathscr{A}$ -- the physical states are unaffected by these gauge transformations, so we integrate
 over the quotient $\mathscr{A}/\mathscr{G}$ to eliminate the redundancy.
-In {\color{red}??} Witten consider the following observable: let $C$ be a closed oriented curve
+In \cite{witten} Witten consider the following observable: let $C$ be a closed oriented curve
 in $M$ and $V$ be an irreducible representation of $G$. Then we define the \textit{Wilson line}
 \begin{equation*}
     W_{C,V}(A) = \tr_V \exp\int_C A.
@@ -75,7 +78,7 @@ no curves, we obtain invariants of 3-manifolds that are effectively computable.
 The goal of these notes is to outline a rigorous procedure for obtaining quantum Chern-Simons theory
 without resorting to the path integral formalism. To do this, we will use \textit{geometric quantization},
 a method of quantizing a symplectic manifold to obtain a Hilbert space. We will follow the constructions
-of {\color{red}??}.
+of \cite{gq}.
 
 \section{Classical versus quantum}
 Recall that the data of a classical mechanical system can be encoded as symplectic geometry.
@@ -140,6 +143,7 @@ There is thus a natural symplectic form on $\mathscr{A}$ given
 \begin{equation*}
     \omega_\mathscr{A}(\alpha,\beta) = \int_\Sigma \langle \alpha\wedge\beta\rangle.
 \end{equation*}
+{\color{red} Why is this symplectic?}
 
 In order to describe how this symplectic form descends to $\mathscr{A}^\flat$, we recall some details
 of symplectic reduction. Let $G$ be a Hamiltonian group action on $(M,\omega)$. That is, the $G$
@@ -173,6 +177,8 @@ Guillou, Huebschmann.}
 
 \section{Geometric quantization}
 
+In this section we follow \cite{wood}.
+
 The first step in the geometric quantization of a symplectic manifold $(M,\omega)$ is \textit{prequantization},
 which assigns to $M$ a line bundle with connection whose curvature is $\omega$. The prequantum Hilbert
 space is then taken to be the square-integrable sections of this line bundle.
@@ -199,12 +205,67 @@ This quantization is no longer a Lie algebra homomorphism, so we add yet another
 where $\lambda$ is a one-form such that $d\lambda=\omega$. This prescription works, but now
 depends on $\lambda$, which need not exist in general. The way out is to replace the
 trivial bundle with a Hermitian bundle together with a connection whose curvature is $\omega$.
+The key fact is as follows.
 
-\begin{theorem}
+\begin{theorem}[{\color{red}Weil, Kostant?}]
     There exists a Hermitian line bundle $L\to M$ and a connection $\nabla$ on $L$ with
     curvature $\hbar^{-1}\omega$ if and only if $(2\pi\hbar)^{-1}\omega\in \HH^2(M,\Z)$.
     In this case, the choice of $(L,\nabla)$ is parameterized by $\HH^1(M,U(1))$.
 \end{theorem}
 
+Using this, we can define prequantization.
+\begin{definition}
+    Let $(M,\omega)$ be a integral symplectic manifold. Then a \textit{prequantum bundle} is
+    a choice of line bundle $L\to M$ and connection $\nabla$ on $L$ with curvature $\hbar^{-1}\omega$.
+    The \textit{prequantum Hilbert space} is the space $\mathcal{H}^\text{pre}$ of square-integrable
+    sections of $L$ together with the obvious inner product. The operator associated to $f\in C^\infty(M)$
+    is given by
+    \begin{equation*}
+        \hat f\psi = (-i\hbar\nabla_{X_f} + f)\psi.
+    \end{equation*}
+\end{definition}
+
+{\color{red} how does the connection vary with the line bundle?}
+
+\begin{example}
+    Consider $M=\R^{2n}$ with coordinates $(q,p)$ and its usual symplectic form $\omega=dq^i\wedge dp^i$.
+    The integrality of $\omega$ is clear because $M$ is exact, $\omega=d(p_idq^i)=d\lambda$. In this case
+    the trivial line bundle with connection $\nabla_{v}=v+\iota_{v}\lambda$ provides a prequantum
+    line bundle. Notice that $X_{q^i}=\partial/\partial p^i$ and $X_{p_i}=-\partial/\partial q^i$.
+    Hence we find
+    \begin{align*}
+        \hat q^i\psi &= \left(q^i -i\hbar \frac{\partial}{\partial p_i}\right)\psi\\
+        \hat p_i\psi &= i\hbar\frac{\partial}{\partial q^i}\psi.
+    \end{align*}
+    A straightforward computation reveals that $[\hat q^i,\hat p_i]=-i\hbar=-i\hbar\widehat{\{q^i,p_i\}}$,
+    as desired. On the other hand, there is something strange going on: our ``wavefunctions'' depend
+    on both $p$ and $q$, which is why $\hat q^i$ has an unfamiliar $\partial/\partial p_i$ term. 
+    Usually in quantum mechanics, we work with wavefunctions depending only on the $q^i$ or only on
+    the $p_i$, with the two perspectives related via the Fourier transform.
+\end{example}
+{\color{red} Maybe explain how time-evolution carries over via Hamiltonian flow?}
+
+The previous example shows that, even in the case of a particle in $\R^{2n}$, the prequantum
+Hilbert space constructed by prequantization is morally twice as large as it should be.
+The next step of geometric quantization, polarization, restricts the space of functions on $M$
+that we quantize.
+
+\begin{definition}[Polarization]
+    Define polarizations. Focus on the K\"ahler case.
+\end{definition}
+
+\begin{example}
+    Give the example of the three obvious polarizations for the case of $\R^{2n}$.
+\end{example}
+
+{\color{red} Maybe briefly mention the metaplectic correction?}
+
+\section{Quantizing the moduli space}
+
+Fix a complex structure on $\Sigma$, raise it to one on $\mathscr{A}$. Prequantize the
+space of connections $\mathscr{A}$.
+
+\nocite{*}
+\printbibliography
 
 \end{document}
