@@ -39,11 +39,15 @@ $\xi:E\to B$:\footnote{Throughout, all base spaces are assumed to be connected a
         \item if $\gamma_1^1$ is the tautological line bundle over $\R P^1$ then $w_1(\gamma_1^1)\in\HH^1(\R P^1,\F_2)=\F_2$
             is the unique nonzero element.
     \end{enumerate}
+    The total (inhomogeneous) Stiefel-Whitney class of $\xi$ is the sum
+    \begin{equation*}
+        w(\xi) = \sum_{i=0}^{\rk\xi}w_i(\xi) = 1 + w_1(\xi) + \cdots + w_{\rk\xi}(\xi)\in\HH^\bullet(B,\F_2).
+    \end{equation*}
     \label{sw}
 \end{theorem}
 
-{\color{magenta} make a remark about bundle map diagrams just being pullback diagrams, as Dylan pointed out
-last time. so we don't lose anything on II}
+%{\color{magenta} make a remark about bundle map diagrams just being pullback diagrams, as Dylan pointed out
+%last time. so we don't lose anything on II}
 
 Thus given, the Stiefel-Whitney classes allowed us to make some strong statements about parallelizability
 and cobordisms. The goal of the first half of this talk is to sketch a proof of the above theorem, i.e.
@@ -170,18 +174,18 @@ axiomatic definition of classes sitting in the cohomology of the base $B$, we ne
 theorem for vector bundles on $B$.
 Before we start, we note that
 \begin{equation*}
-    \Vect_\R:\textsc{Top}^\mathrm{op}\to\textsc{Set}
+    \Vect_\R^n:\textsc{Top}^\mathrm{op}\to\textsc{Set}
 \end{equation*}
 will denote the contravariant functor taking $B$ to the set (isomorphism classes) of real vector bundles
-over $B$ and taking $f:B\to B'$ to the pullback $f^*:\Vect_\R B'\to \Vect_\R B$. Recall that two
+over $B$ and taking $f:B\to B'$ to the pullback $f^*:\Vect_\R^n B'\to \Vect_\R^n B$. Recall that two
 vector bundles over $B$ are isomorphic if there is a map lifting $\id_B$ that is a fiberwise linear
 isomorphism.
 
 \begin{theorem}
-    The space $\mathscr{B}\OO(n)\cong\Gr_n\R^\infty$ classifies vector bundles, i.e. the natural
+    The space $\mathscr{B}\OO(n)\cong\Gr_n\R^\infty$ classifies rank $n$ real vector bundles, i.e. the natural
     transformation
     \begin{equation*}
-        \Phi: [-,\mathscr{B}\OO(n)] \naturalto \Vect_\R-,
+        \Phi: [-,\mathscr{B}\OO(n)] \naturalto \Vect_\R^n-,
     \end{equation*}
     given by pullback $[f]\mapsto f^*\gamma^n_\infty$ of the tautological bundle, is a natural isomorphism.
     \label{class}
@@ -276,29 +280,47 @@ We can finally prove the existence of Stiefel-Whitney classes for vector bundles
     \end{equation*}
     which proves axiom II.
 
-    To prove axiom III we recall that the direct sum of vector bundles can be described as a pullback
+    Invoking K\"unneth and axiom III of Theorem \ref{sw2}, the diagram
     \begin{equation*}
         \begin{tikzcd}
-            E\oplus E' \cong \Delta^*(E\times E') \ar{r}\ar{d} & E\times E'\ar{d}\\
-            B\ar{r}{\Delta}& B\times B
+            B\ar{r}{\xi\times\eta}\ar{d}{\Delta} & \mathscr{B}\OO(i)\times\mathscr{B}\OO(j)\ar{r}{p_{ij}} & \mathscr{B}\OO(i+j)\\
+            B\times B\ar[swap]{ru}{f_\xi\times f_\eta},
         \end{tikzcd}
     \end{equation*}
-    where $\Delta$ is the diagonal map. Then
-    \begin{equation*}
-        w_k(\xi\oplus\eta) = w_k(\Delta^*(\xi\times\eta)) = \Phi_{B\times B}^*w_k
-    \end{equation*}
-    where $\Phi_{\xi\times\eta}:B\times B\to\mathscr{B}\OO(n+m)$ is the unique classifying
-    map. {\color{magenta} Figure out how to prove axiom III.}
+    proves axiom III.
 
     The tautological line bundle on $\R P^1$ is given by the pullback of $\gamma_1^\infty$
     along the inclusion $j:\R P^1\hookrightarrow\R P^\infty$ so $w_1(\gamma_1^1)=j^*w_1$
     is the unique nonzero element in $\HH^1(\R P^1,\Z/2)$ by axiom IV of Theorem \ref{sw2}
     and because $j^*$ is an isomorphism in degrees $\leqslant 1$.
 
-    {\color{magenta} Uniqueness blah blah blah.}
+    The proof of uniqueness is essentially identical to the proof in Theorem \ref{sw2}.
 \end{proof}
 
-{\color{magenta} Application: $w_1(\xi)=0$ if and only if $E$ is orientable? Why?}
+
+Recall that a vector bundle is called \textit{orientable} if there is an assignment
+of orientation to each fiber as well as orientation-preserving local trivializations.
+\begin{proposition}
+    Let $B$ be a connected CW complex and let $\xi:E\to B$ be a real vector bundle.
+    Then $E$ is orientable if and only if $w_1(\xi)=0$.
+\end{proposition}
+\begin{proof}
+    Let $f:B\to\mathscr{B}\OO(n)$ be the map such that $\xi=f^*\gamma_n^\infty$.
+    Then, by the universal coefficient theorem and the fact that $\HH_1(B)$ is the abelianization
+    of $\pi_1(B)$, we have a commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            \HH^1(\mathscr{B}\OO(n),\Z_2)\ar{r}{\sim}\ar{d}{f^*} & \Hom(\HH_1(\mathscr{B}\OO(n)),\Z_2)\ar{r}{\sim}\ar{d}{\circ f_*} & \Hom(\pi_1(\mathscr{B}\OO(n)),\Z_2)\ar{d}{\circ f_*}\\
+            \HH^1(B,\Z_2)\ar{r}{\sim} & \Hom(\HH_1(B),\Z_2)\ar{r}{\sim} & \Hom(\pi_1(B),\Z_2)
+        \end{tikzcd}
+    \end{equation*}
+    where the horizontal arrows are isomorphisms. Note, now that $\pi_1(\mathscr{B}\OO(n))\cong\Z_2$,
+    and so $w_1\in\HH^1(\mathscr{B}\OO(n),\Z_2)$ corresponds to $\id_{\Z_2}\in\Hom(\pi(\mathscr{B}\OO(n)),\Z_2)$.
+    Hence $w_1(\xi)=f^*w_1$ corresponds to a map $\pi_1(B)\to\Z_2$ that is trivial if and only if
+    $f_*=0$. This is precisely the condition for $f$ to lift to the universal cover
+    $\mathscr{B}\SO(n)=\widetilde{\mathscr{B}\OO(n)}$. We conclude that, since $\mathscr{B}\SO(n)$ is the
+    classifying space for orientable rank $n$ bundles, $w_1(\xi)=0$ if and only if $E$ is orientable.
+\end{proof}
 
 \section{Chern classes}
 
@@ -349,11 +371,74 @@ We can now define the Chern class of a complex vector bundle.
         \item if $\gamma_1^1$ is the tautological complex line bundle over $\C P^1$ then $c_1(\gamma_1^1)\in\HH^2(\C P^1,\Z)=\Z$
             is the canonical generator.
     \end{enumerate}
+    The total (inhomogeneous) Chern class of $\xi$ is the sum
+    \begin{equation*}
+        c(\xi) = \sum_{i=0}^{\rk\xi}c_i(\xi) = 1 + c_1(\xi) + \cdots + c_{\rk\xi}(\xi)\in\HH^\bullet(B,\Z).
+    \end{equation*}
     \label{sw}
 \end{theorem}
 
-{\color{magenta} How does the Chern class restrict to the Stiefel-Whitney class? See p.47 of May unfinished}
+Last time, Yajit computed the total Stiefel-Whitney class of the tangent bundle $T\R P^n$ to be
+$w(\tau) = (1+a)^{n+1}$, where $a$ is the generator of $\HH^\bullet(\R P^n,\Z_2)$.
+This computation extends almost identically to the complex case, but we first make a remark
+about conjugate bundles.
+\begin{remark}
+    If $\xi$ is a complex vector bundle then there is a \textit{conjugate bundle}
+    $\bar\xi$, which is the the underlying real vector bundle of $\xi$ equipped with the opposite
+    complex structure. Swapping the complex structure is a nontrivial operation! In particular,
+    if $\tau$ is the tangent bundle of $\C P^1$ then an isomorphism $\tau\to\bar\tau$ of complex
+    vector bundles would consist of a reflection across a line at each tangent space. This implies
+    the existence of a continuous nonvanishing vector field on $S^2$, so we conclude that
+    $\tau\not\cong\bar\tau$.
 
-{\color{magenta} What are some applications of this machinery different than the ones Yajit gave?}
+    We note, in particular, that
+    \begin{equation*}
+        c_k(\bar\xi) = (-1)^k c_k(\xi)
+    \end{equation*}
+    and that in the presence of a Hermitian metric, $\bar\xi$ is canonically isomorphic to the
+    dual bundle $\Hom(\xi,\underline{\C})$ (under the assignment $v\mapsto \langle -,v\rangle$).
+\end{remark}
+
+\begin{example}[The total Chern class of $T\C P^n$]
+    Recall that the tangent bundle $\tau:T\C P^n\to\C P^n$ is identified with the bundle
+    $\Hom(\gamma_n^1, (\gamma_n^1)^\perp),$ and so
+    \begin{align*}
+        \tau\oplus \underline{\C} &\cong \tau\oplus\Hom(\gamma_n^1,\gamma_n^1)\\
+        &\cong \Hom(\gamma^1_n, (\gamma^1_n)^\perp\oplus \gamma_n^1)\\
+        &\cong \Hom(\gamma^1_n, \underline{\C}^{n+1})\\
+        &\cong \oplus^{n+1}\overline{\gamma_n^1}
+    \end{align*}
+    We conclude that
+    \begin{equation*}
+        c(\tau)=c(\tau\oplus\underline{\C})=c(\overline{\gamma_n^1})^{n+1}=(1-c_1(\gamma_n^1))^{n+1}=(1+a)^{n+1},
+    \end{equation*}
+    where we have taken $a=-c_1(\gamma_n^1)$.
+\end{example}
+
+Taking the underlying bundle of any complex rank $n$ vector bundle yields a real rank $2n$ vector bundle.
+Hence it is natural to ask how Stiefel-Whitney classes are related to Chern classes.
+\begin{proposition}
+    Let $\mu_n:\mathscr{B}\UU(n) \to \mathscr{B}\OO(2n)$ be the map induced by the natural
+    inclusion. Then $\mu_n^*w_{2i+1}=0$ and $\mu_n^*w_{2i}=c_i$.
+\end{proposition}
+\begin{proof}
+    That $\mu^*_nw_{2i+1}=0$ is immediate from axiom II together with the fact that $\mathscr{B}\UU(n)$
+    has cells only in even dimensions. For the other case, we recall that
+    \begin{align*}
+        \HH^\bullet(\mathscr{B}\OO(2n),\Z_2) &\cong \HH^\bullet(\mathscr{B}\OO(2)^n,\Z_2)^{\Sigma_n}\cong\Z_2[x_1,\ldots,x_{2n}]^{\Sigma_n}\\
+        \HH^\bullet(\mathscr{B}\UU(n),\Z_2) &\cong \HH^\bullet(\mathscr{B}\UU(1)^n,\Z_2)^{\Sigma_n}\cong\Z_2[y_1,\ldots,y_n]^{\Sigma_n},
+    \end{align*}
+    where $\deg x_{2i+1}=1, \deg x_{2i}=2$ and $\deg y_i=2$. We note that $\mu_1^*x_1=0$ since $\mathscr{B}\UU(1)$
+    has cells only in even degrees and $\mu_1^*x_2=y_1$ ({\color{magenta}why?}).
+    Write $\sigma_i$ for the symmetric polynomials in $x_i$ and $\rho_i$ the symmetric polynomials in $y_i$.
+    Using the commutativity of the diagram,
+    \begin{equation*}
+        \begin{tikzcd}
+            \HH^\bullet(\mathscr{B}\OO(2n),\Z_2)\ar{r}{\mu_n^*}\ar{d} & \HH^\bullet(\mathscr{B}\UU(n),\Z_2)\ar{d}\\
+            \HH^\bullet(\mathscr{B}\OO(2)^n,\Z_2)^{\Sigma_n}\ar{r}{(\mu_1^*)^n} & \HH^\bullet(\mathscr{B}\UU(1)^n,\Z_2)^{\Sigma_n}
+        \end{tikzcd}
+    \end{equation*}
+    it now follows that $\mu_n^*\sigma_i=\rho_i$.
+\end{proof}
 
 \end{document}

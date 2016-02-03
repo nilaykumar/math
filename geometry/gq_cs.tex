@@ -1,0 +1,210 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\input{../macros.tex}
+
+\DeclareMathOperator{\CS}{CS}
+
+\title{Notes on ``Geometric quantization of Cherns-Simons gauge theory''}
+\author{Nilay Kumar}
+\date{Winter 2016}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+Outline:
+\begin{enumerate}
+    \item Describe Witten's claim that RT invariants come from Wilson loop observables
+    \item Briefly mention how GQ applies in this situation, outline GQ (wishlist), review symplectic geometry
+    \item Prequantization and why it is too big (take the example of $\R^{2n}$)
+    \item Polarizations in general, focus on Kahler polarization
+\end{enumerate}
+
+\section{Introduction}
+Let $\Sigma$ be a compact oriented 2-manifold and write $M=\Sigma\times\R$. We will think of $\Sigma$ as the
+spacelike directions of spacetime and $\R$ the timelike direction. Chern-Simons theory with gauge
+group $G$ (that we will take to be compact, connected, and simply-connected) on $M$ is the data of a principal
+$G$-bundle $\pi:P\to\Sigma$ together with a
+\textit{Lagrangian density} $\mathscr{L}:\mathscr{A}\to C^\infty(\Sigma)$ on the space of connections $\mathscr{A}$ on $P$
+given by
+\begin{equation*}
+    \mathscr{L}_\text{CS}(A) = \langle A\wedge F\rangle + \frac{2}{3}\langle A\wedge [A\wedge A]\rangle.
+\end{equation*}
+Let us detail the notation used here. Recall first that a connection $A\in\mathscr{A}$ is
+a $G$-invariant $\fr g$-valued one-form, i.e. $A\in C^\infty(\underline{\fr g}\otimes T^*P)$ such that
+$R_g^*A = \Ad_{g^{-1}}A$, satisfying the additional condition that if $\xi\in\fr g$ then
+$A(\xi_P)=\xi$ if $\xi_P$ is the vector field associated to $\xi$. Notice that $\mathscr{A}$,
+though not a vector space, is an affine space modelled on $C^\infty(P\times_G\fr g)$. {\color{red}understand this!}
+The curvature $F$ of a connection $A$ is is the $\fr g$-valued two-form given by $F(v,w) = dA(v_h,w_h)$,
+where $\bullet_h$ denotes projection onto the horizontal distribution $\ker\pi_*$.\footnote{Here
+$[-\wedge-]$ and $d$ are given by a combination of the wedge product and commutator.}
+Finally, by $\langle-,-\rangle$ we denote an $\ad$-invariant inner product on $\fr g$.
+
+The Chern-Simons action is now given
+\begin{equation*}
+    S_\text{SC}(A) = \int_M \mathscr{L}_\text{SC}(A)
+\end{equation*}
+and the quantities of interest are expectation values of observables $\mathscr{O}:\mathscr{A}\to\R$
+\begin{equation*}
+    \langle\mathscr{O}\rangle = \int_{\mathscr{A}/\mathscr{G}} \mathscr{O}(A) e^{iS_\text{SC}(A)/\hbar}.
+\end{equation*}
+Here $\mathscr{G}$ is the group of automorphisms of $P\to\Sigma$, which acts by pullback on
+$\mathscr{A}$ -- the physical states are unaffected by these gauge transformations, so we integrate
+over the quotient $\mathscr{A}/\mathscr{G}$ to eliminate the redundancy.
+In {\color{red}??} Witten consider the following observable: let $C$ be a closed oriented curve
+in $M$ and $V$ be an irreducible representation of $G$. Then we define the \textit{Wilson line}
+\begin{equation*}
+    W_{C,V}(A) = \tr_V \exp\int_C A.
+\end{equation*}
+Witten computed the expectation values
+\begin{equation*}
+    \langle \prod_i W_{C_i,V_i}\rangle
+\end{equation*}
+for $(C_i,V_i)$ pairs of curves and $G$-irreps, and recovered in the case of $M=S^3$ the Jones
+polynomial and its generalizations. Moreover, taking $M$ to be an arbitrary 3-manifold and taking
+no curves, we obtain invariants of 3-manifolds that are effectively computable.
+
+The goal of these notes is to outline a rigorous procedure for obtaining quantum Chern-Simons theory
+without resorting to the path integral formalism. To do this, we will use \textit{geometric quantization},
+a method of quantizing a symplectic manifold to obtain a Hilbert space. We will follow the constructions
+of {\color{red}??}.
+
+\section{Classical versus quantum}
+Recall that the data of a classical mechanical system can be encoded as symplectic geometry.
+A symplectic form on a manifold $M$ is a nondegenerate closed two-form $\omega\in\Omega^2(M)$. 
+By nondegenerate we simply mean that $\omega_p$ is a nondegenerate skew-symmetric bilinear form
+for each $p\in M$, or more globally, that $\omega$ induces an isomorphism $TM\to T^*M$.
+A symplectic manifold is then a pair $(M,\omega)$, and it is not hard to see that $\dim M$ must be even.
+Let us fix some notation: by $X_f$ we mean the unique vector field corresponding to the one-form $df$:
+\begin{equation*}
+    \iota_{X_f}\omega = df.
+\end{equation*}
+Then we have a Poisson bracket $\{-,-\}$ on $C^\infty(M)$ given by
+\begin{equation*}
+    \{f, g\} = \omega(X_f, X_g),
+\end{equation*}
+under which $C^\infty(M)$ forms a Lie algebra. Notice that the bracket is also a biderivation. We say that
+$C^\infty(M)$ forms a Poisson algebra (over $\R$).
+
+Consider, for concreteness, a free particle in $\R^n$. The associated symplectic manifold
+$(\R^{2n}, \sum dq^i\wedge dp^i)$ represents the phase space of the system -- all posible states $(q,p)$
+of the particle. The observables in this formulation are simply smooth functions on $M$. The energy, for
+instance, is given $H(q,p)=|p|^2/2m$. {\color{red}time-evolution and the Poisson bracket?}
+
+In quantum mechanics, on the other hand, the phase space is given as a (complex) Hilbert space $\mathcal{H}$
+(or more precisely the projectivized space $\PP \mathcal{H}$) and observables correspond to selfadjoint
+operators. In particular, one computes the expectation value of a given observable as
+\begin{equation*}
+    \langle\mathcal{O}\rangle = \int_\mathcal{H} \mathcal{O}(\psi) e^{iS(\psi)/\hbar},
+\end{equation*}
+where $S:\mathcal{H}\to\R$ is the action of the system. {\color{red}time-evolution?}
+
+Notice that there is a canonical procedure for obtaining a classical system from a quantum one:
+take $\hbar\to0$. As $\hbar$ becomes small the exponential in the integral above oscillates wildly
+and the integral is dominated by contributions from the classical locus $\delta S=0$.
+
+The problem of quantization, then, is the converse question: does a classical system determine
+a quantum system? This is an interesting question to ask because often in physics one starts
+with a classical theory such as electromagnetism (a classical field theory) and wishes to obtain
+a quantum theory such as quantum electrodynamics (a quantum field theory). Unfortunately, as the saying
+goes, ``quantization is an art, not a functor.'' But let us be more precise and describe exactly
+what we mean by quantization (at least for our purposes).
+\begin{definition}[Dirac]
+    Let $(M,\omega)$ be a symplectic manifold. A \textit{quantization} of $M$ is a complex Hilbert space
+    $(\mathcal{H},\mathcal{O})$ with selfadjoint operators $\mathcal{O}$, together with an $\R$-linear map
+    $\hat\bullet:C^\infty(M)\to\mathcal{O}$ such that $\hat1$ is the identity operator on $\mathcal{H}$ and 
+    \begin{equation*}
+        [\hat f,\hat g] = -i\hbar\widehat{\{f,g\}}.
+    \end{equation*}
+\end{definition}
+
+Unfortunately, it is unclear how to do this in general without making $\mathcal{H}$ unphysically
+large.\footnote{In fact, there are various no-go theorems in the literature, c.f. Gronewald-van Hove.}
+
+Before we begin discussing the procedure of geometric quantization, which will approximate the
+notion of quantization above, let us see how it applies to the case of Chern-Simons theory.
+Recall that the phase space of Chern-Simons theory is the space $\mathscr{A}^\flat/\mathscr{G}$
+of flat connections on $\Sigma$ up to gauge transformation. There is a natural symplectic structure on
+$\mathscr{A}^\flat$ inherited from the symplectic structure of $\mathscr{A}$ via Marsden-Weinstein reduction.
+Since $\mathscr{A}$ is an affine space modelled on the vector space $\Gamma(\Sigma,P\times_G\fr g)$, the
+tangent space to $\mathscr{A}$ at any connection is said vector space. {\color{red} Why?}
+There is thus a natural symplectic form on $\mathscr{A}$ given
+\begin{equation*}
+    \omega_\mathscr{A}(\alpha,\beta) = \int_\Sigma \langle \alpha\wedge\beta\rangle.
+\end{equation*}
+
+In order to describe how this symplectic form descends to $\mathscr{A}^\flat$, we recall some details
+of symplectic reduction. Let $G$ be a Hamiltonian group action on $(M,\omega)$. That is, the $G$
+action satisfies:
+\begin{enumerate}
+    \item $G$ acts through symplectomorphisms;
+    \item if $\xi\in\fr g$, the one form associated to the vector field $\xi_M$ is exact:
+        \begin{equation*}
+            \iota_{\xi_M}\omega = d\kappa(\xi),
+        \end{equation*}
+        for $\kappa(\xi)\in C^\infty(M)$;
+    \item the associated comoment map $\kappa:\fr g\to C^\infty(M)$ is a Lie algebra homomorphism.
+\end{enumerate}
+Then there exists a $G$-equivariant moment map $\mu:M\to\fr g^*$ determined by
+\begin{equation*}
+    \kappa(\xi)(p) = \mu(p)(\xi).
+\end{equation*}
+The fundamental result of symplectic reduction is that if a Hamiltonian action of $G$ is free and proper
+then $\mu^{-1}(0)/G_0$ is a symplectic manifold with symplectic form $\omega_0$ uniquely
+characterized by $\pi_0^*\omega_0 = \iota_0^*\omega$.
+
+Let us return to Chern-Simons theory. We claim for now that the action of $\mathscr{G}$ is Hamiltonian,
+free, proper, and moreover that the curvature $F:\mathscr{A}\to\fr g^*$ provides a moment map for this action.
+{\color{red} Prove this!} Then the theory of reduction yields a symplectic structure on
+the moduli of flat connections $F^{-1}(0)/\mathscr{G}=\mathscr{A}^\flat/\mathscr{G}$. Moreover,
+one can check that this symplectic form is in fact integral. Thus the story of geometric quantization is
+indeed applicable.
+
+{\color{red} What are some other ways of obtaining this symplectic structure? C.f. Goldman, Karshon, Weinstein,
+Guillou, Huebschmann.}
+
+\section{Geometric quantization}
+
+The first step in the geometric quantization of a symplectic manifold $(M,\omega)$ is \textit{prequantization},
+which assigns to $M$ a line bundle with connection whose curvature is $\omega$. The prequantum Hilbert
+space is then taken to be the square-integrable sections of this line bundle.
+
+There is, of course, an obvious line bundle: the trivial one. Can we get away with this?
+Consider the space $L^2(M)$ of
+square-integrable smooth complex functions on $M$. This space has a natural inner product given by
+\begin{equation*}
+    \langle\psi,\psi'\rangle = \int_M \bar\psi \psi' \varepsilon,
+\end{equation*}
+where $\varepsilon=(\omega/2\pi\hbar)^n$ is a volume form. There is an obvious quantization of
+$f\in C^\infty(M)$ to
+\begin{equation*}
+    \psi \mapsto -i\hbar X_f\psi.
+\end{equation*}
+Unfortunately this will send constants to the zero operator. There is an immediate correction:
+\begin{equation*}
+    \psi \mapsto (-i\hbar X_f + f)\psi.
+\end{equation*}
+This quantization is no longer a Lie algebra homomorphism, so we add yet another term
+\begin{equation*}
+    \psi \mapsto (-i\hbar X_f + f -i\iota_{X_f}\lambda/\hbar)\psi,
+\end{equation*}
+where $\lambda$ is a one-form such that $d\lambda=\omega$. This prescription works, but now
+depends on $\lambda$, which need not exist in general. The way out is to replace the
+trivial bundle with a Hermitian bundle together with a connection whose curvature is $\omega$.
+
+\begin{theorem}
+    There exists a Hermitian line bundle $L\to M$ and a connection $\nabla$ on $L$ with
+    curvature $\hbar^{-1}\omega$ if and only if $(2\pi\hbar)^{-1}\omega\in \HH^2(M,\Z)$.
+    In this case, the choice of $(L,\nabla)$ is parameterized by $\HH^1(M,U(1))$.
+\end{theorem}
+
+
+\end{document}
