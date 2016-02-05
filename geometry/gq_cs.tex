@@ -14,7 +14,7 @@
 
 \DeclareMathOperator{\CS}{CS}
 
-\title{Notes on ADPW's ``Geometric quantization of Cherns-Simons gauge theory''}
+\title{Notes on Axelrod-Della Pietra-Witten}
 \author{Nilay Kumar}
 \date{Winter 2016}
 
@@ -177,7 +177,7 @@ Guillou, Huebschmann.}
 
 \section{Geometric quantization}
 
-In this section we follow \cite{wood}.
+In this section we follow \cite{wood} and \cite{hall}.
 
 The first step in the geometric quantization of a symplectic manifold $(M,\omega)$ is \textit{prequantization},
 which assigns to $M$ a line bundle with connection whose curvature is $\omega$. The prequantum Hilbert
@@ -208,7 +208,7 @@ trivial bundle with a Hermitian bundle together with a connection whose curvatur
 The key fact is as follows.
 
 \begin{theorem}[{\color{red}Weil, Kostant?}]
-    There exists a Hermitian line bundle $L\to M$ and a connection $\nabla$ on $L$ with
+    There exists a Hermitian line bundle $L\to M$ and a Hermitian connection $\nabla:\HH^0(M,L)\to\HH^0(M, L\otimes T^*M)$ on $L$ with
     curvature $\hbar^{-1}\omega$ if and only if $(2\pi\hbar)^{-1}\omega\in \HH^2(M,\Z)$.
     In this case, the choice of $(L,\nabla)$ is parameterized by $\HH^1(M,U(1))$.
 \end{theorem}
@@ -216,13 +216,15 @@ The key fact is as follows.
 Using this, we can define prequantization.
 \begin{definition}
     Let $(M,\omega)$ be a integral symplectic manifold. Then a \textit{prequantum bundle} is
-    a choice of line bundle $L\to M$ and connection $\nabla$ on $L$ with curvature $\hbar^{-1}\omega$.
+    a choice of line bundle $L\to M$ and connection $\nabla$
+    on $L$ with curvature $\hbar^{-1}\omega$.
     The \textit{prequantum Hilbert space} is the space $\mathcal{H}^\text{pre}$ of square-integrable
     sections of $L$ together with the obvious inner product. The operator associated to $f\in C^\infty(M)$
     is given by
     \begin{equation*}
         \hat f\psi = (-i\hbar\nabla_{X_f} + f)\psi.
     \end{equation*}
+    {\color{red} Why is this self adjoint? Why is it a Hilbert space?}
 \end{definition}
 
 {\color{red} how does the connection vary with the line bundle?}
@@ -248,17 +250,43 @@ Using this, we can define prequantization.
 The previous example shows that, even in the case of a particle in $\R^{2n}$, the prequantum
 Hilbert space constructed by prequantization is morally twice as large as it should be.
 The next step of geometric quantization, polarization, restricts the space of functions on $M$
-that we quantize.
+that we quantize. On $T^*M$, for example, one has the vertical and horizontal polarizations,
+which yield the usual position and momentum Hilbert spaces. Polarization is a rather delicate
+and involved procedure, so we only sketch the K\"ahler case.
 
-\begin{definition}[Polarization]
-    Define polarizations. Focus on the K\"ahler case.
-\end{definition}
+Recall that a K\"ahler manifold $(M,J,\omega)$ is a symplectic manifold together
+with an integrable almost complex structure $J:TM\to TM$ (with $J^2=-\id$) compatible with
+the symplectic structure: $\omega(Jv,Jw)=\omega(v,w)$.
+The complexified tangent bundle
+now splits $TM\otimes\C=T^{1,0}M\oplus T^{0,1}M$ along the eigenvalues $\pm i$ of $J\otimes\C$.
+The canonical \textit{K\"ahler polarization} on $(M,J,\omega)$ is simply the subbundle
+$T^{1,0}M\subset TM\otimes\C$, i.e. the holomorphic tangent bundle.
+
+Now, prequantization of $(M,J,\omega)$ yields a hermitian line bundle $L\to M$ equipped
+with a hermitian connection $\nabla$ with curvature given by the K\"ahler form $\omega$.
+The connection extends linearly to $\nabla^\C:\HH^0(M,L)\to\HH^0(M,L\otimes T^*M\otimes\C)$,
+and we can define the \textit{K\"ahler polarized sections} of $L$ to be $s\in\HH^0(M,L)$ such that
+$\nabla_Xs=0$ for all $X\in\HH^0(M,T^{0,1}M)$, that is, sections that are covariantly holomorphic.
+The \textit{quantum Hilbert space} $\mathcal{H}$ is then the space of square-integrable K\"ahler
+polarized sections. {\color{red} why is this the same as the space of square-integrable holomorphic sections?}
+
+There are a number of undesirable features of this story.
+While it can be shown that there always exist nonzero local polarized sections, there need not always exist
+global square-integrable polarized sections.  Moreover, the question of what the operators on $\mathcal{H}$
+are now becomes quite subtle.
+For instance, it only makes sense to consider the subset of the prequantization operators
+preserving $\mathcal{H}\subset\mathcal{H}^\text{pre}$.
 
 \begin{example}
-    Give the example of the three obvious polarizations for the case of $\R^{2n}$.
+    Consider $M=\R^2$ with complex coordinates $z=q+ip, \bar z=q-ip$. Recall that the
+    prequantum line bundle in this case is the trivial line bundle with connection $\nabla_v = v+\iota_v\lambda$,
+    where $\lambda=pdq$. Some computation reveals that the polarized states are of the form
+    \begin{equation*}
+        \psi(q,p) = F(z)e^{-p^2/2\hbar} = F(z)e^{-\text{Im}(z)^2/\hbar},
+    \end{equation*}
+    where $F$ is an arbitrary holomorphic function. Those $\psi$ which are square-integrable
+    form what is known to functional analysts as the Segal-Bargmann Hilbert space.
 \end{example}
-
-{\color{red} Maybe briefly mention the metaplectic correction?}
 
 \section{Quantizing the moduli space}
 
