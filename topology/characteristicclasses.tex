@@ -348,7 +348,7 @@ Chern classes can be related to complex vector bundles via the following analog 
     The space $\mathscr{B}\UU(n)\cong\Gr_n\C^\infty$ classifies complex vector bundles, i.e. the natural
     transformation
     \begin{equation*}
-        \Phi: [-,\mathscr{B}\UU(n)] \naturalto \Vect_\C-,
+        \Phi: [-,\mathscr{B}\UU(n)] \naturalto \Vect_\C^n-,
     \end{equation*}
     given by pullback $[f]\mapsto f^*\gamma^n_\infty$ of the tautological bundle, is a natural isomorphism.
 \end{theorem}
@@ -422,23 +422,26 @@ Hence it is natural to ask how Stiefel-Whitney classes are related to Chern clas
     inclusion. Then $\mu_n^*w_{2i+1}=0$ and $\mu_n^*w_{2i}=c_i$.
 \end{proposition}
 \begin{proof}
-    That $\mu^*_nw_{2i+1}=0$ is immediate from axiom II together with the fact that $\mathscr{B}\UU(n)$
-    has cells only in even dimensions. For the other case, we recall that
-    \begin{align*}
-        \HH^\bullet(\mathscr{B}\OO(2n),\Z_2) &\cong \HH^\bullet(\mathscr{B}\OO(2)^n,\Z_2)^{\Sigma_n}\cong\Z_2[x_1,\ldots,x_{2n}]^{\Sigma_n}\\
-        \HH^\bullet(\mathscr{B}\UU(n),\Z_2) &\cong \HH^\bullet(\mathscr{B}\UU(1)^n,\Z_2)^{\Sigma_n}\cong\Z_2[y_1,\ldots,y_n]^{\Sigma_n},
-    \end{align*}
-    where $\deg x_{2i+1}=1, \deg x_{2i}=2$ and $\deg y_i=2$. We note that $\mu_1^*x_1=0$ since $\mathscr{B}\UU(1)$
-    has cells only in even degrees and $\mu_1^*x_2=y_1$ ({\color{magenta}why?}).
-    Write $\sigma_i$ for the symmetric polynomials in $x_i$ and $\rho_i$ the symmetric polynomials in $y_i$.
-    Using the commutativity of the diagram,
-    \begin{equation*}
-        \begin{tikzcd}
-            \HH^\bullet(\mathscr{B}\OO(2n),\Z_2)\ar{r}{\mu_n^*}\ar{d} & \HH^\bullet(\mathscr{B}\UU(n),\Z_2)\ar{d}\\
-            \HH^\bullet(\mathscr{B}\OO(2)^n,\Z_2)^{\Sigma_n}\ar{r}{(\mu_1^*)^n} & \HH^\bullet(\mathscr{B}\UU(1)^n,\Z_2)^{\Sigma_n}
-        \end{tikzcd}
-    \end{equation*}
-    it now follows that $\mu_n^*\sigma_i=\rho_i$.
+    Left as an exercise to the reader.
 \end{proof}
+%\begin{proof}
+%    That $\mu^*_nw_{2i+1}=0$ is immediate from axiom II together with the fact that $\mathscr{B}\UU(n)$
+%    has cells only in even dimensions. For the other case, we recall that
+%    \begin{align*}
+%        \HH^\bullet(\mathscr{B}\OO(2n),\Z_2) &\cong \HH^\bullet(\mathscr{B}\OO(2)^n,\Z_2)^{\Sigma_n}\cong\Z_2[x_1,\ldots,x_{2n}]^{\Sigma_n}\\
+%        \HH^\bullet(\mathscr{B}\UU(n),\Z_2) &\cong \HH^\bullet(\mathscr{B}\UU(1)^n,\Z_2)^{\Sigma_n}\cong\Z_2[y_1,\ldots,y_n]^{\Sigma_n},
+%    \end{align*}
+%    where $\deg x_{2i+1}=1, \deg x_{2i}=2$ and $\deg y_i=2$. We note that $\mu_1^*x_1=0$ since $\mathscr{B}\UU(1)$
+%    has cells only in even degrees and $\mu_1^*x_2=y_1$ ({\color{magenta}why?}).
+%    Write $\sigma_i$ for the symmetric polynomials in $x_i$ and $\rho_i$ the symmetric polynomials in $y_i$.
+%    Using the commutativity of the diagram,
+%    \begin{equation*}
+%        \begin{tikzcd}
+%            \HH^\bullet(\mathscr{B}\OO(2n),\Z_2)\ar{r}{\mu_n^*}\ar{d} & \HH^\bullet(\mathscr{B}\UU(n),\Z_2)\ar{d}\\
+%            \HH^\bullet(\mathscr{B}\OO(2)^n,\Z_2)^{\Sigma_n}\ar{r}{(\mu_1^*)^n} & \HH^\bullet(\mathscr{B}\UU(1)^n,\Z_2)^{\Sigma_n}
+%        \end{tikzcd}
+%    \end{equation*}
+%    it now follows that $\mu_n^*\sigma_i=\rho_i$.
+%\end{proof}
 
 \end{document}
