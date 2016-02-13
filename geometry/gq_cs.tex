@@ -14,7 +14,7 @@
 
 \DeclareMathOperator{\CS}{CS}
 
-\title{Notes on Axelrod-Della Pietra-Witten}
+\title{Some background on geometric quantization}
 \author{Nilay Kumar}
 \date{Winter 2016}
 
@@ -23,29 +23,20 @@
 \maketitle
 \tableofcontents
 
-Outline:
-\begin{enumerate}
-    \item Describe Witten's claim that RT invariants come from Wilson loop observables
-    \item Briefly mention how GQ applies in this situation, outline GQ (wishlist), review symplectic geometry
-    \item Prequantization and why it is too big (take the example of $\R^{2n}$)
-    \item Polarizations in general, focus on Kahler polarization
-\end{enumerate}
-
 \section{Introduction}
-Let $\Sigma$ be a compact oriented 2-manifold and write $M=\Sigma\times\R$. We will think of $\Sigma$ as the
-spacelike directions of spacetime and $\R$ the timelike direction. Chern-Simons theory with gauge
+Let $M$ be a compact oriented 3-manifold. Chern-Simons theory with gauge
 group $G$ (that we will take to be compact, connected, and simply-connected) on $M$ is the data of a principal
-$G$-bundle $\pi:P\to\Sigma$ together with a
-\textit{Lagrangian density} $\mathscr{L}:\mathscr{A}\to C^\infty(\Sigma)$ on the space of connections $\mathscr{A}$ on $P$
+$G$-bundle $\pi:P\to M$ together with a
+\textit{Lagrangian density} $\mathscr{L}:\mathscr{A}\to \Omega^3(P)$ on the space of connections $\mathscr{A}$ on $P$
 given by
 \begin{equation*}
     \mathscr{L}_\text{CS}(A) = \langle A\wedge F\rangle + \frac{2}{3}\langle A\wedge [A\wedge A]\rangle.
 \end{equation*}
 Let us detail the notation used here. Recall first that a connection $A\in\mathscr{A}$ is
-a $G$-invariant $\fr g$-valued one-form, i.e. $A\in C^\infty(\underline{\fr g}\otimes T^*P)$ such that
+a $G$-invariant $\fr g$-valued one-form, i.e. $A\in \Omega^1(P;\fr g)$ such that
 $R_g^*A = \Ad_{g^{-1}}A$, satisfying the additional condition that if $\xi\in\fr g$ then
 $A(\xi_P)=\xi$ if $\xi_P$ is the vector field associated to $\xi$. Notice that $\mathscr{A}$,
-though not a vector space, is an affine space modelled on $C^\infty(P\times_G\fr g)$. {\color{red}understand this!}
+though not a vector space, is an affine space modelled on $\Omega^1(M,P\times_G\fr g)$.
 The curvature $F$ of a connection $A$ is is the $\fr g$-valued two-form given by $F(v,w) = dA(v_h,w_h)$,
 where $\bullet_h$ denotes projection onto the horizontal distribution $\ker\pi_*$.\footnote{Here
 $[-\wedge-]$ and $d$ are given by a combination of the wedge product and commutator.}
@@ -75,7 +66,9 @@ for $(C_i,V_i)$ pairs of curves and $G$-irreps, and recovered in the case of $M=
 polynomial and its generalizations. Moreover, taking $M$ to be an arbitrary 3-manifold and taking
 no curves, we obtain invariants of 3-manifolds that are effectively computable.
 
-The goal of these notes is to outline a rigorous procedure for obtaining quantum Chern-Simons theory
+The goal of these notes is to provide some background on geometric quantization which Pyongwon
+will use to tell us about a rigorous procedure for obtaining quantum Chern-Simons theory
+on a compact oriented 2-manifold $\Sigma$
 without resorting to the path integral formalism. To do this, we will use \textit{geometric quantization},
 a method of quantizing a symplectic manifold to obtain a Hilbert space. We will follow the constructions
 of \cite{gq}.
@@ -100,7 +93,7 @@ $C^\infty(M)$ forms a Poisson algebra (over $\R$).
 Consider, for concreteness, a free particle in $\R^n$. The associated symplectic manifold
 $(\R^{2n}, \sum dq^i\wedge dp^i)$ represents the phase space of the system -- all posible states $(q,p)$
 of the particle. The observables in this formulation are simply smooth functions on $M$. The energy, for
-instance, is given $H(q,p)=|p|^2/2m$. {\color{red}time-evolution and the Poisson bracket?}
+instance, is given $H(q,p)=|p|^2/2m$.
 
 In quantum mechanics, on the other hand, the phase space is given as a (complex) Hilbert space $\mathcal{H}$
 (or more precisely the projectivized space $\PP \mathcal{H}$) and observables correspond to selfadjoint
@@ -108,11 +101,11 @@ operators. In particular, one computes the expectation value of a given observab
 \begin{equation*}
     \langle\mathcal{O}\rangle = \int_\mathcal{H} \mathcal{O}(\psi) e^{iS(\psi)/\hbar},
 \end{equation*}
-where $S:\mathcal{H}\to\R$ is the action of the system. {\color{red}time-evolution?}
+where $S:\mathcal{H}\to\R$ is the action of the system.
 
 Notice that there is a canonical procedure for obtaining a classical system from a quantum one:
-take $\hbar\to0$. As $\hbar$ becomes small the exponential in the integral above oscillates wildly
-and the integral is dominated by contributions from the classical locus $\delta S=0$.
+take $\hbar\to0$. Very roughly speaking, as $\hbar$ becomes small the exponential in the integral
+above oscillates wildly and the integral is dominated by contributions from the classical locus $\delta S=0$.
 
 The problem of quantization, then, is the converse question: does a classical system determine
 a quantum system? This is an interesting question to ask because often in physics one starts
@@ -138,12 +131,11 @@ Recall that the phase space of Chern-Simons theory is the space $\mathscr{A}^\fl
 of flat connections on $\Sigma$ up to gauge transformation. There is a natural symplectic structure on
 $\mathscr{A}^\flat$ inherited from the symplectic structure of $\mathscr{A}$ via Marsden-Weinstein reduction.
 Since $\mathscr{A}$ is an affine space modelled on the vector space $\Gamma(\Sigma,P\times_G\fr g)$, the
-tangent space to $\mathscr{A}$ at any connection is said vector space. {\color{red} Why?}
+tangent space to $\mathscr{A}$ at any connection is said vector space.
 There is thus a natural symplectic form on $\mathscr{A}$ given
 \begin{equation*}
     \omega_\mathscr{A}(\alpha,\beta) = \int_\Sigma \langle \alpha\wedge\beta\rangle.
 \end{equation*}
-{\color{red} Why is this symplectic?}
 
 In order to describe how this symplectic form descends to $\mathscr{A}^\flat$, we recall some details
 of symplectic reduction. Let $G$ be a Hamiltonian group action on $(M,\omega)$. That is, the $G$
@@ -165,15 +157,14 @@ The fundamental result of symplectic reduction is that if a Hamiltonian action o
 then $\mu^{-1}(0)/G_0$ is a symplectic manifold with symplectic form $\omega_0$ uniquely
 characterized by $\pi_0^*\omega_0 = \iota_0^*\omega$.
 
-Let us return to Chern-Simons theory. We claim for now that the action of $\mathscr{G}$ is Hamiltonian,
-free, proper, and moreover that the curvature $F:\mathscr{A}\to\fr g^*$ provides a moment map for this action.
-{\color{red} Prove this!} Then the theory of reduction yields a symplectic structure on
-the moduli of flat connections $F^{-1}(0)/\mathscr{G}=\mathscr{A}^\flat/\mathscr{G}$. Moreover,
-one can check that this symplectic form is in fact integral. Thus the story of geometric quantization is
-indeed applicable.
-
-{\color{red} What are some other ways of obtaining this symplectic structure? C.f. Goldman, Karshon, Weinstein,
-Guillou, Huebschmann.}
+Let us return to Chern-Simons theory.
+\begin{exercise}
+    Make sense of the statement that $F:\mathscr{A}\to\Omega^2(\Sigma, P\times_G\fr g)$ provides
+    a moment map for the $\mathscr{G}$-action on $\mathscr{A}$.
+\end{exercise}
+In view of the exercise above the theory of reduction yields a symplectic structure on
+the moduli of flat connections $F^{-1}(0)/\mathscr{G}=\mathscr{A}^\flat/\mathscr{G}$.
+Thus the story of geometric quantization is indeed applicable.\footnote{Exercise: why is the form integral?}
 
 \section{Geometric quantization}
 
@@ -207,7 +198,7 @@ depends on $\lambda$, which need not exist in general. The way out is to replace
 trivial bundle with a Hermitian bundle together with a connection whose curvature is $\omega$.
 The key fact is as follows.
 
-\begin{theorem}[{\color{red}Weil, Kostant?}]
+\begin{theorem}
     There exists a Hermitian line bundle $L\to M$ and a Hermitian connection $\nabla:\HH^0(M,L)\to\HH^0(M, L\otimes T^*M)$ on $L$ with
     curvature $\hbar^{-1}\omega$ if and only if $(2\pi\hbar)^{-1}\omega\in \HH^2(M,\Z)$.
     In this case, the choice of $(L,\nabla)$ is parameterized by $\HH^1(M,U(1))$.
@@ -224,10 +215,7 @@ Using this, we can define prequantization.
     \begin{equation*}
         \hat f\psi = (-i\hbar\nabla_{X_f} + f)\psi.
     \end{equation*}
-    {\color{red} Why is this self adjoint? Why is it a Hilbert space?}
 \end{definition}
-
-{\color{red} how does the connection vary with the line bundle?}
 
 \begin{example}
     Consider $M=\R^{2n}$ with coordinates $(q,p)$ and its usual symplectic form $\omega=dq^i\wedge dp^i$.
@@ -245,14 +233,52 @@ Using this, we can define prequantization.
     Usually in quantum mechanics, we work with wavefunctions depending only on the $q^i$ or only on
     the $p_i$, with the two perspectives related via the Fourier transform.
 \end{example}
-{\color{red} Maybe explain how time-evolution carries over via Hamiltonian flow?}
 
 The previous example shows that, even in the case of a particle in $\R^{2n}$, the prequantum
 Hilbert space constructed by prequantization is morally twice as large as it should be.
 The next step of geometric quantization, polarization, restricts the space of functions on $M$
 that we quantize. On $T^*M$, for example, one has the vertical and horizontal polarizations,
 which yield the usual position and momentum Hilbert spaces. Polarization is a rather delicate
-and involved procedure, so we only sketch the K\"ahler case.
+and involved procedure, so we only sketch the beginning of the story.
+
+\begin{definition}
+    A \textit{polarization} on $(M,\omega)$ is an integrable Lagrangian subbundle $\mathscr{P}\hookrightarrow TM\otimes\C$.
+    Then, if $L\to M$ is a prequantum line bundle and $\mathscr{P}$ is a polarization, we define the
+    \textit{quantum Hilbert space} $\mathcal{H}$ to be the set of square integrable sections
+    that are covariantly constant along $\mathscr{P}$, i.e.
+    \begin{equation*}
+        \mathcal{H} = \{s\in L^2(M,L) \mid \nabla_Xs=0, X\in\mathscr{P}\}.
+    \end{equation*}
+\end{definition}
+
+\begin{example}
+    Consider $M=T^*\R=\R^2$ with coordinates $(q,p)$ and the trivial prequantum line bundle
+    $(L=M\times\C, \nabla_v=v+i\iota_v\lambda)$, where $\lambda=pdq$.
+    There is an obvious polarization of $\R^2$ by contangent fibers so that the polarized sections
+    satisfy $\nabla_{\partial/\partial p} \psi = 0$, i.e.
+    \begin{equation*}
+        \left( \frac{\partial}{\partial p}+i\iota_{\partial/\partial p}pdq \right)\psi=\frac{\partial\psi}{\partial p}=0.
+    \end{equation*}
+    Hence $\mathcal{H}$ consists of square-integrable sections depending on $q$. Unfortunately
+    there are no such sections as
+    \begin{equation*}
+        \int_{\R^2}\overline{\psi(x)}\psi(x)\d x\d p=\infty
+    \end{equation*}
+    unless $\psi=0$.
+
+    Alternatively one could choose another polarization, taking the zero section and its translates,
+    upon which the polarized sections satisfy $\nabla_{\partial/\partial q}\psi =0$, which one
+    can solve to find that $\psi(q,p)=\psi(p,0)e^{-iqp}$. Again, these will not be square-integrable.
+
+    To actually obtain square-integrable sections we would, roughly speaking, have to cut down
+    our base manifold from $T^*\R$ to $\R$. Hence even after polarization we do not necessarily
+    obtain the Hilbert spaces familiar to physicists.
+\end{example}
+
+\begin{remark}
+    Polarizations need not exist! There is a class of compact 4-dimensional symplectic manifolds
+    admitting no polarizations at all, c.f. \cite{gotay}.
+\end{remark}
 
 Recall that a K\"ahler manifold $(M,J,\omega)$ is a symplectic manifold together
 with an integrable almost complex structure $J:TM\to TM$ (with $J^2=-\id$) compatible with
@@ -268,7 +294,12 @@ The connection extends linearly to $\nabla^\C:\HH^0(M,L)\to\HH^0(M,L\otimes T^*M
 and we can define the \textit{K\"ahler polarized sections} of $L$ to be $s\in\HH^0(M,L)$ such that
 $\nabla_Xs=0$ for all $X\in\HH^0(M,T^{0,1}M)$, that is, sections that are covariantly holomorphic.
 The \textit{quantum Hilbert space} $\mathcal{H}$ is then the space of square-integrable K\"ahler
-polarized sections. {\color{red} why is this the same as the space of square-integrable holomorphic sections?}
+polarized sections.
+
+\begin{exercise}
+    Show that, in the K\"ahler case, $L$ has a natural holomorphic structure, and $\mathcal{H}$
+    is simply the space of square-integrable holomorphic sections.
+\end{exercise}
 
 There are a number of undesirable features of this story.
 While it can be shown that there always exist nonzero local polarized sections, there need not always exist
@@ -287,11 +318,6 @@ preserving $\mathcal{H}\subset\mathcal{H}^\text{pre}$.
     where $F$ is an arbitrary holomorphic function. Those $\psi$ which are square-integrable
     form what is known to functional analysts as the Segal-Bargmann Hilbert space.
 \end{example}
-
-\section{Quantizing the moduli space}
-
-Fix a complex structure on $\Sigma$, raise it to one on $\mathscr{A}$. Prequantize the
-space of connections $\mathscr{A}$.
 
 \nocite{*}
 \printbibliography
