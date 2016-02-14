@@ -1,0 +1,169 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\input{../macros.tex}
+\DeclareMathOperator{\Vect}{Vect}
+
+\title{Bott periodicity}
+\author{Nilay Kumar}
+\date{February 15, 2016}
+
+\begin{document}
+
+\maketitle
+
+{\color{red} What assumptions do we need to make on the spaces?}
+All vector bundles throughout will be complex.
+
+Recall from last time the definition of $K$-theory.
+\begin{definition}
+    Let $\Vect:\textsc{HTop}^\text{op}\to\textsc{CRig}$ denote the functor taking any space $X$ to the commutative semiring
+    of vector bundles over $X$ with the operations of direct sum and tensor product. Notice that $f:X\to Y$ is taken to
+    $f^*:\Vect Y\to\Vect X$. Then, by the usual Grothendieck construction,  there exists a universal functor
+    \begin{equation*}
+        K:\textsc{HTop}^\text{op}\to\textsc{CRing}
+    \end{equation*}
+    such that if $R$ is a commutative ring then the diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            \Vect(X)\rar\dar & R\\
+            K(X)\urar[dashed]
+        \end{tikzcd}
+    \end{equation*}
+    commutes. It follows that for a map $f:X\to Y$ the diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            \Vect Y\rar{f^*}\dar & \Vect X\dar\\
+            K(Y) \rar{Kf} & K(X)
+        \end{tikzcd}
+    \end{equation*}
+    commutes.
+\end{definition}
+
+\begin{remark}
+    By construction, every element in $K(X)$ is of the form $[E]-[F]$ for $E,F\in\Vect(X)$.
+    There exists $G\in\Vect X$ such that $F\oplus G$ is trivial of rank $n$: $F\oplus G\cong\underline{n}$.
+    Then $[E]-[F]=[E]+[G]-([F]+[G])=[E\oplus G]-[\underline{n}]$. We conclude that every element
+    of $K(X)$ is of the form $[H]-[\underline{n}]$.
+
+    Moreover, suppose $E,F\in\Vect X$ are such that $[E]=[F]$. Then, by definition of the Grothendieck
+    construction, there exists $G\in\Vect X$ such that $E\oplus G\cong F\oplus G$. If $G'\in\Vect X$
+    is such that $G\oplus G'\cong[\underline{n}]$ then adding $G'$, we find that $E\oplus\underline{n}\cong F\oplus\underline{n}$.
+    We conclude that $[E]=[F]$ if and only if $E$ and $F$ are \textit{stably equivalent}, i.e. there exists
+    a suitable trivial bundle such that they become equivalent after adding the trivial bundle.
+\end{remark}
+
+\begin{definition}
+    If $X\in\textsc{HTop}^\text{op}_+$, the inclusion of the basepoint into $X$ yields a map
+    $K(X)\to K(+)$. We define the reduced $K$-theory $\tilde K(X)$ to be the kernel
+    \begin{equation*}
+        \begin{tikzcd}
+            0\rar & \tilde K(X)\rar & K(X)\rar & K(+)\rar & 0.
+        \end{tikzcd}
+    \end{equation*}
+    The constant map $X\to +$ yields a natural splitting of this exact sequence
+    \begin{equation*}
+        K(X) \cong \tilde K(X)\oplus K(+)\cong \tilde K(X)\oplus \Z,
+    \end{equation*}
+    hence inducing a functor $\tilde K:\textsc{HTop}^\text{op}_+\to\textsc{CRing}.$
+    A straightforward computation shows that $[E]=[F]$ in $\tilde K(X)$ if and only if
+    $E\oplus\underline{n}\cong F\oplus\underline{m}$ for some $m,n\in\N$.
+\end{definition}
+
+Let $A\subset X$. As in cohomology, we wish to obtain a long exact sequence on $K$-theory.
+Consider the cofiber sequence associated to $i:A\to X$:
+\begin{equation*}
+    \begin{tikzcd}
+        A\rar{i} & X\rar{j} & Ci\rar{\pi} & \Sigma A\rar{-\Sigma i} & \Sigma X\rar{-\Sigma\pi} & \Sigma Ci\rar{\Sigma^2 i} &\Sigma^2X\rar&\cdots
+    \end{tikzcd}
+\end{equation*}
+where $(-\Sigma i)(x\wedge t)=f(x)\wedge(1-t)$. Applying $K$-theory, we claim:
+\begin{proposition}
+    For $i:A\hookrightarrow X$ there is a natural long exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots\rar & K^{-1}(X)\rar & K^{-1}(A)\rar & K^0(X,A)\rar & K^0(X)\rar & K^0(A),
+        \end{tikzcd}
+    \end{equation*}
+    where $K^{-n}(X)\equiv K(\Sigma^n X)$ and $K^{-n}(X,A)\equiv K(\Sigma^n Ci)$ for all $n\geqslant0$,
+    and the maps are induced from the cofiber sequence above.
+\end{proposition}
+\begin{proof}
+    Work.
+\end{proof}
+
+Bott periodicity is a fundamental result stating that $K$-theory is 2-periodic.
+\begin{theorem}[Bott periodicity]
+    $K^{-n}(X)\cong K^{-n-2}(X)$ for all $n\geqslant0$.
+    \label{theorem:bott}
+\end{theorem}
+
+In particular, defining 
+\begin{align*}
+    K^{2n}(X)&\equiv K^0(X)\\
+    K^{2n+1}(X)&\equiv K^{-1}(X)
+\end{align*}
+for $n\geqslant0$,
+the data of the long exact sequence for a pair $(X,A)$ reduces to the exact sequence
+\begin{equation*}
+    \begin{tikzcd}
+        K^0(X,A)\rar & K^0(X)\rar & K^0(A)\dar\\
+        K^1(A)\uar & K^1(X)\lar & K^1(X,A)\lar
+    \end{tikzcd}
+\end{equation*}
+
+To prove Bott periodicity, we will use a series of results. We will work with reduced
+$K$-theory for convenience.
+
+\begin{lemma}
+    Write $BU=\colim_nBU(n)$. Then there is a natural isomorphism of functors $\tilde K$ and $[-,BU]$.
+    That is, there is a natural bijection
+    \begin{equation*}
+        [X, BU] \cong \tilde K(X).
+    \end{equation*}
+    \label{lemma:class}
+\end{lemma}
+\begin{proof}
+    Recall that $[X, BU(n)]\cong\Vect^n X$, whence
+    \begin{align*}
+        [X,BU] &= [X,\colim_n BU(n)]\\
+        &= \colim_n [X, BU(n)]\\
+        &= \colim_n \Vect^n X.
+    \end{align*}
+    It is straightforward to see that the map $\Vect^n X\to\Vect^{n+1}X$ is given by adding a trivial
+    bundle. Hence elements $E,F\in\colim_n\Vect^nX$ -- say, vector bundles of rank $r$ and $s$ respectively --
+    are equal in the colimit if and only if there exist $l,k\in\N$ such that
+    $E\oplus\underline{l}\cong F\oplus\underline{k}$. Thus there is a natural isomorphism
+    $\colim_n\Vect^nX\cong \tilde K(X)$, completing the proof.
+    {\color{red} why does colim commute with maps?}
+\end{proof}
+
+Assume, for the moment, the following proposition.
+\begin{proposition}
+    There is a homotopy equivalence $BU\simeq\Omega SU$.
+    \label{proposition:may}
+\end{proposition}
+
+Then we can prove Bott periodicity as follows.
+\begin{proof}[Proof of Theorem \ref{theorem:bott}]
+    It suffices to show that there is a natural isomorphism $\tilde K(\Sigma^2X)\cong\tilde K(X)$.
+    Using Lemma \ref{lemma:class} and the above proposition, we have natural isomorphisms 
+    \begin{align*}
+        \tilde K(\Sigma^2X) &\cong [\Sigma^2X,BU]\\
+        &\cong [X, \Omega^2BU]\\
+        &\cong [X,\Omega SU]\\
+        &\cong [X, BU]\\
+        &\cong \tilde K(X).
+    \end{align*}
+    {\color{red} Why is $\Omega BU\simeq SU$?}
+\end{proof}
+
+All the hard work lies lies in the proof of the homotopy equivalence $BU\simeq\Omega SU$.
+
+\end{document}
