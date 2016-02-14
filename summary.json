@@ -6,5 +6,8 @@
         },
 
     "topology" :
-        {"characteristicclasses" : "Notes on Stiefel-Whitney and Chern classes, for a student run seminar"}
+        {
+            "characteristicclasses" : "Notes on Stiefel-Whitney and Chern classes for a student run seminar",
+            "bott_periodicity" : "Notes on Bott periodicity for topological K-theory for a student run seminar"
+        }
 }
