@@ -1,0 +1,132 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\usepackage[backend=bibtex, style=alphabetic]{biblatex}
+%\addbibresource{bott_periodicity.bib}
+
+\input{../macros.tex}
+
+\title{Brown representability and CW-spectra}
+\author{Nilay Kumar}
+\date{March 4, 2016}
+
+\begin{document}
+
+\maketitle
+
+Outline:
+\begin{enumerate}
+    \item Generalized (reduced) cohomology theory, from $\Omega$-spectra
+    \item Brown representability
+    \item every spectrum is weak equivalent to an omega-spectrum (?)
+    \item are these categories equivalent?
+    \item properties of CW spectra
+    \item smash products, axiomatically, ring spectra?
+\end{enumerate}
+
+Note that I will write $h$ instead of $\tilde h$, etc. -- all cohomology theories will be reduced.
+
+Last time Sean defined the CW-spectra category and its associated homotopy category, the stable homotopy category.
+The main goal for today is to understand the relation between CW-spectra and generalized cohomology theories. Let
+us first recall the definitions.
+
+\begin{definition}
+    A \textbf{(reduced) generalized cohomology theory} is a functor $h^\bullet:\textsc{CW}_*\to\textsc{Ab}^\Z$ from
+    pointed CW-complexes to graded abelian groups together with natural isomorphisms
+    \begin{equation*}
+        \begin{tikzcd}
+            h^\bullet\rar{\sim}& h^{\bullet+1}\circ\Sigma,
+        \end{tikzcd}
+    \end{equation*}
+    called suspension isomorphisms, such that
+    \begin{enumerate}
+        \item if $f,g:X\to Y$ are homotopic then $f^*=g^*:h^\bullet Y\to h^\bullet X$;
+        \item for $\iota:A\to X$ an inclusion and $j:X\to C\iota$ the induced mapping cone, we have an exact sequence
+            \begin{equation*}
+                \begin{tikzcd}
+                    h^\bullet(C\iota)\rar & h^\bullet X\rar & h^\bullet A;
+                \end{tikzcd}
+            \end{equation*}
+        \item for a wedge sum $\bigvee_\alpha X_\alpha$, the inclusions $\iota_\alpha:X_\alpha\hookrightarrow\bigvee_\alpha X_\alpha$
+            induce an isomorphism
+            \begin{equation*}
+                \begin{tikzcd}
+                    h^\bullet(\bigvee_\alpha X_\alpha)\rar & \prod_\alpha h^\bullet X_\alpha.
+                \end{tikzcd}
+            \end{equation*}
+    \end{enumerate}
+\end{definition}
+
+The examples we've seen so far of such gadgets are ordinary (singular) cohomology and $K$-theory. A few more
+examples are cohomotopy and cobordism. Note that in general a generalized cohomology theory need not be multiplicative.
+Let us now recall the category of CW-spectra.
+
+\begin{definition}
+    A \textbf{CW-spectrum} $E$ is a sequence of pointed CW-complexes $\{E_n\}_{n\in\N}$ together with structure
+    maps $\varepsilon_i:\Sigma E_n\to E_{n+1}$ such that $\Sigma E_n$ is mapped isomorphically (as a CW-complex)
+    onto a subcomplex of $E_{n+1}$. A subspectrum $A\subset E$ is a CW-spectrum for which each $A_n$ is a subcomplex
+    of $E_n$. A morphism $E\to F$ of CW-spectra is an equivalence class of maps $A_n\to F_n$ (commuting with structure
+    maps) of cofinal subspectra $A\subset E$.\footnote{Sean explained what this means, as well as the notion of homotopy
+        but we won't need these precise definition today.}
+\end{definition}
+
+The prototypical example is the suspension spectrum $\Sigma^\infty X$ of a CW-complex $X$, which is given
+$E_n = \Sigma^n X$ with the obvious structure maps. The sphere spectrum, for instance, is $\mathbb{S}\equiv\Sigma^\infty S^0$.
+Another important class of CW-spectra is that of $\Omega$-spectra, CW-spectra for which the adjoint structure
+maps $\hat\varepsilon_n: X_n\to \Omega X_{n+1}$ are weak-equivalences.
+
+We have in fact already seen two $\Omega$-spectra, as Sean pointed out. The first is the Eilenberg-Maclane spectrum,
+given $H\Z_n=K(\Z,n)$. That this yields an $\Omega$-spectrum is clear from the path-fibration over $K(\Z,n)$.
+The Eilenberg-Maclane spaces have the important property that they represent cohomology, i.e. there is a natural
+isomorphism
+\begin{equation*}
+    H^\bullet X \cong [X, K(n,\Z)].
+\end{equation*}
+
+Another example we've seen is the $K$-theory spectrum $BU\times\Z$. Recall that $K^0(X)$ is the group completion of
+the monoid of complex vector bundles over (a compact space) $X$ and $K^{-1}(X)$ is defined to be $K^0(\Sigma X)$.
+The fact that rank $n$ vector bundles given by homotopy classes of maps to $BU(n)$ yields
+\begin{equation*}
+    K^0(X) \cong [X, BU\times\Z].
+\end{equation*}
+It follows from loops-suspension adjunction that
+\begin{equation*}
+    K^{-1}(X) \cong [X, \Omega(BU\times \Z)] \cong [X, \Omega BU]\cong [X, U],
+\end{equation*}
+where the last isomorphism comes from the homotopy equivalence $\Omega BU\simeq U$.
+Moving further down, $K^{-2}(X)=K^0(\Sigma^2X)$, but Bott periodicity tells us that $\Omega U\simeq BU\times\Z$.
+Hence we obtain a 2-periodic sequence of spaces $\{BU\times\Z, \Omega BU,BU\times\Z,\ldots\}$ that obviously form an
+$\Omega$-spectrum.
+
+It is natural to ask, now, whether every generalized cohomology theory is representable by an $\Omega$-spectrum.
+This is Brown's representability theorem. Before we prove this, however, let us consider the converse question, which
+is easier: does every $\Omega$-spectrum yield a generalized cohomology theory?
+
+\begin{proposition}
+    Let $E$ be an $\Omega$-spectrum. Then $E^\bullet \equiv [-, E_\bullet]$ is a generalized cohomology theory.
+\end{proposition}
+\begin{proof}
+    For $X$ a CW-complex, the homotopy classes of maps $[X,E_\bullet]$ forms an abelian group. {\color{red} finish}
+
+    That $E^\bullet$ is homotopy-invariant is clear: pullback by $f$ is given by precomposition by $f$ so if
+    $f\sim g$ then $f^*\phi\sim g^*\phi$. The suspension isomorphism follows immediately from the fact that
+    $E$ is an $\Omega$-spectrum:
+    \begin{align*}
+        E^{n+1}(\Sigma X) &= [\Sigma X, E^{n+1}]\\
+        &\cong [X, \Omega E^{n+1}]\\
+        &\cong [X, E^n]\\
+        &= E^nX
+    \end{align*}
+    The wedge axiom is also straightforward: maps $[\bigvee_\alpha X_\alpha, E_\bullet]$ are in natural bijection
+    with the product $\prod_\alpha[X_\alpha, E_\bullet]$.
+\end{proof}
+
+%\printbibliography
+
+\end{document}

@@ -7,10 +7,13 @@
 \usepackage{tikz-cd}
 \usepackage{amssymb}
 
+\usepackage[backend=bibtex, style=alphabetic]{biblatex}
+\addbibresource{bott_periodicity.bib}
+
 \input{../macros.tex}
 \DeclareMathOperator{\Vect}{Vect}
 
-\title{Bott periodicity}
+\title{Bott periodicity for complex $K$-theory}
 \author{Nilay Kumar}
 \date{February 15, 2016}
 
@@ -165,5 +168,8 @@ Then we can prove Bott periodicity as follows.
 \end{proof}
 
 All the hard work lies lies in the proof of the homotopy equivalence $BU\simeq\Omega SU$.
+We follow \cite{mcat} in the rest of this note.
+
+\printbibliography
 
 \end{document}
