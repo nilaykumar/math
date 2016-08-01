@@ -2,7 +2,8 @@
     "geometry" :
         {
             "notes_symp" : "Notes on McDuff & Salamon's Introduction to Symplectic Topology",
-            "gq_cs" : "Notes on the geometric quantization of (2+1) Chern-Simons theory via ADPW"
+            "gq_cs" : "Notes on the geometric quantization of (2+1) Chern-Simons theory via ADPW",
+            "integrable_complex" : "Notes on almost complex structure"
         },
 
     "topology" :

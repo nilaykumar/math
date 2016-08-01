@@ -1,0 +1,210 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\input{../macros.tex}
+
+\title{Notes on integrability of complex structures}
+\author{Nilay Kumar}
+\date{Summer 2016}
+
+\begin{document}
+\maketitle
+
+Recall that every complex manifold is by definition a smooth manifold. This raises the following question:
+when can a smooth manifold be given the structure of a complex manifold, i.e. a complex structure?
+
+We begin by reviewing some definitions.
+\begin{definition}
+    An {\color{blue}almost complex structure} $J$ on a $2n$-dimensional smooth manifold $M$ is
+    a (real) vector bundle endomorphism $J:TM\to TM$ satisfying $J^2=-\id$.
+\end{definition}
+
+\begin{exercise}
+    Show that if $M$ has an almost complex structure then it must be even-dimensional.
+\end{exercise}
+
+Suppose $(M, J)$ is an almost complex manifold of dimension $2n$. Define the {\color{blue}complexified tangent bundle}
+$T_\C M=TM\otimes\C$ to be the tensor product of the real tangent bundle with the trivial complex line bundle. Notice that
+$T_\C M$ has fibers that are $4n$ dimensional. Complexifying the almost complex structure $J$, we obtain $J_\C=J\otimes\C$.
+Notice that $J_\C^2=-\id$ and hence $J_\C$ has eigenvalues $\pm i$. Thus we can decompose
+\begin{equation*}
+    T_\C M = T^{1,0}M \oplus T^{0,1}M,
+\end{equation*}
+the $\pm i$-eigenbundles of $J_\C$.\footnote{It suffices to check this fiberwise, as $J_\C$ is a smooth map of bundles.}
+These are the {\color{blue} holomorphic and antiholomorphic tangent bundles} of $(M,J)$.
+
+\begin{proposition}
+    There is a natural almost complex structure $J$ on any complex manifold $X$.
+\end{proposition}
+\begin{proof}
+    Let $\{U_\alpha,\phi_\alpha\}$ be an atlas for $X$. Each $U_\alpha$ is biholomorphic to an
+    open subset of $\C^n$, and hence has real coordinates $(x^1,\ldots,x^n,y^1,\ldots,y^n)$ comprising
+    the coordinates $z^i=x^i+iy^i$. Consider, in this chart, the endomorphism $J$ of $TU_\alpha$ sending
+    $\partial/\partial x^i\mapsto \partial/\partial y^i$ and $\partial/\partial y^i\mapsto -\partial/\partial x^i$
+    at every point of $U_\alpha$. This is an almost complex structure on $U_\alpha$ -- it remains to
+    patch these structures together on $X$.
+
+    To do this it suffices to show that if $f:U\to V$ is a holomorphic map between subsets of $\C^m$ and $\C^n$, respectively,
+    then $(f_*)_\C(T^{1,0}U)\subset T^{1,0}V$.
+    In other words, the complexified pushforward of a holomorphic map preserves the direct sum decomposition with
+    respect to the almost complex structure defined above.
+    Notice that $T^{1,0}U$ is trivialized by $\{\partial/\partial z^i\}_{i=1,\ldots,n}$,
+    as $J\partial/\partial z^i=i\partial/\partial z^i$ (here $z^i=x^i+iy^i$, where $x^i,y^i$ are coordinates on $U$),
+    and similarly $T^{0,1}U$ is trivialized by $\{\partial/\partial \bar z^i\}_{i=1,\ldots,n}$. Fixing these vector fields
+    as a basis for $T_\C U$, and similarly for the target $T_\C V$, one computes
+    \begin{equation*}
+        (f_*)_\C =
+        \begin{pmatrix}
+            \frac{\partial f^i}{\partial z_j} & \frac{\partial f^i}{\partial \bar z^j}\\
+            \frac{\partial \bar f^i}{\partial z_j} & \frac{\partial \bar f^i}{\partial \bar z^j}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            f_* & 0\\
+            0 & \overline{f_*},
+        \end{pmatrix}
+    \end{equation*}
+    where we have used the fact that $f$ is holomorphic. This shows that $(f_*)_\C$ respects the almost complex structure.
+\end{proof}
+
+\begin{definition}
+    Let $(M,J)$ be an almost complex structure. We say that $J$ is {\color{blue}integrable} if
+    \begin{equation*}
+        [T^{1,0}M, T^{1,0}M] \subset T^{1,0}M.
+    \end{equation*}
+\end{definition}
+
+The following (highly nontrivial) theorem justifies our interest in ``integrability'' of almost complex structures.
+
+\begin{theorem}[Newlander-Nirenberg]
+    Every integrable almost complex structure is induced by a unique complex structure.
+    \label{theorem:nn}
+\end{theorem}
+
+By definition, an almost complex structure comes from a complex structure if locally $(M,J)\cong (\C^n,i)$. The
+Newlander-Nirenberg theorem relaxes this condition to an integrability condition reminiscent of the theorem
+of Fr\"obenius. In fact, if $J$ is real analytic, then the proof follows from a version of Fr\"obenius.
+
+\begin{exercise}
+    Prove uniqueness.
+\end{exercise}
+
+\begin{example}
+    Even familiar manifolds need not admit almost complex structures. For instance, the only spheres with almost
+    complex structures are $S^2$ and $S^6$, by topological arguments involving characteristic classes.
+    Moreover, one can show that there exists an almost complex structure on $S^6$ that is not integrable.
+    The existence of an integrable almost complex structure on $S^6$ is an open problem.
+\end{example}
+
+
+Let us introduce an equivalent condition for integrability.
+\begin{definition}
+    Let $(M,J)$ be an almost complex manifold. The {\color{blue}Nijenhuis tensor} $N_J\in\Gamma(M,T^{(1,2)}M)$
+    is defined by
+    \begin{equation*}
+        N_J(X,Y) = [JX, JY] - J[JX, Y] - J[X,JY] - [X,Y].
+    \end{equation*}
+\end{definition}
+
+
+\begin{lemma}
+    The Nijenhuis tensor satisfies the following properties:
+    \begin{enumerate}[(i)]
+        \item it is tensorial ($C^\infty(M)$-linear) and antisymmetric;
+        \item $N_J(X, JX)=0$;
+        \item $J$ is integrable if and only if $N_J=0$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    We prove (i). Antisymmetry is clear; hence to show that $N_J(fX,gY)=fgN_J(X,Y)$ it suffices to show
+    that $N_J(fX,Y)=fN_J(X,Y)$. Notice first that
+    \begin{equation*}
+        [fX, Y] = f[X,Y] - Y(f)X,
+    \end{equation*}
+    from which we obtain
+    \begin{align*}
+        N_J(fX,Y) &= [JfX, JY] - J[JfX,Y] - J[fX,JY] - [fX,Y]\\
+        &= fN_J(X,Y) - (JY)(f)\cdot JX + Y(f)J^2X + (JY)(f)\cdot JX + Y(f)X\\
+        &= fN_J(X,Y),
+    \end{align*}
+    as desired. Statement (ii) is clear from the antisymmetry of the Lie bracket.
+
+    To prove (iii) we first claim that any section $X$ of $T^{1,0}M$ can be written as
+    $X=A-iJA$ for $A$ a real valued vector field. This follows immediately from the condition
+    that $JX=iX$. Now if $X=A-iJA,Y=B-iJB$ are sections of $T^{1,0}M$, the Lie bracket
+    \begin{equation*}
+        [A-iJA, B-iJB] = [A,B] - [JA, JB] - i\left( [JA,B]+[A,JB] \right)
+    \end{equation*}
+    is of the form $C-iJC$ if and only if
+    \begin{equation*}
+        J([A,B] - [JA, JB]) = [JA,B] + [A,JB].
+    \end{equation*}
+    This is equivalent to $N_J(A,B)=0$. As $A,B$ were arbitrary, integrability is equivalent
+    to the vanishing of the Nijenhuis tensor.
+\end{proof}
+
+\begin{proposition}
+    A two-dimensional smooth manifold admits the structure of a Riemann surface (a one-dimensional
+    complex manifold) if and only it is oriented.
+    \label{proposition:rs}
+\end{proposition}
+
+\begin{lemma}
+    Let $(M,J)$ be an almost complex manifold with $\dim_\R M=2$. Then $N_J=0$.
+    \label{lemma:ri}
+\end{lemma}
+\begin{proof}
+    As this is a local statement, we fix $p\in M$ and compute $N_J(X,Y)(p)$ for two real vector fields
+    $X$ and $Y$. The key point is that $\{X_p, JX_p\}$ (for $X$ nonvanishing at $p$) furnishes a basis for
+    the two-dimensional real vector space $T_pM$: if $X=aJX$ for some $a\in\R$ then $JX=-aX=-a^2JX$ whence
+    $X=-a^2X$, a contradiction. Hence
+    \begin{equation*}
+        N_J(X,Y)(p) = N_J(X, \alpha X+\beta JX) = 0.
+    \end{equation*}
+\end{proof}
+
+\begin{proof}[Proof of Proposition \ref{proposition:rs}]
+    A Riemann surface has an orientation induced by the complex structure. The
+    tangent space at any point $p$ has a canonically ordered $\R$-basis $\{1,i\}$, and any holomorphic transition
+    function $f$ preserves this orientation as the pushforward
+    \begin{equation*}
+        f_* =
+        \begin{pmatrix}
+            \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y}\\
+            \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y}
+        \end{pmatrix}
+    \end{equation*}
+    has positive determinant (via the Cauchy-Riemann equations).
+
+
+    Conversely, by Lemma \ref{lemma:ri} and Theorem \ref{theorem:nn} the integrability of almost complex structures on
+    two-dimensional smooth manifolds is automatic. Hence it suffices to show that there always exists an almost
+    complex structure on an oriented smooth manifold $M$.
+
+    Fix a metric $g$ on $M$ (whose existence is guaranteed by partitions of unity). Locally, on a coordinate patch
+    $U$, we can fix an oriented orthonormal frame $\{e_1,e_2\}$ and define the almost complex structure to rotate
+    by $+\pi/2$:
+    \begin{equation*}
+        J =
+        \begin{pmatrix}
+            0 & -1\\ 1 & 0
+        \end{pmatrix}.
+    \end{equation*}
+    Does this local definition globalize? Suppose we have another coordinate chart $V$ with $U\cap V\neq\varnothing$
+    and an oriented orthonormal frame $\{f_1,f_2\}$, with $J$ defined on $V$ as above. If $\phi$ is the transition function
+    from $U$ to $V$ then the almost complex structure agrees on the overlap if $J_U=\phi_*^{-1}J_V\phi_*$, i.e.
+    the matrix above is stable under conjugation by $\phi_*$. As $M$ is oriented and Riemannian, $\phi_*\in\SO(2)$,
+    which commutes with rotations.
+    
+\end{proof}
+
+
+
+
+\end{document}
