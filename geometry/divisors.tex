@@ -1,0 +1,260 @@
+\documentclass{amsart}
+
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{amssymb}
+
+\input{../macros.tex}
+
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Div}{Div}
+
+\title{Notes on divisors and Riemann-Roch}
+\author{Nilay Kumar}
+\date{Summer 2016}
+
+\begin{document}
+\maketitle
+
+Recall that due to the maximum principle, there are no nonconstant holomorphic functions on a
+compact complex manifold. The next best objects to study, as we learn in complex analysis of a single
+variable, are meromorphic functions. On $\C$ we say a function $f$ is meromorphic if it is holomorphic
+outside an isolated set of points, at which it has poles. We generalize this definition as follows.
+
+\begin{definition}
+    Let $X$ be a complex manifold. A {\color{blue}meromorphic function} $f$ on $X$ is the data of a
+    covering $\{U_i\}_{i\in I}$ of $X$ with $f|_{U_i}=g_i/h_i$ for $g_i,h_i\in\mathcal{O}(U_i)$
+    relatively prime and $g_ih_j=g_jh_i$ in $\mathcal{O}(U_i\cap U_j)$. We will denote the sheaf of
+    meromorphic functions by $\mathcal{M}$.
+\end{definition}
+
+\begin{remark}
+    Strictly speaking, meromorphic functions are not functions (qua maps to $\C$ or even $\C P^1$). Consider,
+    for instance, the function $f(z_1,z_2) = z_1/z_2$ on $\C^2$. Clearly $f$ has no value at the origin.
+\end{remark}
+
+\begin{exercise}
+    Show that in the case of Riemann surfaces, however,  meromorphic functions can indeed be seen as
+    holomorphic maps to $\C P^1$.
+\end{exercise}
+
+Consider now the following analytic question -- the {\color{blue} second Cousin problem}:
+Let $\fr U=\{U_\alpha\}$ be an open cover of a complex manifold $X$ and suppose we have
+meromorphic functions $f_\alpha$ defined on the corresponding opens, such that $f_{\alpha\beta}=f_\alpha f_\beta^{-1}$
+is holomorphic and nonvanishing on $U_\alpha\cap U_\beta$. Does there exist a global meromorphic function on
+$X$ such that $f f_\alpha^{-1}$ is holomorphic and nowhere vanishing on $U_\alpha$?
+
+Let us reformulate the problem in the language of \v Cech cohomology, as we will find a connection
+to divisors and line bundles. Recall that the \v Cech cochain complex of a cover $\fr U$ for a sheaf
+$\mathcal{F}$ is defined as
+\begin{equation*}
+    \check C^p(\fr U,\mathcal{F}) =\prod_{|I|=p}\mathcal{F}(U_{i_0,\ldots,i_p})
+\end{equation*}
+with the differential given by
+\begin{equation*}
+    (\partial^p\mu)(U_{i_0,\ldots,i_{p+1}}) = \sum_{j=0}^{p+1} (-1)^j\mu(U_{i_0,\ldots,i_p})|_{U_{i_0,\ldots,\hat i_j,\ldots, i_{p+1}}}
+\end{equation*}
+The \v Cech cohomology groups are then defined in the usual way as the kernels modulo the images of the
+differentials.
+
+In our case, there are two sheaves of interest: $\mathcal{M}^*$, the sheaf of abelian groups of nontrivial meromorphic functions
+and $\mathcal{O}^*$, the sheaf of abelian groups of nowhere vanishing holomorphic functions. The data given in the
+statement of the second Cousin problem is that of a zero-cocycle $\mu\in\check H^0(\fr U, \mathcal{M}^*/\mathcal{O}^*)$
+of the quotient sheaf:\footnote{I am sweeping some details/technicalities about quotient sheaves under the rug to simplify
+the presentation. Everything is probably fine if we assume that the cover is ``fine'' enough.}
+\begin{equation*}
+    (\partial^0 \mu)(U_{\alpha\beta}) = f_\alpha f_\beta^{-1} \equiv 0\mod \mathcal{O}^*.
+\end{equation*}
+The goal is to find a global section $f\in\check H^0(\fr U, \mathcal{M}^*)$ whose image under the quotient map
+$q: \mathcal{M}^* \to \mathcal{M}^*/\mathcal{O}^*$ is the given $\mu$. Notice, now, that we have a short
+exact sequence of sheaves,
+\begin{equation*}
+    \begin{tikzcd}
+        0\rar & \mathcal{O}^* \rar & \mathcal{M}^*\rar{q} & \mathcal{M}^*/\mathcal{O}^*\rar & 0,
+    \end{tikzcd}
+\end{equation*}
+which induces a long exact sequence on cohomology (recall that a surjective map of sheaves need not be
+surjective on sections -- this is the reason the Cousin problem is nontrivial!):
+\begin{equation*}
+    \begin{tikzcd}
+        0\rar & \check H^0(\fr U, \mathcal{O}^*) \rar & \check H^0(\fr U, \mathcal{M}^*)\rar & \check H^0(\fr U, \mathcal{M}^*/\mathcal{O}^*)\rar{\delta} & \check H^1(\fr U,\mathcal{O}^*)\rar & \cdots
+    \end{tikzcd}
+\end{equation*}
+Exactness at $\check H^0(\fr U,\mathcal{M}^*/\mathcal{O}^*)$ implies that there exists a solution to the Cousin
+problem for $\mu$ if and only if $\delta \mu=0\in \check H^1(\fr U, \mathcal{O}^*)$. It is sufficient, for
+instance for this first cohomology group $\check H^1(\fr U, \mathcal{O}^*)$ to vanish.
+
+Hence we have translated the analytic problem of globalizing certain meromorphic functions to a cohomological problem,
+which in certain cases may be more straightforward. Consider again the long exact sequence above and recall that
+the set of holomorphic line bundles is in bijection with the sheaf cohomology group $\HH^1(X,\mathcal{O}^*)$.
+Meanwhile, the group $\HH^1(X, \mathcal{M}^*/\mathcal{O}^*)$ will turn out to be the group of divisors,
+which encapsulates codimension-one geometry of $X$.
+So we see that the second Cousin problem ties together meromorphic functions, divisors, and line bundles --
+we will focus today on the topic of divisors, returning to line bundles for the next talk.
+
+\begin{definition}
+    An {\color{blue} analytic hypersurface} $Y$ of a complex manifold $X$ is a closed subset locally given
+    as the vanishing locus of a holomorphic function. A {\color{blue} divisor} on $X$ is a formal linear combination
+    \begin{equation*}
+        D = \sum_i a_i[Y_i]
+    \end{equation*}
+    with $Y_i$ irreducible hypersurfaces and $a_i\in\Z$, such that the sum is locally finite: for any $x\in X$
+    there exists an open neighborhood $U$ on which all but finitely many $a_i$ satisfy $Y_i\cap U=\varnothing$.
+    We denote the group of divisors on $X$ by $\Div X$.
+\end{definition}
+
+\begin{remark}
+    Every hypersurface $Y$ with irreducible components naturally determines a divisor $\sum_i[Y_i]$. Conversely,
+    one can assign to a divisor $\sum_i a_i[Y_i]$ the hypersurface $\cup_i Y_i$, though this assignment is not
+    particularly natural. Notice, moreover, that in the case of Riemann surfaces, analytic hypersurfaces are
+    sets of isolated points, and so divisors take on a particularly simple form.
+\end{remark}
+
+A special class of divisors are those that come from meromorphic functions.
+\begin{definition}
+    Let $f\in\mathcal{M}^*(X)$ be a meromorphic function and $Y\subset X$ be an irreducible hypersurface.
+    With a little bit of work, we can define the {\color{blue}order of vanishing of $f$ along $Y$}, $\ord_Y f\in\Z$.
+    See, for instance, Huybrechts, though the definition for Riemann surfaces is the usual notion of the
+    order of vanishing at a point from complex analysis.
+
+    The {\color{blue}principal divisor associated to $f$} is defined as
+    \begin{equation*}
+        (f) = \sum_Y (\ord_Y f)[Y],
+    \end{equation*}
+    where the sum is taken over all irreducible analytic hypersurfaces $Y\subset X$. Notice that the set
+    of principal divisors forms a subgroup of $\Div X$ as $(f)+(g)=(fg)$.
+\end{definition}
+
+Let us prove the earlier claim relating the Cousin problem to divisors:
+\begin{proposition}
+    Let $X$ be a complex manifold.
+    There exists a natural isomorphism
+    \begin{equation*}
+        \HH^0(X, \mathcal{M}^*/\mathcal{O}^*) \cong \Div X.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    Fix an element $\mu\in\HH^0(X, \mathcal{M}^*/\mathcal{O}^*)$, i.e. meromorphic functions $f_\alpha$ on
+    open subsets $U_\alpha$ (of some open cover) such that $f_\alpha f_\beta^{-1}$ is nonvanishing holomorphic
+    on $U_{\alpha\beta}$. Then for any irreducible hypersurface $Y\subset X$ intersecting $U_{\alpha\beta}$
+    nontrivially, $\ord_Y f_\alpha = \ord_Y f_\beta$. Hence we can define an integer $\ord_Y \mu$ to be the order
+    of vanishing of $\mu$ along $Y$. Associate to $\mu$ the divisor $\sum_Y (\ord_Y \mu)[Y]$. 
+    The product $\mu \cdot \nu$ is then taken to the sum $\sum_Y(\ord_Y \mu + \nu)[Y]$ whence we obtain
+    a group homomorphism.
+
+    Conversely, fix a divisor $\sum_i a_i[Y_i]$. There exists an open cover $\{U_\alpha\}$ of $X$ such that
+    $Y_i\cap U_\alpha$ is defined by some $g_{i\alpha}\in\mathcal{O}(U_\alpha)$. Notice that $g_{i\alpha}$
+    is unique up to elements of $\mathcal{O}^*(U_\alpha)$. Define
+    \begin{equation*}
+        f_\alpha = \prod_i g_{i\alpha}^{a_i},
+    \end{equation*}
+    which is a locally finite product in $\mathcal{M}^*(U_\alpha)$. Now $g_{i\alpha}$ and $g_{i\beta}$ define
+    the same hypersurface on $U_{\alpha\beta}$, so they can differ only by an element of $\mathcal{O}^*(U_{\alpha\beta})$.
+    The data of the $\{f_\alpha\}$ is thus exactly the data of an element $\mu\in\HH^0(X, \mathcal{M}^*/\mathcal{O}^*)$.
+\end{proof}
+
+\begin{exercise}
+    Check that the maps defined in the proof above are indeed inverse to each other.\footnote{This may require
+    worrying about choices of open covers when computing \v Cech cohomology for the sheaf cohomology.}
+\end{exercise}
+
+It is worth noting that in algebraic geometry, cohomology classes on the left are known as {\color{blue}Cartier divisors}
+while elements of $\Div X$ are known as {\color{blue}Weil divisors}. The distinction is necessary when working with
+schemes in general.
+
+Now let us focus on the case of divisors on a compact Riemann surface $X$. Our goal is to sketch a proof of 
+Riemann-Roch.
+
+\begin{definition}
+    In this case any divisor $D$ is of the form $D=\sum_{i=1}^m a_i[p_i]$ for $p_i\in X$ and we can define
+    the {\color{blue} degree} $\deg: \Div X \to\Z$ to be $\sum_i a_i$. Next, define the sheaf $\mathcal{O}_D$
+    associated to a divisor $D$ by
+    \begin{equation*}
+        \mathcal{O}_D(U) = \{ f\in\mathcal{M}(U) \mid \ord_x f\geqslant -D(x), \forall x\in U\}.
+    \end{equation*}
+\end{definition}
+
+Roughly speaking, $\mathcal{O}(D)$ is the sheaf of meromorphic functions with poles and zeroes no worse than dictated
+by $D$. One obvious question -- and the one that Riemann-Roch addresses -- is how many global sections does this
+sheaf have?
+
+\begin{theorem}[Riemann-Roch]
+    Let $X$ be a compact Riemann surface of genus $g$ and $D\in\Div X$. Then $\HH^0(X,\mathcal{O}_D)$ and
+    $\HH^1(X,\mathcal{O}_D)$ are finite dimensional vector spaces and
+    \begin{equation*}
+        h^0(X,\mathcal{O}_D) = h^1(X, \mathcal{O}_D) + \deg D + 1 - g.
+    \end{equation*}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+    Consider first the case $D=0$. Here the sheaf $\mathcal{O}_D$ is the sheaf $\mathcal{O}$ of holomorphic functions.
+    Since the only holomorphic functions on all of $X$ are constants, the left hand side is 1 and it
+    remains to show that $h^1(X,\mathcal{O}) = g$.  From basic topology we know that $\HH^1(X, \C)=\C^{2g}$.
+    The Hodge theorem then allows us to decompose $\HH^1(X, \C)\cong \HH_{\bar\partial}^{1,0}(X,\C)\oplus\HH_{\bar\partial}^{0,1}(X,\C)$,
+    and using Serre duality we see that each of the summands is isomorphic to $\C^g$. Finally, the Dolbeault
+    theorem yields an isomorphism $\HH_{\bar\partial}^{0,1}(X,\C)\cong \HH^1(X,\mathcal{O})$, as desired.
+
+    Now suppose $D$ is any divisor and $p\in X$ is a point. Write $E= D + [p]$ and suppose the result holds
+    for one of the divisors $D$ or $E$. We show that then the result holds for the other.
+    Given $D, E$, we obtain a short exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0\rar & \mathcal{O}_D\rar & \mathcal{O}_E\rar{\psi} & \C_p\rar & 0,
+        \end{tikzcd}
+    \end{equation*}
+    where the map $\psi$ to the skyscraper sheaf $\C_p$ is defined as follows. For $U$ an open set, $\psi$ is
+    the zero map if $p\notin U$, otherwise for $f\in\mathcal{O}_E(U)$ we can write, near $p$,
+    \begin{equation*}
+        f(z) = \sum_{n=-D(p)-1}^\infty c_n z^n,
+    \end{equation*}
+    and send $\psi(U)(f)=c_{-D(p)-1}\in\C=\C_p(U)$.
+    Exactness at $\mathcal{O}_D$ is clear since $D\leqslant E=D+[p]$, and exactness at $\mathcal{O}_E$ and
+    $\C_p$ are straightforward.
+    We now obtain a long exact sequence on cohomology:
+    \begin{equation*}
+        \begin{tikzcd}
+            0\rar & \HH^0(X, \mathcal{O}_D)\rar & \HH^0(X, \mathcal{O}_E)\rar & \C \\
+            \;\rar & \HH^1(X,\mathcal{O}_D)\rar & \HH^1(X,\mathcal{O}_E)\rar & 0
+        \end{tikzcd}
+    \end{equation*}
+    where we have computed the cohomology of the skyscraper sheaf. Writing
+    \begin{align*}
+        V &= \im(\HH^0(X,\mathcal{O}_E)\to \C)\\
+        W &= \C/V,
+    \end{align*}
+    the above exact sequence splits into two short exact sequences
+    \begin{equation*}
+        \begin{tikzcd}
+            0\rar & \HH^0(X, \mathcal{O}_D)\rar & \HH^0(X, \mathcal{O}_E)\rar & V \\
+            0\rar & W\rar & \HH^1(X, \mathcal{O}_D)\rar & \HH^1(X,\mathcal{O}_E)
+        \end{tikzcd}
+    \end{equation*}
+    from which it follows that
+    \begin{align*}
+        h^0(X,\mathcal{O}_E) &= h^0(X,\mathcal{O}_D)+\dim V\\
+        h^1(X,\mathcal{O}_D) &= h^1(X,\mathcal{O}_E)+\dim W.
+    \end{align*}
+    Notice now that we obtain finite-dimensionality inductively, as we know that the cohomologies
+    of $\mathcal{O}$ are finite dimensional.
+    Summing and noting that $\dim V+\dim W=1=\deg E-\deg D$, we obtain
+    \begin{equation*}
+        h^0(X,\mathcal{O}_E)-h^0(X,\mathcal{O}_E)-\deg E = h^0(X,\mathcal{O}_D)-h^1(X,\mathcal{O}_D)-\deg D,
+    \end{equation*}
+    which yields the result.
+
+    An arbitrary divisor may be written as a sum of the zero divisor and finitely many points.
+    Hence we find by induction that Riemann-Roch holds for all divisors.
+\end{proof}
+
+\begin{exercise}
+    Verify that $\HH^0(X, \C_p)\cong\C$ and $\HH^1(X, \C_p)=0$. Hint: refine the cover so that only
+    one open contains $p$.
+\end{exercise}
+
+In the next talk Pyongwon will speak in more depth about these sheaves $\mathcal{O}_D$ and will
+relate them to holomorphic line bundles.
+
+\end{document}
